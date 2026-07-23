@@ -150,11 +150,9 @@ name also carries the initials of its creator, **Abdoul Aziz Dieng**.
 
 ## Contact
 
-> Fill these in before publishing (see the placeholders below).
-
-- **Book a 20-minute diagnostic:** _add your booking link (e.g. Calendly)_
-- **Email:** _add your contact email_
-- **LinkedIn:** _add your profile_
+- **Email:** [diengabdoulaziz110@gmail.com](mailto:diengabdoulaziz110@gmail.com)
+- **LinkedIn:** [linkedin.com/in/aadieng](https://www.linkedin.com/in/aadieng/)
+- **Book a 20-minute diagnostic:** reach out by email or LinkedIn.
 
 ---
 
