@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Local scan outputs — never commit these
+security-output/
+security-output-image/
+aadsec-share/
+
+# Env / secrets — never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# Archives / images
+*.tar
+*.tar.gz
+*.zip

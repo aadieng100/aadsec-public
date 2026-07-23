@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>AADSec — Security Audit Report</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6}
+a{color:#1d4ed8}a:hover{text-decoration:underline}
+code{font-family:'Courier New',Courier,monospace;font-size:0.85em;background:#f3f4f6;padding:0.1em 0.3em;border-radius:3px}
+h2{font-size:1.2rem;font-weight:700;color:#0f172a;margin-bottom:1.25rem;padding-bottom:0.4rem;border-bottom:2px solid #3b82f6;display:inline-block}
+h3{font-size:0.95rem;font-weight:600;color:#334155;margin-bottom:0.75rem}
+.container{max-width:980px;margin:0 auto;padding:0 1.5rem}
+.section{padding:2rem 0}.section+.section{border-top:1px solid #e2e8f0}
+
+
+.site-header{background:#0d1b2a;color:#e2e8f0;padding:1.75rem 0 1.25rem}
+.site-header h1{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.85rem;letter-spacing:-0.01em}
+.header-meta{display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;font-size:0.8rem;color:#94a3b8}
+.header-meta b{color:#cbd5e1}
+.watermark{margin-top:0.85rem;font-size:0.72rem;color:#334155;font-style:italic}
+
+
+.decision-banner{padding:0.85rem 1.25rem;border-radius:8px;margin-bottom:1.25rem;font-weight:600;font-size:1rem;border-left:5px solid;display:flex;align-items:center;gap:0.5rem}
+.decision-critical{background:#fef2f2;border-color:#ef4444;color:#991b1b}
+.decision-high{background:#fff7ed;border-color:#f97316;color:#9a3412}
+.decision-medium{background:#fefce8;border-color:#ca8a04;color:#713f12}
+.decision-ok{background:#f0fdf4;border-color:#16a34a;color:#14532d}
+
+
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.85rem;margin-bottom:1.25rem}
+.card{background:#fff;border-radius:8px;padding:1rem 0.85rem;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.07);border:1px solid #e2e8f0}
+.card-value{font-size:2rem;font-weight:800;line-height:1;margin-bottom:0.2rem}
+.card-label{font-size:0.72rem;color:#64748b;text-transform:uppercase;letter-spacing:0.06em}
+.card-p0 .card-value{color:#dc2626}.card-p1 .card-value{color:#ea580c}
+.card-p2 .card-value{color:#d97706}.card-p3 .card-value{color:#2563eb}
+.card-total .card-value{color:#0f172a}
+
+
+.badge{display:inline-block;padding:0.12rem 0.45rem;border-radius:4px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap}
+.badge-p0{background:#fca5a5;color:#7f1d1d}
+.badge-p1{background:#fdba74;color:#7c2d12}
+.badge-p2{background:#fde68a;color:#713f12}
+.badge-p3{background:#bfdbfe;color:#1e3a5f}
+.sev-badge{display:inline-block;padding:0.1rem 0.4rem;border-radius:3px;font-size:0.68rem;font-weight:600;white-space:nowrap}
+.sev-critical{background:#fee2e2;color:#991b1b}
+.sev-high{background:#ffedd5;color:#9a3412}
+.sev-medium{background:#fef3c7;color:#92400e}
+.sev-low{background:#dbeafe;color:#1e3a5f}
+.sev-info{background:#f3f4f6;color:#374151}
+
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:1.25rem;font-size:0.875rem}
+th{background:#1e293b;color:#e2e8f0;padding:0.65rem 0.9rem;text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:600}
+td{padding:0.6rem 0.9rem;border-bottom:1px solid #f1f5f9;vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:#f8fafc}
+
+
+details{background:#fff;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:0.6rem;overflow:hidden}
+details summary{padding:0.75rem 1rem;cursor:pointer;list-style:none;display:flex;align-items:center;gap:0.6rem;font-size:0.875rem;user-select:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"▶";font-size:0.6rem;color:#94a3b8;transition:transform 0.15s;flex-shrink:0}
+details[open] summary::before{transform:rotate(90deg)}
+details summary:hover{background:#f8fafc}
+.finding-title{flex:1;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.finding-tool{font-size:0.72rem;color:#94a3b8;white-space:nowrap}
+.finding-body{padding:1rem 1.1rem;border-top:1px solid #f1f5f9}
+.finding-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem 1.5rem}
+@media(max-width:600px){.finding-grid{grid-template-columns:1fr}}
+.ff label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.05em;color:#64748b;display:block;margin-bottom:0.1rem}
+.ff p{font-size:0.85rem;word-break:break-word}
+.ff.full{grid-column:1/-1}
+.evidence-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:0.4rem 0.65rem;font-family:'Courier New',monospace;font-size:0.78rem;word-break:break-all}
+.refs-list{list-style:none;font-size:0.8rem}.refs-list a{word-break:break-all}
+
+
+.rem-group{margin-bottom:1.25rem}
+.rem-header{padding:0.55rem 0.9rem;border-radius:6px 6px 0 0;font-weight:700;font-size:0.8rem;display:flex;align-items:center;gap:0.65rem}
+.rem-p0{background:#fca5a5;color:#7f1d1d}.rem-p1{background:#fdba74;color:#7c2d12}
+.rem-p2{background:#fde68a;color:#78350f}.rem-p3{background:#bfdbfe;color:#1e3a5f}
+.rem-items{background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 6px 6px}
+.rem-items li{padding:0.5rem 0.9rem;border-bottom:1px solid #f1f5f9;font-size:0.85rem}
+.rem-items li:last-child{border-bottom:none}
+.rem-empty{background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 6px 6px;padding:0.65rem 0.9rem;color:#94a3b8;font-size:0.85rem;font-style:italic}
+
+
+.note-box{background:#eff6ff;border-left:4px solid #3b82f6;padding:0.75rem 1rem;border-radius:0 6px 6px 0;font-size:0.875rem;margin-bottom:1rem}
+.warning-box{background:#fffbeb;border-left:4px solid #f59e0b;padding:0.75rem 1rem;border-radius:0 6px 6px 0;font-size:0.875rem;margin-bottom:1rem}
+.zero-box{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:1.1rem 1.35rem;color:#14532d;font-size:0.9rem}
+
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media(max-width:640px){.two-col{grid-template-columns:1fr}}
+
+
+.site-footer{background:#0d1b2a;color:#475569;padding:1.25rem 0;margin-top:2rem;font-size:0.75rem;text-align:center;line-height:1.8}
+
+
+@media print{
+  body{background:#fff}.site-header{background:#fff;color:#000;border-bottom:2px solid #000;padding:0.75rem 0}
+  .site-header h1{color:#000;font-size:1.2rem}.watermark{display:none}
+  .section{padding:1rem 0}.section+.section{border-top:1px solid #ccc}
+  details{border:1px solid #ccc;break-inside:avoid}.site-footer{background:#fff;color:#666;border-top:1px solid #ccc}
+  table{box-shadow:none;border:1px solid #ccc}th{background:#333}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+<div class="container">
+  <h1>🛡️ AADSec — Security Audit Report</h1>
+  <div class="header-meta">
+    <span><b>Generated:</b> 2026-07-23 01:06 UTC</span>
+    <span><b>Version:</b> 0.1.0-dev</span>
+    <span><b>Profile:</b> standard</span>
+    <span><b>Mode:</b> docker-runner</span>
+    <span><b>Project:</b> local project</span>
+  </div>
+  <div class="watermark">Generated by AADSec — local-first DevSecOps audit. This report stays on your machine.</div>
+</div>
+</header>
+
+<main>
+
+
+<section class="section">
+<div class="container">
+  <h2>Executive Summary</h2>
+
+  <div class="decision-banner decision-critical">
+    <span>⚑</span>
+    <span>Decision: <strong>Not recommended for production</strong></span>
+  </div>
+
+
+  <div class="cards-grid">
+    <div class="card card-total">
+      <div class="card-value">36</div>
+      <div class="card-label">Unique Findings</div>
+    </div>
+    <div class="card card-p0">
+      <div class="card-value">1</div>
+      <div class="card-label">P0 — Critical</div>
+    </div>
+    <div class="card card-p1">
+      <div class="card-value">4</div>
+      <div class="card-label">P1 — High</div>
+    </div>
+    <div class="card card-p2">
+      <div class="card-value">31</div>
+      <div class="card-label">P2 — Medium</div>
+    </div>
+    <div class="card card-p3">
+      <div class="card-value">0</div>
+      <div class="card-label">P3 — Low</div>
+    </div>
+  </div>
+
+
+</div>
+</section>
+
+
+
+
+<section class="section">
+<div class="container">
+  <h2>Risk Overview</h2>
+  <div class="two-col">
+    <div>
+      <h3>By Priority</h3>
+      <table>
+        <thead><tr><th>Priority</th><th>Findings</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-p0">P0</span></td><td>1</td></tr>
+          <tr><td><span class="badge badge-p1">P1</span></td><td>4</td></tr>
+          <tr><td><span class="badge badge-p2">P2</span></td><td>31</td></tr>
+          <tr><td><span class="badge badge-p3">P3</span></td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>By Severity</h3>
+      <table>
+        <thead><tr><th>Severity</th><th>Findings</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev-badge sev-critical">CRITICAL</span></td><td>1</td></tr>
+          <tr><td><span class="sev-badge sev-high">HIGH</span></td><td>4</td></tr>
+          <tr><td><span class="sev-badge sev-medium">MEDIUM</span></td><td>31</td></tr>
+          <tr><td><span class="sev-badge sev-low">LOW</span></td><td>0</td></tr>
+          <tr><td><span class="sev-badge sev-info">INFO</span></td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>By Category</h3>
+      <table>
+        <thead><tr><th>Category</th><th>Findings</th></tr></thead>
+        <tbody>
+          <tr><td>SECRET</td><td>1</td></tr>
+          <tr><td>SCA</td><td>5</td></tr>
+          <tr><td>SAST</td><td>2</td></tr>
+          <tr><td>IaC</td><td>28</td></tr>
+          <tr><td>CONTAINER</td><td>0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>By Tool</h3>
+      <table>
+        <thead><tr><th>Tool</th><th>Findings</th></tr></thead>
+        <tbody>
+          <tr><td>Gitleaks</td><td>1</td></tr>
+          <tr><td>Trivy</td><td>5</td></tr>
+          <tr><td>Semgrep</td><td>2</td></tr>
+          <tr><td>Checkov</td><td>28</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+<section class="section">
+<div class="container">
+  <h2>Top Risks</h2>
+  <table>
+    <thead>
+      <tr><th>Priority</th><th>Severity</th><th>Category</th><th>Title</th><th>File</th><th>Tool</th></tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td><span class="badge badge-p0">P0</span></td>
+        <td><span class="sev-badge sev-critical">CRITICAL</span></td>
+        <td>SECRET</td>
+        <td>Secret detected: github-pat</td>
+        <td><code>.env.demo.leak</code></td>
+        <td>gitleaks</td>
+      </tr>
+
+      <tr>
+        <td><span class="badge badge-p1">P1</span></td>
+        <td><span class="sev-badge sev-high">HIGH</span></td>
+        <td>SCA</td>
+        <td>Vulnerable dependency detected: lodash CVE-2021-23337</td>
+        <td><code>package-lock.json</code></td>
+        <td>trivy</td>
+      </tr>
+
+      <tr>
+        <td><span class="badge badge-p1">P1</span></td>
+        <td><span class="sev-badge sev-high">HIGH</span></td>
+        <td>SCA</td>
+        <td>Vulnerable dependency detected: lodash CVE-2026-4800</td>
+        <td><code>package-lock.json</code></td>
+        <td>trivy</td>
+      </tr>
+
+      <tr>
+        <td><span class="badge badge-p1">P1</span></td>
+        <td><span class="sev-badge sev-high">HIGH</span></td>
+        <td>SAST</td>
+        <td>SAST: js-eval-usage</td>
+        <td><code>src/app.js</code></td>
+        <td>semgrep</td>
+      </tr>
+
+      <tr>
+        <td><span class="badge badge-p1">P1</span></td>
+        <td><span class="sev-badge sev-high">HIGH</span></td>
+        <td>SAST</td>
+        <td>SAST: js-child-process-exec</td>
+        <td><code>src/app.js</code></td>
+        <td>semgrep</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+</section>
+
+
+
+<section class="section">
+<div class="container">
+  <h2>Remediation Plan</h2>
+
+
+  <div class="rem-group">
+    <div class="rem-header rem-p0"><span class="badge badge-p0">P0</span> Immediate action — 24-48h</div>
+    <ul class="rem-items">
+
+      <li><strong>Secret detected: github-pat</strong> — <code>.env.demo.leak</code></li>
+
+    </ul>
+  </div>
+
+
+
+  <div class="rem-group">
+    <div class="rem-header rem-p1"><span class="badge badge-p1">P1</span> Priority treatment — 7 days</div>
+    <ul class="rem-items">
+
+      <li><strong>Vulnerable dependency detected: lodash CVE-2021-23337</strong> — <code>package-lock.json</code> (lodash)</li>
+
+      <li><strong>Vulnerable dependency detected: lodash CVE-2026-4800</strong> — <code>package-lock.json</code> (lodash)</li>
+
+      <li><strong>SAST: js-eval-usage</strong> — <code>src/app.js</code></li>
+
+      <li><strong>SAST: js-child-process-exec</strong> — <code>src/app.js</code></li>
+
+    </ul>
+  </div>
+
+
+
+  <div class="rem-group">
+    <div class="rem-header rem-p2"><span class="badge badge-p2">P2</span> Planned treatment — 30 days</div>
+    <ul class="rem-items">
+
+      <li><strong>Vulnerable dependency detected: lodash CVE-2020-28500</strong> — <code>package-lock.json</code> (lodash)</li>
+
+      <li><strong>Vulnerable dependency detected: lodash CVE-2025-13465</strong> — <code>package-lock.json</code> (lodash)</li>
+
+      <li><strong>Vulnerable dependency detected: lodash CVE-2026-2950</strong> — <code>package-lock.json</code> (lodash)</li>
+
+      <li><strong>IaC: Ensure S3 buckets should have event notifications enabled (CKV2_AWS_62)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Ensure all data stored in the S3 bucket have versioning enabled (CKV_AWS_21)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Ensure that S3 bucket has a Public Access block (CKV2_AWS_6)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Ensure that S3 bucket has cross-region replication enabled (CKV_AWS_144)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Ensure that S3 buckets are encrypted with KMS by default (CKV_AWS_145)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Ensure that an S3 bucket has a lifecycle configuration (CKV2_AWS_61)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Ensure the S3 bucket has access logging enabled (CKV_AWS_18)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
+
+      <li><strong>IaC: Apply security context to your containers (CKV_K8S_30)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Apply security context to your pods and containers (CKV_K8S_29)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: CPU limits should be set (CKV_K8S_11)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: CPU requests should be set (CKV_K8S_10)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Containers should not run with allowPrivilegeEscalation (CKV_K8S_20)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Containers should not share the host network namespace (CKV_K8S_19)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Containers should run as a high UID to avoid host conflict (CKV_K8S_40)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Ensure that Service Account Tokens are only mounted where necessary (CKV_K8S_38)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Ensure that the seccomp profile is set to docker/default or runtime/default (CKV_K8S_31)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Image Pull Policy should be Always (CKV_K8S_15)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Image should use digest (CKV_K8S_43)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Liveness Probe Should be Configured (CKV_K8S_8)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Memory limits should be set (CKV_K8S_13)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Memory requests should be set (CKV_K8S_12)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Minimize the admission of containers with capabilities assigned (CKV_K8S_37)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Minimize the admission of containers with the NET_RAW capability (CKV_K8S_28)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Minimize the admission of pods which lack an associated NetworkPolicy (CKV2_K8S_6)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Minimize the admission of root containers (CKV_K8S_23)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Readiness Probe Should be Configured (CKV_K8S_9)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: The default namespace should not be used (CKV_K8S_21)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+      <li><strong>IaC: Use read-only filesystem for containers where possible (CKV_K8S_22)</strong> — <code>/k8s/pod.yaml</code> (Pod.default.aadsec-demo)</li>
+
+    </ul>
+  </div>
+
+
+
+
+  <div class="warning-box">⚠️ AADSec does not automatically fix vulnerabilities. Remediations are general guidelines to be validated according to your application context.</div>
+</div>
+</section>
+
+
+<section class="section">
+<div class="container">
+  <h2>Technical Findings</h2>
+
+  <details>
+    <summary>
+      <span class="badge badge-p0">P0</span>
+      <span class="sev-badge sev-critical">CRITICAL</span>
+      <span class="finding-title">Secret detected: github-pat</span>
+      <span class="finding-tool">gitleaks</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>gitleaks-a495ac92e1d53ce8</code></p></div>
+        <div class="ff"><label>Category</label><p>SECRET</p></div>
+        <div class="ff"><label>File</label><p><code>.env.demo.leak : L3</code></p></div>
+
+        <div class="ff full"><label>Description</label><p>Uncovered a GitHub Personal Access Token, potentially leading to unauthorized repository access and sensitive content exposure.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">redacted</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An exposed credential can be used by an attacker to gain unauthorised access to the associated service, potentially leading to data breach, service abuse, or further lateral movement.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>1. Revoke and rotate the exposed credential immediately.
+2. Remove the secret from the source code and replace with a secrets manager reference.
+3. Search CI/CD logs and build artefacts for the exposed value.
+4. If the secret was committed to Git history, consider a history purge (git-filter-repo).</p></div>
+
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://gitleaks.io" rel="noopener noreferrer" target="_blank">https://gitleaks.io</a></li><li><a href="https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_credentials" rel="noopener noreferrer" target="_blank">https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_credentials</a></li></ul></div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p1">P1</span>
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2021-23337</span>
+      <span class="finding-tool">trivy</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>trivy-c20c3e919bbf9a5c</code></p></div>
+        <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
+        <div class="ff"><label>Component</label><p>lodash</p></div>
+        <div class="ff full"><label>Description</label><p>Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.17.21 vulnerability=CVE-2021-23337</div></div>
+        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.17.21 or later.</p></div>
+        <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2021-23337" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2021-23337</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2021-23337" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2021-23337</a></li><li><a href="https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf" rel="noopener noreferrer" target="_blank">https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf</a></li><li><a href="https://github.com/advisories/GHSA-35jh-r3h4-6jhm" rel="noopener noreferrer" target="_blank">https://github.com/advisories/GHSA-35jh-r3h4-6jhm</a></li><li><a href="https://github.com/lodash/lodash" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash</a></li><li><a href="https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js</a></li><li><a href="https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js#L14851</a></li><li><a href="https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/blob/ddfd9b11a0126db2302cb70ec9973b66baec0975/lodash.js%23L14851</a></li><li><a href="https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c</a></li><li><a href="https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2021-23337.yml" rel="noopener noreferrer" target="_blank">https://github.com/rubysec/ruby-advisory-db/blob/master/gems/lodash-rails/CVE-2021-23337.yml</a></li></ul></div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p1">P1</span>
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2026-4800</span>
+      <span class="finding-tool">trivy</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>trivy-0e6987c640673cef</code></p></div>
+        <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
+        <div class="ff"><label>Component</label><p>lodash</p></div>
+        <div class="ff full"><label>Description</label><p>Impact:
+
+The fix for CVE-2021-23337 (https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the variable option in _.template but did not apply the same validation to options.imports key names. Both paths flow into the same Function() constructor sink.
+
+When an application passes untrusted input as options.imports key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.
+
+Additionally, _.template uses assignInWith to merge impo…</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.18.0 vulnerability=CVE-2026-4800</div></div>
+        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.18.0 or later.</p></div>
+        <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-4800" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-4800</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10131" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10131</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10175" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10175</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10710" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10710</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10713" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10713</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11454" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11454</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11469" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11469</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11470" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11470</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11471" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11471</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11493" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11493</a></li></ul></div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p1">P1</span>
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="finding-title">SAST: js-eval-usage</span>
+      <span class="finding-tool">semgrep</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>semgrep-8ea7d3c2c420f4d3</code></p></div>
+        <div class="ff"><label>Category</label><p>SAST</p></div>
+        <div class="ff"><label>File</label><p><code>src/app.js : L3</code></p></div>
+
+        <div class="ff full"><label>Description</label><p>eval() executes arbitrary JavaScript. If the argument is derived from user input or an external source, this leads to code injection.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">eval() executes arbitrary JavaScript. If the argument is derived from user input or an external source, this leads to code injection.</div></div>
+        <div class="ff full"><label>Business Impact</label><p>Unsafe coding patterns can be exploited by an attacker to execute arbitrary code, inject malicious data, or bypass security controls, depending on where and how the vulnerable code is reachable.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Avoid eval(). Use JSON.parse() for data parsing, or redesign the feature to eliminate dynamic code evaluation.</p></div>
+        <div class="ff"><label>OWASP</label><p>A03:2021 - Injection</p></div>
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p1">P1</span>
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="finding-title">SAST: js-child-process-exec</span>
+      <span class="finding-tool">semgrep</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>semgrep-054ed0f9a21a68a4</code></p></div>
+        <div class="ff"><label>Category</label><p>SAST</p></div>
+        <div class="ff"><label>File</label><p><code>src/app.js : L4</code></p></div>
+
+        <div class="ff full"><label>Description</label><p>child_process.exec() passes its argument to a shell, enabling injection if the command string contains any user-controlled data.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">child_process.exec() passes its argument to a shell, enabling injection if the command string contains any user-controlled data.</div></div>
+        <div class="ff full"><label>Business Impact</label><p>Unsafe coding patterns can be exploited by an attacker to execute arbitrary code, inject malicious data, or bypass security controls, depending on where and how the vulnerable code is reachable.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Use child_process.execFile() or child_process.spawn() with arguments passed as a separate array, never as a concatenated string.</p></div>
+        <div class="ff"><label>OWASP</label><p>A03:2021 - Injection</p></div>
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2020-28500</span>
+      <span class="finding-tool">trivy</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>trivy-8024e95d617bc663</code></p></div>
+        <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
+        <div class="ff"><label>Component</label><p>lodash</p></div>
+        <div class="ff full"><label>Description</label><p>Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.17.21 vulnerability=CVE-2020-28500</div></div>
+        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.17.21 or later.</p></div>
+        <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2020-28500" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2020-28500</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2020-28500" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2020-28500</a></li><li><a href="https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf" rel="noopener noreferrer" target="_blank">https://cert-portal.siemens.com/productcert/pdf/ssa-637483.pdf</a></li><li><a href="https://github.com/advisories/GHSA-29mw-wpgm-hmr9" rel="noopener noreferrer" target="_blank">https://github.com/advisories/GHSA-29mw-wpgm-hmr9</a></li><li><a href="https://github.com/github/advisory-database/pull/6139" rel="noopener noreferrer" target="_blank">https://github.com/github/advisory-database/pull/6139</a></li><li><a href="https://github.com/lodash/lodash" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash</a></li><li><a href="https://github.com/lodash/lodash/blob/npm/trimEnd.js" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/blob/npm/trimEnd.js</a></li><li><a href="https://github.com/lodash/lodash/blob/npm/trimEnd.js#L8" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/blob/npm/trimEnd.js#L8</a></li><li><a href="https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/blob/npm/trimEnd.js%23L8</a></li><li><a href="https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/commit/c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a</a></li></ul></div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2025-13465</span>
+      <span class="finding-tool">trivy</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>trivy-07ac7ea361a3ab26</code></p></div>
+        <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
+        <div class="ff"><label>Component</label><p>lodash</p></div>
+        <div class="ff full"><label>Description</label><p>Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the _.unset and _.omit functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes.
+
+The issue permits deletion of properties but does not allow overwriting their original behavior.
+
+This issue is patched on 4.17.23</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.17.23 vulnerability=CVE-2025-13465</div></div>
+        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.17.23 or later.</p></div>
+        <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2025-13465" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2025-13465</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11414" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11414</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:13542" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:13542</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:13548" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:13548</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:13829" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:13829</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:14774" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:14774</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:14870" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:14870</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:14871" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:14871</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:15091" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:15091</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:17469" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:17469</a></li></ul></div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2026-2950</span>
+      <span class="finding-tool">trivy</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>trivy-a10775dfbc4de550</code></p></div>
+        <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
+        <div class="ff"><label>Component</label><p>lodash</p></div>
+        <div class="ff full"><label>Description</label><p>Impact:
+
+Lodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the _.unset and _.omit functions. The fix for (CVE-2025-13465: https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as Object.prototype, Number.prototype, and String.prototype.
+
+The issue permits deletion of prototype proper…</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.18.0 vulnerability=CVE-2026-2950</div></div>
+        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.18.0 or later.</p></div>
+        <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-2950" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-2950</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-2950" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-2950</a></li><li><a href="https://github.com/lodash/lodash" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash</a></li><li><a href="https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh</a></li><li><a href="https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg</a></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-2950" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2026-2950</a></li><li><a href="https://ubuntu.com/security/notices/USN-8411-1" rel="noopener noreferrer" target="_blank">https://ubuntu.com/security/notices/USN-8411-1</a></li><li><a href="https://www.cve.org/CVERecord?id=CVE-2026-2950" rel="noopener noreferrer" target="_blank">https://www.cve.org/CVERecord?id=CVE-2026-2950</a></li></ul></div>
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure S3 buckets should have event notifications enabled (CKV2_AWS_62)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-8ab0f74961825266</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure S3 buckets should have event notifications enabled</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV2_AWS_62 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure all data stored in the S3 bucket have versioning enabled (CKV_AWS_21)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-c3edcc6f974ae6c4</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure all data stored in the S3 bucket have versioning enabled</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_AWS_21 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure that S3 bucket has a Public Access block (CKV2_AWS_6)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-5942a4975a2866ef</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure that S3 bucket has a Public Access block</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV2_AWS_6 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure that S3 bucket has cross-region replication enabled (CKV_AWS_144)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-eb256636d801ef06</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure that S3 bucket has cross-region replication enabled</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_AWS_144 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure that S3 buckets are encrypted with KMS by default (CKV_AWS_145)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-205f4cd89b3130e0</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure that S3 buckets are encrypted with KMS by default</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_AWS_145 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure that an S3 bucket has a lifecycle configuration (CKV2_AWS_61)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-b17daa8ca96329fe</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure that an S3 bucket has a lifecycle configuration</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV2_AWS_61 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure the S3 bucket has access logging enabled (CKV_AWS_18)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-92db8957db052bd3</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
+        <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure the S3 bucket has access logging enabled</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_AWS_18 resource=aws_s3_bucket.demo file=/infra/main.tf</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Apply security context to your containers (CKV_K8S_30)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-c17916a0f9fae6c5</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Apply security context to your containers</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_30 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Apply security context to your pods and containers (CKV_K8S_29)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-022a5e61ccf3957c</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Apply security context to your pods and containers</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_29 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: CPU limits should be set (CKV_K8S_11)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-638880e00bd6b4d9</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>CPU limits should be set</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_11 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: CPU requests should be set (CKV_K8S_10)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-e4f9751be7d2c40d</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>CPU requests should be set</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_10 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Containers should not run with allowPrivilegeEscalation (CKV_K8S_20)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-ad4d41450215db5d</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Containers should not run with allowPrivilegeEscalation</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_20 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Containers should not share the host network namespace (CKV_K8S_19)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-3ec09845edff3e84</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Containers should not share the host network namespace</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_19 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Containers should run as a high UID to avoid host conflict (CKV_K8S_40)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-e4b3864806ede61a</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Containers should run as a high UID to avoid host conflict</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_40 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure that Service Account Tokens are only mounted where necessary (CKV_K8S_38)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-ff4411812248859d</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure that Service Account Tokens are only mounted where necessary</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_38 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Ensure that the seccomp profile is set to docker/default or runtime/default (CKV_K8S_31)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-30b06403971213e6</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Ensure that the seccomp profile is set to docker/default or runtime/default</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_31 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Image Pull Policy should be Always (CKV_K8S_15)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-8c27de9b025e3ab2</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Image Pull Policy should be Always</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_15 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Image should use digest (CKV_K8S_43)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-c7188be8fcc9a20f</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Image should use digest</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_43 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Liveness Probe Should be Configured (CKV_K8S_8)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-dd7d8e9a1b765ab9</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Liveness Probe Should be Configured</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_8 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Memory limits should be set (CKV_K8S_13)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-4dcad0bd18f49f6b</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Memory limits should be set</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_13 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Memory requests should be set (CKV_K8S_12)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-d2530420527f4962</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Memory requests should be set</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_12 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Minimize the admission of containers with capabilities assigned (CKV_K8S_37)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-c08d281b07b406bb</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Minimize the admission of containers with capabilities assigned</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_37 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Minimize the admission of containers with the NET_RAW capability (CKV_K8S_28)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-aab395c354fa6297</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Minimize the admission of containers with the NET_RAW capability</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_28 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Minimize the admission of pods which lack an associated NetworkPolicy (CKV2_K8S_6)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-599df34caac4d9b5</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Minimize the admission of pods which lack an associated NetworkPolicy</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV2_K8S_6 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Minimize the admission of root containers (CKV_K8S_23)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-9673b9545de341c5</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Minimize the admission of root containers</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_23 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Readiness Probe Should be Configured (CKV_K8S_9)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-3946bf9492f2a59b</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Readiness Probe Should be Configured</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_9 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: The default namespace should not be used (CKV_K8S_21)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-408ad24e4384c8b0</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>The default namespace should not be used</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_21 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      <span class="badge badge-p2">P2</span>
+      <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="finding-title">IaC: Use read-only filesystem for containers where possible (CKV_K8S_22)</span>
+      <span class="finding-tool">checkov</span>
+    </summary>
+    <div class="finding-body">
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>checkov-f2b50e730bb8f022</code></p></div>
+        <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
+        <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
+        <div class="ff full"><label>Description</label><p>Use read-only filesystem for containers where possible</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">check=CKV_K8S_22 resource=Pod.default.aadsec-demo file=/k8s/pod.yaml</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An IaC misconfiguration can result in resources being exposed to the internet, insufficient access controls, missing audit logging, or insecure defaults that may be exploited by an attacker with access to the provisioned infrastructure.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.</p></div>
+
+
+      </div>
+    </div>
+  </details>
+
+</div>
+</section>
+
+
+
+
+<section class="section">
+<div class="container">
+  <h2>Methodology</h2>
+  <p style="margin-bottom:1rem">This report was produced by <strong>AADSec</strong>, a <strong>local-first</strong> DevSecOps audit tool. The entire analysis runs inside a Docker container on your machine. <strong>No source code or scan data is transmitted to any external server by AADSec.</strong></p>
+  <table>
+    <thead><tr><th>Tool</th><th>V1 Version</th><th>Scope</th><th>Type</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Gitleaks</strong></td><td>8.30.1</td><td>Current files only (no Git history)</td><td>Secrets</td></tr>
+      <tr><td><strong>Trivy</strong></td><td>0.72.0</td><td>Dependencies — SCA filesystem (<code>--scanners vuln</code>)</td><td>SCA</td></tr>
+      <tr><td><strong>Semgrep</strong></td><td>1.80.0</td><td>Source code — local AADSec ruleset only (no Semgrep Registry)</td><td>SAST</td></tr>
+      <tr><td><strong>Checkov</strong></td><td>3.2.0</td><td>IaC files — Terraform, Kubernetes, CloudFormation, Helm</td><td>IaC</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+
+<section class="section">
+<div class="container">
+  <h2>Limitations and Disclaimers</h2>
+  <div class="warning-box">⚠️ This report is the result of an <strong>automated analysis</strong>. It does not replace a manual penetration test performed by a security expert.</div>
+  <ul style="padding-left:1.5rem;line-height:2.1;font-size:0.9rem">
+    <li>The absence of findings <strong>does not mean</strong> the absence of vulnerabilities.</li>
+    <li>Git history is <strong>not scanned</strong> in V1 (scope: current files only).</li>
+    <li>Dynamic testing (DAST) is <strong>not included</strong> in this profile.</li>
+    <li>Results must be <strong>validated against your business and application context</strong>.</li>
+    <li>No LLM or external service is contacted by AADSec by default.</li>
+    <li>No source code is transmitted to any third party by AADSec.</li>
+    <li>This report may be shared manually with an authorised consultant if desired.</li>
+  </ul>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    Generated by AADSec 0.1.0-dev — local-first DevSecOps — 2026-07-23 01:06 UTC<br>
+    This report is confidential. Share only with authorised parties.
+  </div>
+</footer>
+
+</body>
+</html>
