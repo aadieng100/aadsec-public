@@ -64,31 +64,20 @@ The report has two views:
 
 ---
 
-## Download the beta
+## Download & install
 
-AADSec is distributed as a **private beta** from this repository's Releases.
-
-1. Open the [**Releases**](../../releases) page.
-2. Download, for your platform:
-   - the install script — `install.sh` (macOS/Linux) or `install.ps1` (Windows),
-   - the `SHA256SUMS` checksums file.
-
-   The installer downloads the matching binary and **verifies its checksum**
-   before installing — nothing is installed if the checksum fails.
-3. Install with the steps below.
-
-> Beta access is **limited, revocable, and non-transferable** — see
-> [Proprietary software](#proprietary-software).
-
----
-
-## Install
+AADSec is distributed as a **private beta** from the
+[**Releases**](../../releases) page (current build: `v0.1.0-alpha.1`). The
+installer downloads the matching binary and **verifies its SHA-256** before
+installing — nothing is installed if the checksum fails.
 
 **macOS / Linux**
 
 ```bash
-# Download install.sh + SHA256SUMS from the Releases page, READ the script,
-# then run it (no sudo; installs to ~/.local/bin):
+# 1) Download the installer (reading it before running is recommended)
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0-alpha.1/install.sh
+
+# 2) Run it — installs to ~/.local/bin, no sudo
 bash install.sh
 aadsec --version
 ```
@@ -97,18 +86,26 @@ aadsec --version
 Desktop with the **WSL2 backend**.
 
 ```powershell
-# Download install.ps1 from Releases, read it, then:
+Invoke-WebRequest -UseBasicParsing `
+  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0-alpha.1/install.ps1 `
+  -OutFile install.ps1
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 aadsec --version
 ```
+
+Prefer not to use the script? The [Releases](../../releases) page also lists the
+raw binaries, archives, `SHA256SUMS`, and a CycloneDX SBOM for manual installs.
 
 **The scanner runner image (once).** The scan runs inside a container image you
 fetch yourself — AADSec never pulls it for you:
 
 ```bash
-docker pull ghcr.io/aadieng100/aadsec-runner:<version>
+docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0-alpha.1
 aadsec doctor      # verifies the CLI and runner image are aligned
 ```
+
+> Beta access is **limited, revocable, and non-transferable** — see
+> [Proprietary software](#proprietary-software).
 
 ---
 

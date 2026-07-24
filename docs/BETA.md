@@ -55,22 +55,25 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ## Download & install
 
-Download the beta from this repository's [**Releases**](../../releases)
-page: grab the install script (`install.sh` / `install.ps1`) and `SHA256SUMS`.
+The current build is `v0.1.0-alpha.1` on the [**Releases**](../../releases) page.
 The installer downloads the matching binary and **verifies its checksum** before
 installing — nothing is installed if the checksum fails.
 
 ```bash
-# macOS/Linux — read the script first, then run it (no sudo):
+# macOS/Linux — download the installer (read it first is recommended), then run it:
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0-alpha.1/install.sh
 bash install.sh
 aadsec --version
 
 # Fetch the runner image once (AADSec never pulls it for you):
-docker pull ghcr.io/aadieng100/aadsec-runner:<version>
+docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0-alpha.1
 
 # Verify everything is aligned:
 aadsec doctor        # should show "Runner status: ✅ present … (matches CLI)"
 ```
+
+> On Windows, download `install.ps1` from the same Releases page instead
+> (experimental — see below).
 
 Then scan your repo and open the report:
 
