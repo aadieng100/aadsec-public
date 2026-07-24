@@ -19,7 +19,7 @@ public expansion emphasizes the product's differentiator: results are
 
 ## One-line positioning
 
-> Local-first DevSecOps audit CLI for any project — SaaS, side projects, internal apps, or teams. Runs trusted scanners (secrets, dependencies, SAST, IaC, containers) in one command, cuts through noisy logs and false positives, and delivers a prioritized report with concrete fixes — without sending your source code to the cloud.
+> Local-first DevSecOps audit CLI for any project — SaaS, side projects, internal apps, or teams. It runs trusted scanners for secrets, dependencies, SAST, IaC, and container images in one command, cuts through noisy logs and false positives, and delivers a prioritized report with concrete fixes — without sending your source code to the cloud.
 
 ---
 
