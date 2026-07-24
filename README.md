@@ -7,9 +7,9 @@
 [![Status: Private beta](https://img.shields.io/badge/status-Private%20beta%20%E2%80%94%20not%20production%20ready-orange)]()
 [![License: Proprietary](https://img.shields.io/badge/license-Proprietary%20%E2%80%94%20all%20rights%20reserved-red)](PROPRIETARY.md)
 
-*AADSec is not a "magic scanner". It's a thin, auditable orchestration + triage
-layer: it runs recognized tools (Gitleaks, Trivy, Semgrep, Checkov), filters the
-noise, prioritizes real risks, and hands you concrete fixes.*
+*AADSec is not a "magic scanner". It's an auditable orchestration and triage engine:
+it runs recognized tools (Gitleaks, Trivy, Semgrep, Checkov), filters the noise,
+prioritizes real risks, and hands you concrete fixes.*
 
 > **Proprietary software — all rights reserved.** AADSec is **not** open source.
 > See [Proprietary software](#proprietary-software) and [PROPRIETARY.md](PROPRIETARY.md).
