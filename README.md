@@ -227,5 +227,6 @@ Any beta build or evaluation access is provided on a limited, revocable, and
 non-transferable basis.
 
 AADSec orchestrates third-party open-source scanners (Gitleaks, Trivy, Semgrep,
-Checkov); those tools remain under their own respective licences. That does
-**not** make AADSec open source. Full statement: [PROPRIETARY.md](PROPRIETARY.md).
+Checkov); those tools remain under their own respective licences — see
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). That does **not** make AADSec
+open source. Full statement: [PROPRIETARY.md](PROPRIETARY.md).
