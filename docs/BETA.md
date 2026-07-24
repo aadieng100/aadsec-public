@@ -53,24 +53,37 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ---
 
-## Install & run
+## Download & install
 
-Installation, the pinned version, and the runner image live in the **product
-repository's releases**. Once installed:
+Download the beta from this repository's [**Releases**](../../releases/latest)
+page: grab the install script (`install.sh` / `install.ps1`) and `SHA256SUMS`.
+The installer downloads the matching binary and **verifies its checksum** before
+installing — nothing is installed if the checksum fails.
 
 ```bash
-# 1) Verify your environment
-aadsec doctor        # should show "Runner status: ✅ present … (matches CLI)"
+# macOS/Linux — read the script first, then run it (no sudo):
+bash install.sh
+aadsec --version
 
-# 2) Scan your repo
+# Fetch the runner image once (AADSec never pulls it for you):
+docker pull ghcr.io/aadieng100/aadsec-runner:<version>
+
+# Verify everything is aligned:
+aadsec doctor        # should show "Runner status: ✅ present … (matches CLI)"
+```
+
+Then scan your repo and open the report:
+
+```bash
 cd /path/to/your/repo
 aadsec scan .
-
-# 3) Open the report
 open security-output/report.html      # macOS — on Linux: xdg-open
 ```
 
 Output is English by default; add `--lang fr` for French.
+
+> Beta access is provided on a **limited, revocable, and non-transferable** basis
+> — AADSec is proprietary software (see [PROPRIETARY.md](../PROPRIETARY.md)).
 
 ---
 
@@ -101,6 +114,22 @@ aadsec share          # bundles ./security-output into ./aadsec-share
 
 The bundle contains only `findings.json`, `report.html`, and `audit-metadata.json`.
 Details: [How sharing works](SHARING.md).
+
+---
+
+## Uninstall completely
+
+To remove AADSec and **all** its local state:
+
+```bash
+aadsec uninstall          # lists what will be deleted, then asks to confirm
+aadsec uninstall --yes    # skip the confirmation
+```
+
+It deletes only AADSec-owned paths — the installed binary, the config directory
+(including the beta counter), the scanner cache, and the `~/.aadsec` fallback.
+Per-project `security-output/` folders and the Docker runner image are left
+untouched — remove those yourself (`docker rmi ghcr.io/aadieng100/aadsec-runner:<version>`).
 
 ---
 
