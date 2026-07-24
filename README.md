@@ -18,9 +18,8 @@ noise, prioritizes real risks, and hands you concrete fixes.*
 
 ## Positioning
 
-**Automated DevSecOps audit for startups and SMBs — secrets, dependencies (SCA),
-SAST, IaC and container images. Your code stays in your environment. You get a
-prioritized report with impact, evidence, and concrete fixes.**
+**Local-first DevSecOps audit CLI for any project — SaaS, side projects, internal apps, or teams.
+Runs trusted scanners (secrets, dependencies, SAST, IaC, containers) in one command, cuts through noisy logs and false positives, and delivers a prioritized report with concrete fixes — without sending your source code to the cloud.**
 
 What AADSec does **not** do — and never claims:
 
