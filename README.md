@@ -34,7 +34,7 @@ replace one.
 
 ---
 
-## Why local-first (the trust angle)
+## Why local-first
 
 Teams hesitate to hand a Git repository to an unknown tool. AADSec is built the
 other way around:
