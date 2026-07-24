@@ -68,7 +68,7 @@ The report has two views:
 
 AADSec is distributed as a **private beta** from this repository's Releases.
 
-1. Open the [**Releases**](../../releases/latest) page.
+1. Open the [**Releases**](../../releases) page.
 2. Download, for your platform:
    - the install script — `install.sh` (macOS/Linux) or `install.ps1` (Windows),
    - the `SHA256SUMS` checksums file.

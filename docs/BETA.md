@@ -55,7 +55,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ## Download & install
 
-Download the beta from this repository's [**Releases**](../../releases/latest)
+Download the beta from this repository's [**Releases**](../../releases)
 page: grab the install script (`install.sh` / `install.ps1`) and `SHA256SUMS`.
 The installer downloads the matching binary and **verifies its checksum** before
 installing — nothing is installed if the checksum fails.
