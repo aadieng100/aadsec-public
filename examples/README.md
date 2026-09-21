@@ -3,6 +3,8 @@
 [`report-demo.html`](report-demo.html) is a **public, anonymized** AADSec report.
 Open it in any browser — it's self-contained (no external assets, no network).
 
+👉 **[View live demo report](https://aadieng100.github.io/aadsec-public/examples/report-demo.html)**
+
 ## What it is
 
 It was produced by scanning an **intentionally vulnerable** demo project with the

@@ -51,9 +51,11 @@ share the results — never your code. See [How sharing works](docs/SHARING.md).
 ## Example report
 
 See a **public, anonymized** report generated on a deliberately vulnerable demo
-project: **[examples/report-demo.html](examples/report-demo.html)** (open it in
-any browser — it's self-contained, no network). Origin and anonymization details:
-[examples/README.md](examples/README.md).
+project:
+- 🌐 **[View live demo report](https://aadieng100.github.io/aadsec-public/examples/report-demo.html)**
+- 📄 Source file: **[examples/report-demo.html](examples/report-demo.html)** (open it in any browser — it's self-contained, no network)
+
+Origin and anonymization details: [examples/README.md](examples/README.md).
 
 The report has two views:
 
