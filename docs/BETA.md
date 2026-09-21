@@ -55,7 +55,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ## Download & install
 
-The current build is `v0.1.0-alpha.1` on the [**Releases**](../../releases) page.
+The current build is `v0.1.0-alpha.1` on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page.
 The installer downloads the matching binary and **verifies its checksum** before
 installing — nothing is installed if the checksum fails.
 

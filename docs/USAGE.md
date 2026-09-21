@@ -105,3 +105,16 @@ Two paths:
 1. **Fix internally** — use the report's developer view (file, evidence, fix).
 2. **Get help from AADSec** — voluntarily share the results (never your code).
    See [How sharing works](SHARING.md).
+
+---
+
+## Uninstall
+
+To remove AADSec and all its local state (installed binary, config, beta counter, scanner cache):
+
+```bash
+aadsec uninstall          # lists what will be deleted, then asks to confirm
+aadsec uninstall --yes    # skip the confirmation
+```
+
+Per-project scan outputs (`security-output/`) and the Docker runner image are left untouched.
