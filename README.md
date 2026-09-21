@@ -120,6 +120,7 @@ Common variations:
 ```bash
 aadsec scan --profile quick .          # fast feedback
 aadsec scan --profile standard .       # recommended (default)
+aadsec scan --offline .                # air-gapped / offline scan (no network)
 aadsec scan --image myapp:audit        # scan a local Docker image you built
 aadsec scan --image-tar ./myapp.tar    # scan a "docker save" archive
 aadsec share                           # prepare an opt-in bundle to send to AADSec

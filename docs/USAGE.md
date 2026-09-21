@@ -92,6 +92,7 @@ Work findings top-down (P0 → P3), then re-scan to confirm your fixes.
 | `--profile` | `quick` \| `standard` (`standard`) | Scan intensity. |
 | `--lang` | `en` \| `fr` (`en`) | Report and terminal language. |
 | `--out` | path (`security-output`) | Output directory. |
+| `--offline` | — | Air-gapped scan (no DB updates or network calls). |
 | `--image` | image ref | Scan a **local** Docker image. |
 | `--image-tar` | path | Scan a `docker save` archive. |
 | `--dry-run` | — | Print the plan; launch no scanner. |
