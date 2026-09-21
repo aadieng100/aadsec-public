@@ -45,7 +45,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ## Prerequisites
 
-- **Docker**, running (the scanners run inside a container).
+- **Docker**, running (the scanners run inside a container). If Docker is not started, `aadsec doctor` and `aadsec scan` will detect it and provide the exact command to start it on your OS.
 - **git**.
 - **Windows:** Docker Desktop with the **WSL2 backend** enabled. Windows support
   is **experimental** and not yet validated end-to-end — macOS and Linux are the
