@@ -43,6 +43,11 @@ The alpha caps successful scans per machine so we can collect feedback before
 opening wider access. It's a local guardrail, not a license — see the
 [beta guide](BETA.md).
 
+**Can I run scans in an air-gapped or offline environment?**
+Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.
+The runner container embeds a pre-packaged vulnerability database and local rulesets,
+so no external network requests or database downloads are required.
+
 **Can I get help fixing the findings?**
 Yes. You can **voluntarily** share the results (never your code) with AADSec for
 remediation help — see [How sharing works](SHARING.md).
