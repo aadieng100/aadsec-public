@@ -30,7 +30,7 @@ conditions under which AADSec uses them.
 | **Project** | [https://github.com/aquasecurity/trivy](https://github.com/aquasecurity/trivy) |
 | **License** | Apache-2.0 |
 | **License URL** | [https://github.com/aquasecurity/trivy/blob/main/LICENSE](https://github.com/aquasecurity/trivy/blob/main/LICENSE) |
-| **Version (V1)** | 0.72.0 |
+| **Version (V1)** | 0.74.0 |
 | **Usage** | External CLI binary executed inside the AADSec runner container for Software Composition Analysis (SCA) — vulnerability detection in project dependencies. |
 | **AADSec constraints** | `--scanners vuln` only (no secrets, no SBOM, no license scanning, no image scan in V1). Cache stored in a persistent host directory (`~/.aadsec/cache/trivy`), never in `/workspace`. Vulnerability database is downloaded from the Trivy distribution CDN during the first scan. |
 
@@ -60,7 +60,7 @@ conditions under which AADSec uses them.
 | **Project** | [https://github.com/bridgecrewio/checkov](https://github.com/bridgecrewio/checkov) |
 | **License** | Apache-2.0 |
 | **License URL** | [https://github.com/bridgecrewio/checkov/blob/main/LICENSE](https://github.com/bridgecrewio/checkov/blob/main/LICENSE) |
-| **Version (V1)** | 3.2.0 |
+| **Version (V1)** | 3.3.19 |
 | **Usage** | External CLI binary executed inside the AADSec runner container for Infrastructure-as-Code (IaC) misconfiguration detection. |
 | **AADSec constraints** | `--skip-download` (no external policy downloads). No `BC_API_KEY`, no `PRISMA_API_ID`, no `PRISMA_API_SECRET` (explicitly cleared). No upload to Bridgecrew / Prisma Cloud. No cloud runtime scanning (AWS/Azure/GCP). No autofix. Checkov is skipped cleanly if no IaC files are detected in the scanned project. |
 

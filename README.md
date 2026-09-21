@@ -65,7 +65,7 @@ The report has two views:
 ## Download & install
 
 AADSec is distributed as a **private beta** from the
-[**Releases**](../../releases) page (current build: `v0.1.0-alpha.1`). The
+[**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.0-alpha.1`). The
 installer downloads the matching binary and **verifies its SHA-256** before
 installing — nothing is installed if the checksum fails.
 
@@ -91,7 +91,7 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 aadsec --version
 ```
 
-Prefer not to use the script? The [Releases](../../releases) page also lists the
+Prefer not to use the script? The [Releases](https://github.com/aadieng100/aadsec-public/releases) page also lists the
 raw binaries, archives, `SHA256SUMS`, and a CycloneDX SBOM for manual installs.
 
 **The scanner runner image (once).** The scan runs inside a container image you
