@@ -16,19 +16,15 @@ prioritizes real risks, and hands you concrete fixes.*
 
 ---
 
-## Positioning
-
-**Local-first DevSecOps audit CLI for any project — SaaS, side projects, internal apps, or teams. It runs trusted scanners for secrets, dependencies, SAST, IaC, and container images in one command, cuts through noisy logs and false positives, and delivers a prioritized report with concrete fixes — without sending your source code to the cloud.**
-
-What AADSec does **not** do — and never claims:
-
-- ❌ "Secure" / "safe" / "zero vulnerabilities" / "no risk"
-- ❌ A complete automatic penetration test
-- ❌ "Upload your repo to our cloud"
-- ❌ Send your code to an AI/LLM without your consent
+## What AADSec is not
 
 An automated audit **complements** a human security assessment — it does not
-replace one.
+replace one. AADSec never claims:
+
+- ❌ "Secure", "safe", or "zero vulnerabilities"
+- ❌ A complete automatic penetration test
+- ❌ Uploading your repository to a cloud service
+- ❌ Sending your code to an AI/LLM without your consent
 
 ---
 
@@ -195,14 +191,13 @@ before opening wider access — details in the [beta guide](docs/BETA.md).
 - [Beta guide](docs/BETA.md) — download, install, run, give feedback
 - [How sharing works](docs/SHARING.md) — the opt-in, manual sharing model
 - [FAQ](docs/FAQ.md) — trust, privacy, scope
-- [Positioning](docs/POSITIONING.md) — offers, target market, brand meaning
 
 ---
 
 ## What "AADSec" means
 
-Publicly, **AADSec = Actionable Audit for DevSecOps** (*Sec* = Security). The
-name also carries the initials of its creator, **Abdoul Aziz Dieng**.
+**AADSec** stands for **Actionable Audit for DevSecOps** (*Sec* = Security),
+while also carrying the initials of its creator, **Abdoul Aziz Dieng**.
 
 ---
 
@@ -210,7 +205,7 @@ name also carries the initials of its creator, **Abdoul Aziz Dieng**.
 
 - **Email:** [diengabdoulaziz110@gmail.com](mailto:diengabdoulaziz110@gmail.com)
 - **LinkedIn:** [linkedin.com/in/aadieng](https://www.linkedin.com/in/aadieng/)
-- **Book a 20-minute diagnostic:** reach out by email or LinkedIn.
+- Questions or feedback: reach out by email or LinkedIn.
 
 ---
 
