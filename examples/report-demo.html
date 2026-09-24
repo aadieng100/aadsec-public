@@ -8,29 +8,29 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth}
-body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:#f1f5f9;color:#1e293b;line-height:1.6;overflow-x:hidden}
 a{color:#1d4ed8}a:hover{text-decoration:underline}
-code{font-family:'Courier New',Courier,monospace;font-size:0.85em;background:#f3f4f6;padding:0.1em 0.3em;border-radius:3px}
+code{font-family:'Courier New',Courier,monospace;font-size:0.85em;background:#f3f4f6;padding:0.1em 0.3em;border-radius:3px;word-break:break-word;overflow-wrap:anywhere}
 h2{font-size:1.2rem;font-weight:700;color:#0f172a;margin-bottom:1.25rem;padding-bottom:0.4rem;border-bottom:2px solid #3b82f6;display:inline-block}
 h3{font-size:0.95rem;font-weight:600;color:#334155;margin-bottom:0.75rem}
 .container{max-width:980px;margin:0 auto;padding:0 1.5rem}
 .section{padding:2rem 0}.section+.section{border-top:1px solid #e2e8f0}
 
-
+/* Header */
 .site-header{background:#0d1b2a;color:#e2e8f0;padding:1.75rem 0 1.25rem}
 .site-header h1{font-size:1.5rem;font-weight:800;color:#fff;margin-bottom:0.85rem;letter-spacing:-0.01em}
 .header-meta{display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;font-size:0.8rem;color:#cbd5e1}
 .header-meta b{color:#ffffff}
 .watermark{margin-top:0.85rem;font-size:0.8rem;color:#e2e8f0;font-style:normal}
 
-
+/* Decision Banner */
 .decision-banner{padding:0.85rem 1.25rem;border-radius:8px;margin-bottom:1.25rem;font-weight:600;font-size:1rem;border-left:5px solid;display:flex;align-items:center;gap:0.5rem}
 .decision-critical{background:#fef2f2;border-color:#ef4444;color:#991b1b}
 .decision-high{background:#fff7ed;border-color:#f97316;color:#9a3412}
 .decision-medium{background:#fefce8;border-color:#ca8a04;color:#713f12}
 .decision-ok{background:#f0fdf4;border-color:#16a34a;color:#14532d}
 
-
+/* Cards */
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.85rem;margin-bottom:1.25rem}
 .card{background:#fff;border-radius:8px;padding:1rem 0.85rem;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.07);border:1px solid #e2e8f0}
 .card-value{font-size:2rem;font-weight:800;line-height:1;margin-bottom:0.2rem}
@@ -39,7 +39,7 @@ h3{font-size:0.95rem;font-weight:600;color:#334155;margin-bottom:0.75rem}
 .card-p2 .card-value{color:#d97706}.card-p3 .card-value{color:#2563eb}
 .card-total .card-value{color:#0f172a}
 
-
+/* Badges */
 .badge{display:inline-block;padding:0.12rem 0.45rem;border-radius:4px;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap}
 .badge-p0{background:#fca5a5;color:#7f1d1d}
 .badge-p1{background:#fdba74;color:#7c2d12}
@@ -52,13 +52,16 @@ h3{font-size:0.95rem;font-weight:600;color:#334155;margin-bottom:0.75rem}
 .sev-low{background:#dbeafe;color:#1e3a5f}
 .sev-info{background:#f3f4f6;color:#374151}
 
-
+/* Tables & responsive wrappers */
+.table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1.25rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);background:#fff}
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:1.25rem;font-size:0.875rem}
+.table-wrap table{margin-bottom:0;box-shadow:none;border-radius:0}
+.table-wide{min-width:620px}
 th{background:#1e293b;color:#e2e8f0;padding:0.65rem 0.9rem;text-align:left;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;font-weight:600}
-td{padding:0.6rem 0.9rem;border-bottom:1px solid #f1f5f9;vertical-align:top}
+td{padding:0.6rem 0.9rem;border-bottom:1px solid #f1f5f9;vertical-align:top;word-break:break-word}
 tr:last-child td{border-bottom:none}tr:hover td{background:#f8fafc}
 
-
+/* Findings collapsible */
 details{background:#fff;border:1px solid #e2e8f0;border-radius:8px;margin-bottom:0.6rem;overflow:hidden}
 details summary{padding:0.75rem 1rem;cursor:pointer;list-style:none;display:flex;align-items:center;gap:0.6rem;font-size:0.875rem;user-select:none}
 details summary::-webkit-details-marker{display:none}
@@ -69,37 +72,71 @@ details summary:hover{background:#f8fafc}
 .finding-tool{font-size:0.72rem;color:#94a3b8;white-space:nowrap}
 .finding-body{padding:1rem 1.1rem;border-top:1px solid #f1f5f9}
 .finding-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem 1.5rem}
-@media(max-width:600px){.finding-grid{grid-template-columns:1fr}}
 .ff label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.05em;color:#64748b;display:block;margin-bottom:0.1rem}
-.ff p{font-size:0.85rem;word-break:break-word}
+.ff p{font-size:0.85rem;word-break:break-word;overflow-wrap:anywhere}
 .ff.full{grid-column:1/-1}
-.evidence-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:0.4rem 0.65rem;font-family:'Courier New',monospace;font-size:0.78rem;word-break:break-all}
-.refs-list{list-style:none;font-size:0.8rem}.refs-list a{word-break:break-all}
+.evidence-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;padding:0.4rem 0.65rem;font-family:'Courier New',monospace;font-size:0.78rem;word-break:break-all;overflow-x:auto;max-height:260px;-webkit-overflow-scrolling:touch}
+.refs-list{list-style:none;font-size:0.8rem}.refs-list li{word-break:break-all;overflow-wrap:anywhere}.refs-list a{word-break:break-all;overflow-wrap:anywhere}
 
-
+/* Remediation */
 .rem-group{margin-bottom:1.25rem}
 .rem-header{padding:0.55rem 0.9rem;border-radius:6px 6px 0 0;font-weight:700;font-size:0.8rem;display:flex;align-items:center;gap:0.65rem}
 .rem-p0{background:#fca5a5;color:#7f1d1d}.rem-p1{background:#fdba74;color:#7c2d12}
 .rem-p2{background:#fde68a;color:#78350f}.rem-p3{background:#bfdbfe;color:#1e3a5f}
 .rem-items{background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 6px 6px}
-.rem-items li{padding:0.5rem 0.9rem;border-bottom:1px solid #f1f5f9;font-size:0.85rem}
+.rem-items li{padding:0.5rem 0.9rem;border-bottom:1px solid #f1f5f9;font-size:0.85rem;word-break:break-word;overflow-wrap:anywhere}
 .rem-items li:last-child{border-bottom:none}
 .rem-empty{background:#fff;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 6px 6px;padding:0.65rem 0.9rem;color:#94a3b8;font-size:0.85rem;font-style:italic}
 
+/* Alert boxes */
+.note-box{background:#eff6ff;border-left:4px solid #3b82f6;padding:0.75rem 1rem;border-radius:0 6px 6px 0;font-size:0.875rem;margin-bottom:1rem;word-break:break-word}
+.warning-box{background:#fffbeb;border-left:4px solid #f59e0b;padding:0.75rem 1rem;border-radius:0 6px 6px 0;font-size:0.875rem;margin-bottom:1rem;word-break:break-word}
+.zero-box{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:1.1rem 1.35rem;color:#14532d;font-size:0.9rem;word-break:break-word}
 
-.note-box{background:#eff6ff;border-left:4px solid #3b82f6;padding:0.75rem 1rem;border-radius:0 6px 6px 0;font-size:0.875rem;margin-bottom:1rem}
-.warning-box{background:#fffbeb;border-left:4px solid #f59e0b;padding:0.75rem 1rem;border-radius:0 6px 6px 0;font-size:0.875rem;margin-bottom:1rem}
-.zero-box{background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:1.1rem 1.35rem;color:#14532d;font-size:0.9rem}
-
-
+/* Grid for overview tables */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-@media(max-width:640px){.two-col{grid-template-columns:1fr}}
 
-
+/* Footer */
 .site-footer{background:#0d1b2a;color:#e2e8f0;padding:1.5rem 0;margin-top:2rem;font-size:0.8rem;text-align:center;line-height:1.8;border-top:1px solid #1e293b}
 .site-footer a{color:#60a5fa;text-decoration:underline}
 
+/* Mobile responsive styles */
+@media(max-width:768px){
+  .container{padding:0 1rem}
+  .two-col{grid-template-columns:1fr;gap:0.85rem}
+  .finding-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .container{padding:0 0.85rem}
+  .section{padding:1.35rem 0}
+  .site-header{padding:1.25rem 0 1rem}
+  .site-header h1{font-size:1.25rem;margin-bottom:0.65rem}
+  .header-meta{gap:0.35rem 0.75rem;font-size:0.75rem}
+  .watermark{font-size:0.75rem;line-height:1.4}
+  .decision-banner{padding:0.7rem 0.85rem;font-size:0.9rem;gap:0.4rem;flex-wrap:wrap}
+  .cards-grid{grid-template-columns:repeat(2,1fr);gap:0.55rem}
+  .card-total{grid-column:1/-1}
+  .card{padding:0.75rem 0.5rem}
+  .card-value{font-size:1.6rem}
+  .card-label{font-size:0.65rem}
+  details summary{padding:0.65rem 0.75rem;gap:0.45rem;flex-wrap:wrap;align-items:flex-start}
+  details summary::before{margin-top:0.25rem}
+  .finding-title{order:3;flex-basis:100%;white-space:normal;margin-top:0.2rem;font-size:0.82rem;line-height:1.35}
+  .finding-tool{margin-left:auto;font-size:0.68rem}
+  .finding-body{padding:0.85rem 0.75rem}
+  .rem-header{padding:0.5rem 0.75rem;font-size:0.75rem;flex-wrap:wrap}
+  .rem-items li{padding:0.5rem 0.75rem;font-size:0.8rem}
+  .evidence-box{font-size:0.72rem;padding:0.35rem 0.5rem}
+}
+@media(max-width:380px){
+  .container{padding:0 0.65rem}
+  .cards-grid{gap:0.4rem}
+  .card-value{font-size:1.35rem}
+  .card-label{font-size:0.6rem}
+  .site-header h1{font-size:1.15rem}
+}
 
+/* Print */
 @media print{
   body{background:#fff}.site-header{background:#fff;color:#000;border-bottom:2px solid #000;padding:0.75rem 0}
   .site-header h1{color:#000;font-size:1.2rem}.watermark{display:none}
@@ -174,7 +211,8 @@ details summary:hover{background:#f8fafc}
   <div class="two-col">
     <div>
       <h3>By Priority</h3>
-      <table>
+      <div class="table-wrap">
+  <table>
         <thead><tr><th>Priority</th><th>Findings</th></tr></thead>
         <tbody>
           <tr><td><span class="badge badge-p0">P0</span></td><td>1</td></tr>
@@ -183,10 +221,12 @@ details summary:hover{background:#f8fafc}
           <tr><td><span class="badge badge-p3">P3</span></td><td>0</td></tr>
         </tbody>
       </table>
+  </div>
     </div>
     <div>
       <h3>By Severity</h3>
-      <table>
+      <div class="table-wrap">
+  <table>
         <thead><tr><th>Severity</th><th>Findings</th></tr></thead>
         <tbody>
           <tr><td><span class="sev-badge sev-critical">CRITICAL</span></td><td>1</td></tr>
@@ -196,10 +236,12 @@ details summary:hover{background:#f8fafc}
           <tr><td><span class="sev-badge sev-info">INFO</span></td><td>0</td></tr>
         </tbody>
       </table>
+  </div>
     </div>
     <div>
       <h3>By Category</h3>
-      <table>
+      <div class="table-wrap">
+  <table>
         <thead><tr><th>Category</th><th>Findings</th></tr></thead>
         <tbody>
           <tr><td>SECRET</td><td>1</td></tr>
@@ -209,10 +251,12 @@ details summary:hover{background:#f8fafc}
           <tr><td>CONTAINER</td><td>0</td></tr>
         </tbody>
       </table>
+  </div>
     </div>
     <div>
       <h3>By Tool</h3>
-      <table>
+      <div class="table-wrap">
+  <table>
         <thead><tr><th>Tool</th><th>Findings</th></tr></thead>
         <tbody>
           <tr><td>Gitleaks</td><td>1</td></tr>
@@ -221,6 +265,7 @@ details summary:hover{background:#f8fafc}
           <tr><td>Checkov</td><td>28</td></tr>
         </tbody>
       </table>
+  </div>
     </div>
   </div>
 </div>
@@ -231,7 +276,8 @@ details summary:hover{background:#f8fafc}
 <section class="section">
 <div class="container">
   <h2>Top Risks</h2>
-  <table>
+  <div class="table-wrap">
+  <table class="table-wide">
     <thead>
       <tr><th>Priority</th><th>Severity</th><th>Category</th><th>Title</th><th>File</th><th>Tool</th></tr>
     </thead>
@@ -284,6 +330,7 @@ details summary:hover{background:#f8fafc}
 
     </tbody>
   </table>
+  </div>
 </div>
 </section>
 
@@ -1258,7 +1305,8 @@ The issue permits deletion of prototype proper…</p></div>
 <div class="container">
   <h2>Methodology</h2>
   <p style="margin-bottom:1rem">This report was produced by <strong>AADSec</strong>, a <strong>local-first</strong> DevSecOps audit tool. The entire analysis runs inside a Docker container on your machine. <strong>No source code or scan data is transmitted to any external server by AADSec.</strong></p>
-  <table>
+  <div class="table-wrap">
+  <table class="table-wide">
     <thead><tr><th>Tool</th><th>V1 Version</th><th>Scope</th><th>Type</th></tr></thead>
     <tbody>
       <tr><td><strong>Gitleaks</strong></td><td>8.30.1</td><td>Current files only (no Git history)</td><td>Secrets</td></tr>
@@ -1267,6 +1315,7 @@ The issue permits deletion of prototype proper…</p></div>
       <tr><td><strong>Checkov</strong></td><td>3.2.0</td><td>IaC files — Terraform, Kubernetes, CloudFormation, Helm</td><td>IaC</td></tr>
     </tbody>
   </table>
+  </div>
 </div>
 </section>
 
