@@ -47,9 +47,9 @@ share the results — never your code. See [How sharing works](docs/SHARING.md).
 ## Example report
 
 See a **public, anonymized** report generated on a deliberately vulnerable demo
-project:
-- 🌐 **[View live demo report](https://aadieng100.github.io/aadsec-public/examples/report-demo.html)**
-- 📄 Source file: **[examples/report-demo.html](examples/report-demo.html)** (open it in any browser — it's self-contained, no network)
+project (available in English and French):
+- 🌐 **[View live demo report (EN)](https://aadieng100.github.io/aadsec-public/examples/report-demo.html)** · Source: [`examples/report-demo.html`](examples/report-demo.html)
+- 🇫🇷 **[Voir le rapport de démo en français (FR)](https://aadieng100.github.io/aadsec-public/examples/report-demo-fr.html)** · Source: [`examples/report-demo-fr.html`](examples/report-demo-fr.html)
 
 Origin and anonymization details: [examples/README.md](examples/README.md).
 

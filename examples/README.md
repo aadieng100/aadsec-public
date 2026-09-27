@@ -1,9 +1,9 @@
-# AADSec — Example report
+# AADSec — Example reports
 
-[`report-demo.html`](report-demo.html) is a **public, anonymized** AADSec report.
-Open it in any browser — it's self-contained (no external assets, no network).
+Public, anonymized AADSec audit reports. Open them in any browser — self-contained (no external assets, no network).
 
-👉 **[View live demo report](https://aadieng100.github.io/aadsec-public/examples/report-demo.html)**
+- 🌐 **[View live demo report (EN)](https://aadieng100.github.io/aadsec-public/examples/report-demo.html)** — source: [`report-demo.html`](report-demo.html)
+- 🇫🇷 **[Voir le rapport de démo en direct (FR)](https://aadieng100.github.io/aadsec-public/examples/report-demo-fr.html)** — source: [`report-demo-fr.html`](report-demo-fr.html)
 
 ## What it is
 
