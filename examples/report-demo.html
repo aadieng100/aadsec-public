@@ -52,6 +52,12 @@ h3{font-size:0.95rem;font-weight:600;color:#334155;margin-bottom:0.75rem}
 .sev-low{background:#dbeafe;color:#1e3a5f}
 .sev-info{background:#f3f4f6;color:#374151}
 
+/* Triage qualification badges */
+.qual-badge{display:inline-block;padding:0.12rem 0.45rem;border-radius:4px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap;vertical-align:middle}
+.qual-code{background:#f1f5f9;color:#334155;border:1px solid #cbd5e1}
+.qual-observed{background:#e0f2fe;color:#0369a1;border:1px solid #bae6fd}
+.qual-confirmed{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
+
 /* Tables & responsive wrappers */
 .table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1.25rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);background:#fff}
 table{width:100%;border-collapse:collapse;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin-bottom:1.25rem;font-size:0.875rem}
@@ -306,7 +312,7 @@ details summary:hover{background:#f8fafc}
         <td><span class="badge badge-p1">P1</span></td>
         <td><span class="sev-badge sev-high">HIGH</span></td>
         <td>SCA</td>
-        <td>Vulnerable dependency detected: lodash CVE-2026-4800</td>
+        <td>body-parser 1.20.2 (via express 4.17.1) — ReDoS via urlencoded parsing (CVE-2024-45590)</td>
         <td><code>package-lock.json</code></td>
         <td>trivy</td>
       </tr>
@@ -359,7 +365,7 @@ details summary:hover{background:#f8fafc}
 
       <li><strong>Vulnerable dependency detected: lodash CVE-2021-23337</strong> — <code>package-lock.json</code> (lodash)</li>
 
-      <li><strong>Vulnerable dependency detected: lodash CVE-2026-4800</strong> — <code>package-lock.json</code> (lodash)</li>
+      <li><strong>body-parser 1.20.2 (via express 4.17.1) — ReDoS via urlencoded parsing (CVE-2024-45590)</strong> — <code>package-lock.json</code> (body-parser via express)</li>
 
       <li><strong>SAST: js-eval-usage</strong> — <code>src/app.js</code></li>
 
@@ -376,9 +382,9 @@ details summary:hover{background:#f8fafc}
 
       <li><strong>Vulnerable dependency detected: lodash CVE-2020-28500</strong> — <code>package-lock.json</code> (lodash)</li>
 
-      <li><strong>Vulnerable dependency detected: lodash CVE-2025-13465</strong> — <code>package-lock.json</code> (lodash)</li>
+      <li><strong>Vulnerable dependency detected: jsonwebtoken CVE-2022-23529</strong> — <code>package-lock.json</code> (jsonwebtoken)</li>
 
-      <li><strong>Vulnerable dependency detected: lodash CVE-2026-2950</strong> — <code>package-lock.json</code> (lodash)</li>
+      <li><strong>Vulnerable dependency detected: multer CVE-2022-24434</strong> — <code>package-lock.json</code> (multer)</li>
 
       <li><strong>IaC: Ensure S3 buckets should have event notifications enabled (CKV2_AWS_62)</strong> — <code>/infra/main.tf</code> (aws_s3_bucket.demo)</li>
 
@@ -455,6 +461,7 @@ details summary:hover{background:#f8fafc}
     <summary>
       <span class="badge badge-p0">P0</span>
       <span class="sev-badge sev-critical">CRITICAL</span>
+      <span class="qual-badge qual-observed">Observed state</span>
       <span class="finding-title">Secret detected: github-pat</span>
       <span class="finding-tool">gitleaks</span>
     </summary>
@@ -462,6 +469,7 @@ details summary:hover{background:#f8fafc}
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>gitleaks-a495ac92e1d53ce8</code></p></div>
         <div class="ff"><label>Category</label><p>SECRET</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-observed">Observed state</span> — Hardcoded credential pattern detected in repository file. Active validity and access scope must be verified before revocation.</p></div>
         <div class="ff"><label>File</label><p><code>.env.demo.leak : L3</code></p></div>
 
         <div class="ff full"><label>Description</label><p>Uncovered a GitHub Personal Access Token, potentially leading to unauthorized repository access and sensitive content exposure.</p></div>
@@ -481,6 +489,7 @@ details summary:hover{background:#f8fafc}
     <summary>
       <span class="badge badge-p1">P1</span>
       <span class="sev-badge sev-high">HIGH</span>
+      <span class="qual-badge qual-observed">Observed state</span>
       <span class="finding-title">Vulnerable dependency detected: lodash CVE-2021-23337</span>
       <span class="finding-tool">trivy</span>
     </summary>
@@ -488,6 +497,7 @@ details summary:hover{background:#f8fafc}
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>trivy-c20c3e919bbf9a5c</code></p></div>
         <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-observed">Observed state</span> — Pinned dependency in package-lock.json. Exploitability requires application code to invoke lodash template imports with untrusted input.</p></div>
         <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
         <div class="ff"><label>Component</label><p>lodash</p></div>
         <div class="ff full"><label>Description</label><p>Lodash versions prior to 4.17.21 are vulnerable to Command Injection via the template function.</p></div>
@@ -499,40 +509,35 @@ details summary:hover{background:#f8fafc}
       </div>
     </div>
   </details>
-
   <details>
     <summary>
       <span class="badge badge-p1">P1</span>
       <span class="sev-badge sev-high">HIGH</span>
-      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2026-4800</span>
+      <span class="qual-badge qual-observed">Observed state</span>
+      <span class="finding-title">body-parser 1.20.2 (via express 4.17.1) — ReDoS via urlencoded parsing (CVE-2024-45590)</span>
       <span class="finding-tool">trivy</span>
     </summary>
     <div class="finding-body">
       <div class="finding-grid">
-        <div class="ff"><label>ID</label><p><code>trivy-0e6987c640673cef</code></p></div>
+        <div class="ff"><label>ID</label><p><code>trivy-cve-2024-45590</code></p></div>
         <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-observed">Observed state</span> — Transitive dependency resolved via express 4.17.1. ReDoS triggers when requests with deeply nested URL-encoded bodies hit endpoints using express.urlencoded().</p></div>
         <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
-        <div class="ff"><label>Component</label><p>lodash</p></div>
-        <div class="ff full"><label>Description</label><p>Impact:
-
-The fix for CVE-2021-23337 (https://github.com/advisories/GHSA-35jh-r3h4-6jhm) added validation for the variable option in _.template but did not apply the same validation to options.imports key names. Both paths flow into the same Function() constructor sink.
-
-When an application passes untrusted input as options.imports key names, an attacker can inject default-parameter expressions that execute arbitrary code at template compilation time.
-
-Additionally, _.template uses assignInWith to merge impo…</p></div>
-        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.18.0 vulnerability=CVE-2026-4800</div></div>
-        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
-        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.18.0 or later.</p></div>
+        <div class="ff"><label>Component</label><p>body-parser (transitive via express 4.17.1)</p></div>
+        <div class="ff full"><label>Description</label><p>body-parser versions prior to 1.20.3 are vulnerable to Regular Expression Denial of Service (ReDoS) when parsing URL-encoded request bodies containing deeply nested or cyclic parameter structures. Because express 4.17.1 depends on body-parser transitively, any endpoint using express.urlencoded() or body-parser directly can be subjected to CPU starvation and worker blockage by an unauthenticated attacker.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">dependency_chain: express@4.17.1 -&gt; body-parser@1.20.2 | installed=1.20.2 fixed=1.20.3 vulnerability=CVE-2024-45590</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An unauthenticated attacker can submit crafted payloads to starve server resources, leading to application downtime or denial of service.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>upgrade to express &gt;= 4.19.2 / body-parser &gt;= 1.20.3 (Dependency chain: express 4.17.1 -&gt; body-parser 1.20.2)</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-4800" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-4800</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10131" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10131</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10175" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10175</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10710" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10710</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:10713" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:10713</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11454" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11454</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11469" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11469</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11470" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11470</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11471" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11471</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11493" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11493</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45590" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2024-45590</a></li><li><a href="https://github.com/expressjs/body-parser/security/advisories/GHSA-qw6h-v55c-cxd9" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/security/advisories/GHSA-qw6h-v55c-cxd9</a></li></ul></div>
       </div>
-    </div>
-  </details>
+    </div></details>
 
   <details>
     <summary>
       <span class="badge badge-p1">P1</span>
       <span class="sev-badge sev-high">HIGH</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">SAST: js-eval-usage</span>
       <span class="finding-tool">semgrep</span>
     </summary>
@@ -540,6 +545,7 @@ Additionally, _.template uses assignInWith to merge impo…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>semgrep-8ea7d3c2c420f4d3</code></p></div>
         <div class="ff"><label>Category</label><p>SAST</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Dangerous evaluation sink in source code. Arbitrary code execution requires an untrusted input flow reaching this eval() call.</p></div>
         <div class="ff"><label>File</label><p><code>src/app.js : L3</code></p></div>
 
         <div class="ff full"><label>Description</label><p>eval() executes arbitrary JavaScript. If the argument is derived from user input or an external source, this leads to code injection.</p></div>
@@ -556,6 +562,7 @@ Additionally, _.template uses assignInWith to merge impo…</p></div>
     <summary>
       <span class="badge badge-p1">P1</span>
       <span class="sev-badge sev-high">HIGH</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">SAST: js-child-process-exec</span>
       <span class="finding-tool">semgrep</span>
     </summary>
@@ -563,6 +570,7 @@ Additionally, _.template uses assignInWith to merge impo…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>semgrep-054ed0f9a21a68a4</code></p></div>
         <div class="ff"><label>Category</label><p>SAST</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Shell execution sink in source code. Command injection exploitability requires unvalidated user input concatenated into the command string.</p></div>
         <div class="ff"><label>File</label><p><code>src/app.js : L4</code></p></div>
 
         <div class="ff full"><label>Description</label><p>child_process.exec() passes its argument to a shell, enabling injection if the command string contains any user-controlled data.</p></div>
@@ -579,6 +587,7 @@ Additionally, _.template uses assignInWith to merge impo…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-observed">Observed state</span>
       <span class="finding-title">Vulnerable dependency detected: lodash CVE-2020-28500</span>
       <span class="finding-tool">trivy</span>
     </summary>
@@ -586,6 +595,7 @@ Additionally, _.template uses assignInWith to merge impo…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>trivy-8024e95d617bc663</code></p></div>
         <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-observed">Observed state</span> — Pinned dependency in package-lock.json. ReDoS exploitability requires untrusted input to be processed by toNumber or trimEnd.</p></div>
         <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
         <div class="ff"><label>Component</label><p>lodash</p></div>
         <div class="ff full"><label>Description</label><p>Lodash versions prior to 4.17.21 are vulnerable to Regular Expression Denial of Service (ReDoS) via the toNumber, trim and trimEnd functions.</p></div>
@@ -597,65 +607,58 @@ Additionally, _.template uses assignInWith to merge impo…</p></div>
       </div>
     </div>
   </details>
-
   <details>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
-      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2025-13465</span>
+      <span class="qual-badge qual-observed">Observed state</span>
+      <span class="finding-title">Vulnerable dependency detected: jsonwebtoken CVE-2022-23529</span>
       <span class="finding-tool">trivy</span>
     </summary>
     <div class="finding-body">
       <div class="finding-grid">
-        <div class="ff"><label>ID</label><p><code>trivy-07ac7ea361a3ab26</code></p></div>
+        <div class="ff"><label>ID</label><p><code>trivy-cve-2022-23529</code></p></div>
         <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-observed">Observed state</span> — Pinned dependency in package-lock.json. Exploitability requires passing untrusted key objects or uncontrolled callbacks to jwt.verify().</p></div>
         <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
-        <div class="ff"><label>Component</label><p>lodash</p></div>
-        <div class="ff full"><label>Description</label><p>Lodash versions 4.0.0 through 4.17.22 are vulnerable to prototype pollution in the _.unset and _.omit functions. An attacker can pass crafted paths which cause Lodash to delete methods from global prototypes.
-
-The issue permits deletion of properties but does not allow overwriting their original behavior.
-
-This issue is patched on 4.17.23</p></div>
-        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.17.23 vulnerability=CVE-2025-13465</div></div>
-        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
-        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.17.23 or later.</p></div>
+        <div class="ff"><label>Component</label><p>jsonwebtoken</p></div>
+        <div class="ff full"><label>Description</label><p>jsonwebtoken versions 8.5.1 and earlier are vulnerable to arbitrary code execution / prototype manipulation when an application allows untrusted key objects to be supplied to the verify() or sign() methods.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=8.5.1 fixed=9.0.0 vulnerability=CVE-2022-23529</div></div>
+        <div class="ff full"><label>Business Impact</label><p>If an attacker can influence key retrieval or pass a crafted key object to the verification logic, they may execute arbitrary JavaScript code in the backend runtime.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade jsonwebtoken to version 9.0.0 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2025-13465" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2025-13465</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:11414" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:11414</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:13542" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:13542</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:13548" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:13548</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:13829" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:13829</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:14774" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:14774</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:14870" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:14870</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:14871" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:14871</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:15091" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:15091</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:17469" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:17469</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-23529" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2022-23529</a></li><li><a href="https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-qwph-4952-7xr6" rel="noopener noreferrer" target="_blank">https://github.com/auth0/node-jsonwebtoken/security/advisories/GHSA-qwph-4952-7xr6</a></li></ul></div>
       </div>
-    </div>
-  </details>
-
+    </div></details>
   <details>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
-      <span class="finding-title">Vulnerable dependency detected: lodash CVE-2026-2950</span>
+      <span class="qual-badge qual-observed">Observed state</span>
+      <span class="finding-title">Vulnerable dependency detected: multer CVE-2022-24434</span>
       <span class="finding-tool">trivy</span>
     </summary>
     <div class="finding-body">
       <div class="finding-grid">
-        <div class="ff"><label>ID</label><p><code>trivy-a10775dfbc4de550</code></p></div>
+        <div class="ff"><label>ID</label><p><code>trivy-cve-2022-24434</code></p></div>
         <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-observed">Observed state</span> — Pinned dependency in package-lock.json. Denial of Service exploitability requires file upload routes handling multipart streams without strict payload size bounds.</p></div>
         <div class="ff"><label>File</label><p><code>package-lock.json</code></p></div>
-        <div class="ff"><label>Component</label><p>lodash</p></div>
-        <div class="ff full"><label>Description</label><p>Impact:
-
-Lodash versions 4.17.23 and earlier are vulnerable to prototype pollution in the _.unset and _.omit functions. The fix for (CVE-2025-13465: https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg) only guards against string key members, so an attacker can bypass the check by passing array-wrapped path segments. This allows deletion of properties from built-in prototypes such as Object.prototype, Number.prototype, and String.prototype.
-
-The issue permits deletion of prototype proper…</p></div>
-        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=4.17.20 fixed=4.18.0 vulnerability=CVE-2026-2950</div></div>
-        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
-        <div class="ff full"><label>Recommended Fix</label><p>Upgrade lodash to version 4.18.0 or later.</p></div>
+        <div class="ff"><label>Component</label><p>multer</p></div>
+        <div class="ff full"><label>Description</label><p>multer versions prior to 1.4.4-lts.1 are vulnerable to Denial of Service via unbounded memory allocation during multipart stream processing when handling crafted multipart boundaries.</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=1.4.4 fixed=1.4.4-lts.1 vulnerability=CVE-2022-24434</div></div>
+        <div class="ff full"><label>Business Impact</label><p>An attacker can send crafted multipart requests to exhaust available process memory, resulting in out-of-memory errors and crash of the application worker.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade multer to version 1.4.4-lts.1 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-2950" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-2950</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-2950" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-2950</a></li><li><a href="https://github.com/lodash/lodash" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash</a></li><li><a href="https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/security/advisories/GHSA-f23m-r3pf-42rh</a></li><li><a href="https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg" rel="noopener noreferrer" target="_blank">https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg</a></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-2950" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2026-2950</a></li><li><a href="https://ubuntu.com/security/notices/USN-8411-1" rel="noopener noreferrer" target="_blank">https://ubuntu.com/security/notices/USN-8411-1</a></li><li><a href="https://www.cve.org/CVERecord?id=CVE-2026-2950" rel="noopener noreferrer" target="_blank">https://www.cve.org/CVERecord?id=CVE-2026-2950</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2022-24434" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2022-24434</a></li><li><a href="https://github.com/expressjs/multer/security/advisories/GHSA-93gm-qgf6-w879" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/multer/security/advisories/GHSA-93gm-qgf6-w879</a></li></ul></div>
       </div>
-    </div>
-  </details>
+    </div></details>
 
   <details>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure S3 buckets should have event notifications enabled (CKV2_AWS_62)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -663,6 +666,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-8ab0f74961825266</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure S3 buckets should have event notifications enabled</p></div>
@@ -679,6 +683,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure all data stored in the S3 bucket have versioning enabled (CKV_AWS_21)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -686,6 +691,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-c3edcc6f974ae6c4</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure all data stored in the S3 bucket have versioning enabled</p></div>
@@ -702,6 +708,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure that S3 bucket has a Public Access block (CKV2_AWS_6)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -709,6 +716,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-5942a4975a2866ef</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure that S3 bucket has a Public Access block</p></div>
@@ -725,6 +733,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure that S3 bucket has cross-region replication enabled (CKV_AWS_144)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -732,6 +741,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-eb256636d801ef06</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure that S3 bucket has cross-region replication enabled</p></div>
@@ -748,6 +758,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure that S3 buckets are encrypted with KMS by default (CKV_AWS_145)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -755,6 +766,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-205f4cd89b3130e0</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure that S3 buckets are encrypted with KMS by default</p></div>
@@ -771,6 +783,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure that an S3 bucket has a lifecycle configuration (CKV2_AWS_61)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -778,6 +791,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-b17daa8ca96329fe</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure that an S3 bucket has a lifecycle configuration</p></div>
@@ -794,6 +808,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure the S3 bucket has access logging enabled (CKV_AWS_18)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -801,6 +816,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-92db8957db052bd3</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Risky configuration declared in Terraform code. Does NOT mean the S3 bucket is currently accessible until deployment and account-level guardrails (e.g., S3 Block Public Access) are verified.</p></div>
         <div class="ff"><label>File</label><p><code>/infra/main.tf : L6</code></p></div>
         <div class="ff"><label>Component</label><p>aws_s3_bucket.demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure the S3 bucket has access logging enabled</p></div>
@@ -817,6 +833,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Apply security context to your containers (CKV_K8S_30)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -824,6 +841,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-c17916a0f9fae6c5</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Apply security context to your containers</p></div>
@@ -840,6 +858,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Apply security context to your pods and containers (CKV_K8S_29)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -847,6 +866,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-022a5e61ccf3957c</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Apply security context to your pods and containers</p></div>
@@ -863,6 +883,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: CPU limits should be set (CKV_K8S_11)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -870,6 +891,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-638880e00bd6b4d9</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>CPU limits should be set</p></div>
@@ -886,6 +908,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: CPU requests should be set (CKV_K8S_10)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -893,6 +916,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-e4f9751be7d2c40d</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>CPU requests should be set</p></div>
@@ -909,6 +933,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Containers should not run with allowPrivilegeEscalation (CKV_K8S_20)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -916,6 +941,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-ad4d41450215db5d</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Containers should not run with allowPrivilegeEscalation</p></div>
@@ -932,6 +958,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Containers should not share the host network namespace (CKV_K8S_19)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -939,6 +966,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-3ec09845edff3e84</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Containers should not share the host network namespace</p></div>
@@ -955,6 +983,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Containers should run as a high UID to avoid host conflict (CKV_K8S_40)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -962,6 +991,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-e4b3864806ede61a</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Containers should run as a high UID to avoid host conflict</p></div>
@@ -978,6 +1008,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure that Service Account Tokens are only mounted where necessary (CKV_K8S_38)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -985,6 +1016,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-ff4411812248859d</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure that Service Account Tokens are only mounted where necessary</p></div>
@@ -1001,6 +1033,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Ensure that the seccomp profile is set to docker/default or runtime/default (CKV_K8S_31)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1008,6 +1041,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-30b06403971213e6</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Ensure that the seccomp profile is set to docker/default or runtime/default</p></div>
@@ -1024,6 +1058,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Image Pull Policy should be Always (CKV_K8S_15)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1031,6 +1066,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-8c27de9b025e3ab2</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Image Pull Policy should be Always</p></div>
@@ -1047,6 +1083,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Image should use digest (CKV_K8S_43)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1054,6 +1091,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-c7188be8fcc9a20f</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Image should use digest</p></div>
@@ -1070,6 +1108,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Liveness Probe Should be Configured (CKV_K8S_8)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1077,6 +1116,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-dd7d8e9a1b765ab9</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Liveness Probe Should be Configured</p></div>
@@ -1093,6 +1133,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Memory limits should be set (CKV_K8S_13)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1100,6 +1141,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-4dcad0bd18f49f6b</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Memory limits should be set</p></div>
@@ -1116,6 +1158,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Memory requests should be set (CKV_K8S_12)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1123,6 +1166,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-d2530420527f4962</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Memory requests should be set</p></div>
@@ -1139,6 +1183,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Minimize the admission of containers with capabilities assigned (CKV_K8S_37)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1146,6 +1191,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-c08d281b07b406bb</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Minimize the admission of containers with capabilities assigned</p></div>
@@ -1162,6 +1208,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Minimize the admission of containers with the NET_RAW capability (CKV_K8S_28)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1169,6 +1216,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-aab395c354fa6297</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Minimize the admission of containers with the NET_RAW capability</p></div>
@@ -1185,6 +1233,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Minimize the admission of pods which lack an associated NetworkPolicy (CKV2_K8S_6)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1192,6 +1241,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-599df34caac4d9b5</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Minimize the admission of pods which lack an associated NetworkPolicy</p></div>
@@ -1208,6 +1258,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Minimize the admission of root containers (CKV_K8S_23)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1215,6 +1266,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-9673b9545de341c5</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Minimize the admission of root containers</p></div>
@@ -1231,6 +1283,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Readiness Probe Should be Configured (CKV_K8S_9)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1238,6 +1291,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-3946bf9492f2a59b</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Readiness Probe Should be Configured</p></div>
@@ -1254,6 +1308,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: The default namespace should not be used (CKV_K8S_21)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1261,6 +1316,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-408ad24e4384c8b0</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>The default namespace should not be used</p></div>
@@ -1277,6 +1333,7 @@ The issue permits deletion of prototype proper…</p></div>
     <summary>
       <span class="badge badge-p2">P2</span>
       <span class="sev-badge sev-medium">MEDIUM</span>
+      <span class="qual-badge qual-code">Code finding</span>
       <span class="finding-title">IaC: Use read-only filesystem for containers where possible (CKV_K8S_22)</span>
       <span class="finding-tool">checkov</span>
     </summary>
@@ -1284,6 +1341,7 @@ The issue permits deletion of prototype proper…</p></div>
       <div class="finding-grid">
         <div class="ff"><label>ID</label><p><code>checkov-f2b50e730bb8f022</code></p></div>
         <div class="ff"><label>Category</label><p>IAC_MISCONFIGURATION</p></div>
+        <div class="ff full"><label>Triage Qualification</label><p><span class="qual-badge qual-code">Code finding</span> — Configuration declared in Kubernetes pod manifest. Cluster runtime impact depends on active admission controller enforcement (OPA/Kyverno) and production deployment status.</p></div>
         <div class="ff"><label>File</label><p><code>/k8s/pod.yaml : L2</code></p></div>
         <div class="ff"><label>Component</label><p>Pod.default.aadsec-demo</p></div>
         <div class="ff full"><label>Description</label><p>Use read-only filesystem for containers where possible</p></div>
