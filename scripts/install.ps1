@@ -39,7 +39,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 # ── Pinned default version (bump per release) ────────────────────────────────
-$DefaultVersion = '0.1.0-alpha.1'
+$DefaultVersion = '0.1.0'
 
 if ([string]::IsNullOrWhiteSpace($Version))    { $Version = $DefaultVersion }
 if ([string]::IsNullOrWhiteSpace($BaseUrl))    { $BaseUrl = "https://github.com/aadieng100/aadsec-public/releases/download/v$Version" }
