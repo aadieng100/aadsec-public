@@ -53,8 +53,7 @@ Yes. You can **voluntarily** share the results (never your code) with AADSec for
 remediation help — see [How sharing works](SHARING.md).
 
 **Which platforms are supported?**
-macOS and Linux are tested. Windows (Docker Desktop + WSL2 backend) is
-experimental and not yet validated end-to-end.
+macOS (Intel, macOS 15): tested. Apple Silicon (darwin_arm64 binary): not tested on macOS. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop; native Linux validation in progress (CI). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 image: provided; tool versions checked under emulation only; not tested natively.
 
 **What does "AADSec" stand for?**
 Publicly: **Actionable Audit for DevSecOps**. The name also carries the initials
