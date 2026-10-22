@@ -35,7 +35,7 @@ does **not** place AADSec itself under an open-source licence.
 ## Contact
 
 For licensing, evaluation, or commercial use, contact the owner:
-Abdoul Aziz Dieng — diengabdoulaziz110@gmail.com.
+Abdoul Aziz Dieng — contact@aadsec.xyz.
 
 ---
 
