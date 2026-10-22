@@ -1,6 +1,6 @@
 # Beta guide
 
-Thanks for trying AADSec in alpha 🙏. This guide gets you from install to your
+Thanks for trying AADSec in V1 (beta) 🙏. This guide gets you from install to your
 first report in ~15 minutes, and shows how to send useful feedback.
 
 AADSec is a **local-first DevSecOps audit**: it orchestrates recognized
@@ -9,14 +9,14 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ---
 
-## What the alpha does (and doesn't)
+## What V1 (beta) does (and doesn't)
 
-| Domain | Tool | In the alpha |
+| Domain | Tool | In V1 (beta) |
 |---|---|---|
 | Secrets | Gitleaks | ✅ |
 | Dependencies (SCA) | Trivy (filesystem) | ✅ |
 | SAST | Semgrep (local ruleset) | ✅ |
-| IaC (Terraform / K8s) | Checkov | ✅ |
+| IaC (terraform, kubernetes, dockerfile, cloudformation) | Checkov | ✅ |
 | Container image | Trivy (`--image`) | ✅ |
 
 - **Outputs:** `findings.json` (normalized, prioritized P0–P3) + `report.html`
@@ -47,26 +47,24 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 - **Docker**, running (the scanners run inside a container). If Docker is not started, `aadsec doctor` and `aadsec scan` will detect it and provide the exact command to start it on your OS.
 - **git**.
-- **Windows:** Docker Desktop with the **WSL2 backend** enabled. Windows support
-  is **experimental** and not yet validated end-to-end — macOS and Linux are the
-  tested platforms.
+- **Platforms:** macOS (Intel, macOS 15): tested. Apple Silicon (darwin_arm64 binary): not tested on macOS. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop; native Linux validation in progress (CI). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 image: provided; tool versions checked under emulation only; not tested natively.
 
 ---
 
 ## Download & install
 
-The current build is `v0.1.0-alpha.1` on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page.
+The current build is `v0.1.0` on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page.
 The installer downloads the matching binary and **verifies its checksum** before
 installing — nothing is installed if the checksum fails.
 
 ```bash
 # macOS/Linux — download the installer (read it first is recommended), then run it:
-curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0-alpha.1/install.sh
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0/install.sh
 bash install.sh
 aadsec --version
 
 # Fetch the runner image once (AADSec never pulls it for you):
-docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0-alpha.1
+docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0
 
 # Verify everything is aligned:
 aadsec doctor        # should show "Runner status: ✅ present … (matches CLI)"
@@ -92,7 +90,7 @@ Output is English by default; add `--lang fr` for French.
 
 ## Beta usage limit
 
-The alpha is capped at **3 successful scans per machine** so we can gather
+The beta is capped at **3 successful scans per machine** so we can gather
 feedback before opening wider access.
 
 - Only **successful** scans count. `--dry-run` never counts and is never blocked.
