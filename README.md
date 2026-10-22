@@ -1,3 +1,7 @@
+> **Notice (FR) :** v0.1.0-alpha.1 est remplacée par v0.1.0. L'image alpha.1 peut terminer un scan sans erreur avec 0 constat Checkov (échec silencieux de Checkov, preuve F-05-first-report.log) : ne l'utilisez pas.
+>
+> **Notice (EN):** v0.1.0-alpha.1 is replaced by v0.1.0. The alpha.1 image can finish a scan without error with 0 Checkov findings (silent Checkov failure, evidence F-05-first-report.log): do not use it.
+
 # AADSec — Actionable Audit for DevSecOps
 
 > **AADSec** is a **local-first DevSecOps audit tool**. It orchestrates trusted
@@ -62,41 +66,61 @@ The report has two views:
 
 ## Download & install
 
-AADSec is distributed as a **private beta** from the
-[**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.0-alpha.1`). The
+AADSec is distributed as a **private beta** (V1 beta) from the
+[**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.0`). The
 installer downloads the matching binary and **verifies its SHA-256** before
-installing — nothing is installed if the checksum fails.
+installing — nothing is installed if the checksum fails. Note: asset release URLs for v0.1.0 cannot be tested prior to publication (non prouvé).
+
+### Platform support
+
+macOS (Intel, macOS 15): tested. Apple Silicon (darwin_arm64 binary): not tested on macOS. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop; native Linux validation in progress (CI). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 image: provided; tool versions checked under emulation only; not tested natively.
+
+### Prerequisites
+
+- **Docker**: running (the scanners run inside a container).
+  - **Linux prerequisite**: the user account must have permissions to communicate with the Docker daemon socket (membership in the `docker` group with a refreshed session), otherwise Docker commands fail with: `permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock` (evidence: `evidence/2026-10-21_windows-tests`, `win-verdict.md`, D-DOCKER-GROUP and W16).
+  - **Windows**: Docker Desktop with the **WSL2 backend**.
+- **Git**: installed and on PATH.
+
+### Installation
 
 **macOS / Linux**
 
 ```bash
 # 1) Download the installer (reading it before running is recommended)
-curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0-alpha.1/install.sh
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0/install.sh
 
-# 2) Run it — installs to ~/.local/bin, no sudo
+# 2) Run it — installs to ~/.local/bin (or $AADSEC_INSTALL_DIR), no sudo
 bash install.sh
 aadsec --version
 ```
 
-**Windows** — ⚠️ experimental, not yet validated end-to-end. Requires Docker
-Desktop with the **WSL2 backend**.
+Installation directory and PATH notice:
+- The installer places the `aadsec` binary in `~/.local/bin` by default (configurable via `AADSEC_INSTALL_DIR`).
+- If `~/.local/bin` is not on your PATH, the installer prints the following notice:
+  ```text
+  ~/.local/bin is not on your PATH.
+      echo 'export PATH="~/.local/bin:$PATH"' >> ~/.profile && . ~/.profile
+  ```
+
+**Windows** (experimental)
 
 ```powershell
 Invoke-WebRequest -UseBasicParsing `
-  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0-alpha.1/install.ps1 `
+  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0/install.ps1 `
   -OutFile install.ps1
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 aadsec --version
 ```
 
 Prefer not to use the script? The [Releases](https://github.com/aadieng100/aadsec-public/releases) page also lists the
-raw binaries, archives, `SHA256SUMS`, and a CycloneDX SBOM for manual installs.
+raw binaries, archives, `SHA256SUMS`, and a CycloneDX SBOM for manual installs. Note: `SHA256SUMS` covers the 12 distribution binaries and archives; it does not cover the SBOM or installer scripts.
 
 **The scanner runner image (once).** The scan runs inside a container image you
 fetch yourself — AADSec never pulls it for you:
 
 ```bash
-docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0-alpha.1
+docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0
 aadsec doctor      # verifies the CLI and runner image are aligned
 ```
 
@@ -166,7 +190,7 @@ left untouched — remove those yourself.
 | Secrets | Gitleaks |
 | Dependencies (SCA) | Trivy — filesystem |
 | SAST | Semgrep — local ruleset |
-| IaC (Terraform / Kubernetes) | Checkov |
+| IaC (terraform, kubernetes, dockerfile, cloudformation) | Checkov |
 | Container image | Trivy — `--image` / `--image-tar` |
 
 **Profiles:** `quick` (fast feedback) and `standard` (recommended).
@@ -191,6 +215,7 @@ before opening wider access — details in the [beta guide](docs/BETA.md).
 - [Beta guide](docs/BETA.md) — download, install, run, give feedback
 - [How sharing works](docs/SHARING.md) — the opt-in, manual sharing model
 - [FAQ](docs/FAQ.md) — trust, privacy, scope
+- [Known limitations](docs/KNOWN_LIMITATIONS.md) — technical constraints, platform details, and evaluation scope
 
 ---
 
@@ -203,7 +228,7 @@ while also carrying the initials of its creator, **Abdoul Aziz Dieng**.
 
 ## Contact
 
-- **Email:** [diengabdoulaziz110@gmail.com](mailto:diengabdoulaziz110@gmail.com)
+- **Email:** [contact@aadsec.xyz](mailto:contact@aadsec.xyz)
 - **LinkedIn:** [linkedin.com/in/aadieng](https://www.linkedin.com/in/aadieng/)
 - Questions or feedback: reach out by email or LinkedIn.
 
@@ -217,7 +242,7 @@ No right to use, copy, modify, distribute, sublicense, resell, or create
 derivative works from AADSec is granted except with prior written permission
 from the owner.
 Any beta build or evaluation access is provided on a limited, revocable, and
-non-transferable basis.
+non-transferable basis under an evaluation license (licence d'évaluation). The accompanying legal files (LICENSE, SECURITY.md, THIRD_PARTY_NOTICES.md) are evaluation drafts, with finalized legal texts planned for version 0.1.1.
 
 AADSec orchestrates third-party open-source scanners (Gitleaks, Trivy, Semgrep,
 Checkov); those tools remain under their own respective licences — see
