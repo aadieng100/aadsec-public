@@ -1,3 +1,7 @@
+> **Notice (FR) :** v0.1.0-alpha.1 est remplacée par v0.1.0. L'image alpha.1 peut terminer un scan sans erreur avec 0 constat Checkov (échec silencieux de Checkov, preuve F-05-first-report.log) : ne l'utilisez pas.
+>
+> **Notice (EN):** v0.1.0-alpha.1 is replaced by v0.1.0. The alpha.1 image can finish a scan without error with 0 Checkov findings (silent Checkov failure, evidence F-05-first-report.log): do not use it.
+
 # AADSec — beta release notes (template)
 
 Copy this into each GitHub Release description and replace the `<…>` placeholders.
@@ -17,10 +21,7 @@ layer; it does **not** replace a penetration test and never claims your code is
 
 ### Platforms
 
-- macOS (amd64, arm64) — tested
-- Linux (amd64, arm64) — tested
-- Windows (amd64, arm64) — **experimental**, not yet validated end-to-end
-  (requires Docker Desktop with the WSL2 backend)
+macOS (Intel, macOS 15): tested. Apple Silicon (darwin_arm64 binary): not tested on macOS. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop; native Linux validation in progress (CI). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 image: provided; tool versions checked under emulation only; not tested natively.
 
 ### Assets in this release
 
@@ -67,12 +68,11 @@ Removes all local AADSec state (binary, config, beta counter, cache). Per-projec
 - Not yet delivered: SARIF export, SBOM (CycloneDX), PDF export, DAST (OWASP ZAP),
   the `deep` profile.
 - Windows support is experimental (see above).
-- Full list: [LIMITATIONS](https://github.com/aadieng100/aadsec) in the product
-  repository.
+- Full list: [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md).
 
 ### Feedback wanted 🎯
 
-Email **diengabdoulaziz110@gmail.com** or reach out on
+Email **contact@aadsec.xyz** or reach out on
 **[LinkedIn](https://www.linkedin.com/in/aadieng/)** with: OS + versions
 (`aadsec --version`, `aadsec doctor`), project type (no sensitive code), useful
 findings vs noise, report clarity (CTO vs developer), and what you miss most.
