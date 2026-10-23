@@ -11,9 +11,8 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 1. Operating System & Platform Support
 
 - **macOS (Intel, macOS 15)**: tested.
-- **Apple Silicon (darwin_arm64 binary)**: compiled, but execution has not been performed on macOS (G2-05).
-- **Linux x86_64**: tested under WSL2 (Ubuntu 24.04) with Docker Desktop; native Linux tests in progress (CI).
-- **Linux arm64 runner image**: provided; tool versions checked under emulation only; not tested natively.
+- **Linux x86_64**: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137).
+- **Linux arm64 and Apple Silicon (runner image)**: not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); the darwin_arm64 binary has not been run.
 - **Windows 11**: experimental; native folder scans work under the tested conditions.
   - `--image` scans on Windows are not supported (observed on Windows 11: exit code 3 "analysis incomplete", attempt 2 "scan interrupted").
   - Output directory on `/mnt/c` under WSL is not supported due to filesystem translation semantics; use paths under `/home` (W14).
@@ -29,7 +28,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 3. Scanner Findings & Vulnerability Database
 
 - **Embedded Gitleaks binary findings**: 36 HIGH/CRITICAL findings (1 CRITICAL, 35 HIGH) detected during container runner audits stem from the upstream Gitleaks 8.30.1 binary itself (the latest upstream release available at build time). Upstream updates or remediation will follow in subsequent updates.
-- **Trivy vulnerability database**: The host cache database (`~/Library/Caches/aadsec` on macOS) can be newer than the static database embedded in the runner image. The vulnerability database update date is displayed in `report.html` and recorded in `audit-metadata.json` (e.g. `2026-10-12`).
+- **Trivy vulnerability database**: the Trivy database used can differ from the one embedded in the image (host cache); its date appears in the report.
 
 ### 4. Integrity Checksums
 
@@ -43,9 +42,8 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 1. Systèmes d'exploitation et plateformes
 
 - **macOS (Intel, macOS 15)** : testé.
-- **Apple Silicon (binaire darwin_arm64)** : compilé, mais exécution non réalisée sous macOS (G2-05).
-- **Linux x86_64** : testé sous WSL2 (Ubuntu 24.04) avec Docker Desktop ; tests Linux natifs en cours (CI).
-- **Image Linux arm64** : fournie ; versions des outils contrôlées sous émulation seulement ; non testé en natif.
+- **Linux x86_64** : testé sous WSL2 (Ubuntu 24.04) avec Docker Desktop et en natif sur GitHub Actions ubuntu-24.04 (run 39916889137).
+- **Linux arm64 et Apple Silicon (image du runner)** : non pris en charge en 0.1.0. La variante linux/arm64 de l'image 0.1.0 contient des binaires x86-64 et un scan sur un runner arm64 natif a échoué (run CI 39916889137). Correction prévue en 0.1.1. Le CLI Linux arm64 s'exécute (aadsec --version) ; le binaire darwin_arm64 n'a pas été exécuté.
 - **Windows 11** : expérimental ; scans natifs de dossiers opérationnels dans les conditions testées.
   - Les scans `--image` sous Windows ne sont pas pris en charge (constaté sous Windows 11 : code de sortie 3 « analysis incomplete », tentative 2 « scan interrupted »).
   - La sortie sur `/mnt/c` sous WSL n'est pas prise en charge ; utiliser un répertoire sous `/home` (W14).
@@ -61,7 +59,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 3. Constats des scanners et base de vulnérabilités
 
 - **Constats liés au binaire amont Gitleaks** : 36 constats HIGH/CRITICAL (1 CRITICAL, 35 HIGH) identifiés dans le conteneur runner proviennent du binaire amont Gitleaks 8.30.1 embarqué (dernière version amont disponible à la compilation). Le traitement interviendra après le lancement.
-- **Base de vulnérabilités Trivy** : La base du cache hôte peut être plus récente que celle embarquée dans l'image. La date de mise à jour de la base est affichée dans `report.html` et enregistrée dans `audit-metadata.json` (ex. `2026-10-12`).
+- **Base de vulnérabilités Trivy** : la base Trivy utilisée peut différer de celle de l'image (cache hôte) ; sa date figure dans le rapport.
 
 ### 4. Empreintes cryptographiques
 

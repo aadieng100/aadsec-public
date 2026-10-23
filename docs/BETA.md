@@ -47,7 +47,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 - **Docker**, running (the scanners run inside a container). If Docker is not started, `aadsec doctor` and `aadsec scan` will detect it and provide the exact command to start it on your OS.
 - **git**.
-- **Platforms:** macOS (Intel, macOS 15): tested. Apple Silicon (darwin_arm64 binary): not tested on macOS. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop; native Linux validation in progress (CI). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 image: provided; tool versions checked under emulation only; not tested natively.
+- **Platforms:** macOS (Intel, macOS 15): tested. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 and Apple Silicon (runner image): not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); the darwin_arm64 binary has not been run.
 
 ---
 
