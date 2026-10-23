@@ -2,175 +2,223 @@ name: smoke-test
 
 on:
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Tag de la release qui contient les assets (ex. v0.1.0, v0.1.1-rc.1)"
+        required: true
+        default: "v0.1.0"
+      version:
+        description: "Version du CLI (ex. 0.1.0, 0.1.1)"
+        required: true
+        default: "0.1.0"
+      image_ref:
+        description: "Reference de l'image runner"
+        required: true
+        default: "ghcr.io/aadieng100/aadsec-runner:0.1.0"
+      run_aplus:
+        description: "Job A+ : hote arm64 avec emulation amd64"
+        type: boolean
+        default: false
+      run_macos:
+        description: "Job macOS arm64 : install.sh et aadsec --version, sans Docker"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
 
+env:
+  RELEASE_TAG: ${{ inputs.release_tag }}
+  VERSION: ${{ inputs.version }}
+  IMAGE_REF: ${{ inputs.image_ref }}
+  DEMO_REPO: aadieng100/aadsec-demo-vulnerable
+  DEMO_COMMIT: fa975d76b0b54fcb2c78c171f26d626d8f6084fe
+
 jobs:
-  smoke-test:
+  native:
+    name: native-${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, ubuntu-24.04-arm]
-
+        include:
+          - os: ubuntu-24.04
+            arch: amd64
+            elf_machine: "3e00"
+          - os: ubuntu-24.04-arm
+            arch: arm64
+            elf_machine: "b700"
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
 
       - name: Download release assets
-        run: |
-          gh release download v0.1.0 --repo aadieng100/aadsec-public
         env:
           GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p assets
+          gh release download "$RELEASE_TAG" --repo aadieng100/aadsec-public --dir assets
 
       - name: Verify SHA256SUMS
         run: |
+          cd assets
           sha256sum -c SHA256SUMS
 
       - name: Install AADSec CLI
         run: |
+          cd assets
+          export AADSEC_VERSION="$VERSION"
+          export AADSEC_BASE_URL="$GITHUB_SERVER_URL/aadieng100/aadsec-public/releases/download/$RELEASE_TAG"
           bash install.sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/aadsec" --version
 
-      - name: Pull Runner Image
+      - name: Pull runner image
         run: |
-          docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0
+          docker pull "$IMAGE_REF"
+
+      - name: Check binary architecture in the image
+        env:
+          EXPECTED: ${{ matrix.elf_machine }}
+        run: |
+          mkdir -p elf
+          cid="$(docker create "$IMAGE_REF")"
+          failed=0
+          for f in aadsec-runner gitleaks trivy; do
+            docker cp "$cid:/usr/local/bin/$f" "elf/$f"
+            m="$(od -An -tx1 -j18 -N2 "elf/$f" | tr -d ' \n')"
+            echo "$f e_machine=$m expected=$EXPECTED"
+            if [ "$m" != "$EXPECTED" ]; then failed=1; fi
+          done
+          docker rm "$cid" > /dev/null
+          if [ "$failed" -ne 0 ]; then echo "Architecture mismatch in image"; exit 1; fi
 
       - name: Clone vulnerable demo
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git clone https://github.com/aadieng100/aadsec-demo-vulnerable.git aadsec-demo-vulnerable
+          gh repo clone "$DEMO_REPO" aadsec-demo-vulnerable
           cd aadsec-demo-vulnerable
-          git checkout fa975d76b0b54fcb2c78c171f26d626d8f6084fe
-          test "$(git rev-parse HEAD)" = "fa975d76b0b54fcb2c78c171f26d626d8f6084fe"
+          git checkout "$DEMO_COMMIT"
+          test "$(git rev-parse HEAD)" = "$DEMO_COMMIT"
 
-      - name: Run AADSec Scan
+      - name: Run AADSec scan
+        env:
+          AADSEC_RUNNER_IMAGE: ${{ inputs.image_ref }}
         run: |
           export AADSEC_STATE_DIR="$(mktemp -d)"
           aadsec scan --offline --out security-output aadsec-demo-vulnerable
 
-      - name: Extract, compare and report metrics
+      - name: Compare metrics
         run: |
-          python3 - <<'PY'
-          import json, hashlib, os, sys
-
-          findings_file = "security-output/findings.json"
-          meta_file = "security-output/audit-metadata.json"
-
-          if not os.path.isfile(findings_file):
-              print(f"Error: {findings_file} not found")
-              sys.exit(1)
-
-          with open(findings_file, "rb") as f:
-              findings_bytes = f.read()
-          findings_sha = hashlib.sha256(findings_bytes).hexdigest()
-
-          with open(findings_file, "r", encoding="utf-8") as f:
-              findings_data = json.load(f)
-
-          if "summary" not in findings_data:
-              print("Erreur critique: cle 'summary' absente de findings.json")
-              sys.exit(1)
-
-          meta_data = {}
-          if os.path.isfile(meta_file):
-              with open(meta_file, "r", encoding="utf-8") as f:
-                  meta_data = json.load(f)
-
-          summary = findings_data.get("summary", {})
-          by_prio = summary.get("by_priority", {})
-          by_tool = summary.get("by_tool", {})
-
-          brut = summary.get("total_findings", 0)
-          dedup = summary.get("deduplicated_findings", 0)
-          p0 = by_prio.get("P0", 0)
-          p1 = by_prio.get("P1", 0)
-          p2 = by_prio.get("P2", 0)
-          p3 = by_prio.get("P3", 0)
-
-          gitleaks = by_tool.get("gitleaks", 0)
-          trivy = by_tool.get("trivy", 0)
-          semgrep = by_tool.get("semgrep", 0)
-          checkov = by_tool.get("checkov", 0)
-
-          trivy_date = "non detectee"
-          for cov in meta_data.get("coverage", []):
-              if cov.get("name") == "trivy":
-                  scope = cov.get("scope", "")
-                  if "vulnerability DB updated:" in scope:
-                      trivy_date = scope.split("vulnerability DB updated:")[-1].strip()
-                  else:
-                      trivy_date = scope
-
-          print("=== MESURES AUDIT AADSEC ===")
-          print(f"Total brut: {brut} (attendu: 101)")
-          print(f"Deduplique: {dedup} (attendu: 86)")
-          print(f"P0: {p0} (attendu: 2)")
-          print(f"P1: {p1} (attendu: 38)")
-          print(f"P2: {p2} (attendu: 38)")
-          print(f"P3: {p3} (attendu: 8)")
-          print(f"Gitleaks: {gitleaks} (attendu: 2)")
-          print(f"Trivy: {trivy} (attendu: 52)")
-          print(f"Semgrep: {semgrep} (attendu: 0)")
-          print(f"Checkov: {checkov} (attendu: 32)")
-          print(f"Date base Trivy: {trivy_date}")
-          print(f"SHA-256 findings.json: {findings_sha}")
-
-          checks = [
-              ("Total brut", 101, brut),
-              ("Deduplique", 86, dedup),
-              ("P0", 2, p0),
-              ("P1", 38, p1),
-              ("P2", 38, p2),
-              ("P3", 8, p3),
-              ("Gitleaks", 2, gitleaks),
-              ("Semgrep", 0, semgrep),
-              ("Checkov", 32, checkov),
-          ]
-
-          failed = False
-          rows = []
-          for label, expected, actual in checks:
-              status = "CONFORME" if actual == expected else "ECART"
-              if status != "CONFORME":
-                  failed = True
-              rows.append(f"| {label} | {expected} | {actual} | {status} |")
-
-          if trivy == 52:
-              trivy_status = "CONFORME"
-          else:
-              trivy_status = f"ecart de base ({trivy_date})"
-          rows.append(f"| Trivy | 52 | {trivy} | {trivy_status} |")
-          rows.append(f"| Date base Trivy | - | {trivy_date} | INFO |")
-          rows.append(f"| SHA-256 findings.json | 6eb66457678f33e3066a58906cf360a595c3b97b45e86f0e1974a96e0d729455 (mesure Windows) | {findings_sha} | MESURE |")
-
-          summary_lines = [
-              "## AADSec Smoke Test - Synthese des resultats",
-              "",
-              "| Metrique | Attendu | Obtenu | Statut |",
-              "|:---|:---:|:---:|:---:|",
-              *rows,
-              ""
-          ]
-          summary_text = "\n".join(summary_lines)
-
-          step_summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
-          if step_summary_path:
-              with open(step_summary_path, "a", encoding="utf-8") as f:
-                  f.write(summary_text + "\n")
-
-          if failed:
-              print("ECHEC: Un ou plusieurs controles stricts sont en ECART (hors divergence base Trivy).")
-              sys.exit(1)
-          PY
+          python3 .github/scripts/compare_metrics.py
 
       - name: Upload artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.1
         if: always()
         with:
-          name: smoke-test-artifacts-${{ matrix.os }}
+          name: smoke-test-artifacts-${{ matrix.arch }}
           path: |
             security-output/findings.json
             security-output/audit-metadata.json
           if-no-files-found: error
+
+  aplus:
+    name: aplus-arm64-host-amd64-emulation
+    if: ${{ inputs.run_aplus }}
+    runs-on: ubuntu-24.04-arm
+    continue-on-error: true
+    env:
+      DOCKER_DEFAULT_PLATFORM: linux/amd64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
+        with:
+          platforms: amd64
+
+      - name: Download release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p assets
+          gh release download "$RELEASE_TAG" --repo aadieng100/aadsec-public --dir assets
+
+      - name: Verify SHA256SUMS
+        run: |
+          cd assets
+          sha256sum -c SHA256SUMS
+
+      - name: Install AADSec CLI
+        run: |
+          cd assets
+          export AADSEC_VERSION="$VERSION"
+          export AADSEC_BASE_URL="$GITHUB_SERVER_URL/aadieng100/aadsec-public/releases/download/$RELEASE_TAG"
+          bash install.sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/aadsec" --version
+          uname -m
+
+      - name: Pull runner image (amd64 variant)
+        run: |
+          docker pull "$IMAGE_REF"
+          docker image inspect "$IMAGE_REF" --format '{{.Os}}/{{.Architecture}}'
+
+      - name: Clone vulnerable demo
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh repo clone "$DEMO_REPO" aadsec-demo-vulnerable
+          cd aadsec-demo-vulnerable
+          git checkout "$DEMO_COMMIT"
+          test "$(git rev-parse HEAD)" = "$DEMO_COMMIT"
+
+      - name: Run AADSec scan under amd64 emulation
+        env:
+          AADSEC_RUNNER_IMAGE: ${{ inputs.image_ref }}
+        run: |
+          export AADSEC_STATE_DIR="$(mktemp -d)"
+          aadsec scan --offline --out security-output aadsec-demo-vulnerable
+
+      - name: Compare metrics
+        run: |
+          python3 .github/scripts/compare_metrics.py
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.1
+        if: always()
+        with:
+          name: smoke-test-artifacts-aplus
+          path: |
+            security-output/findings.json
+            security-output/audit-metadata.json
+          if-no-files-found: error
+
+  macos:
+    name: macos-arm64-cli-only
+    if: ${{ inputs.run_macos }}
+    runs-on: macos-15
+    continue-on-error: true
+    steps:
+      - name: Download release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p assets
+          gh release download "$RELEASE_TAG" --repo aadieng100/aadsec-public --dir assets
+
+      - name: Verify SHA256SUMS
+        run: |
+          cd assets
+          shasum -a 256 -c SHA256SUMS
+
+      - name: Install AADSec CLI and print version
+        run: |
+          cd assets
+          export AADSEC_VERSION="$VERSION"
+          export AADSEC_BASE_URL="$GITHUB_SERVER_URL/aadieng100/aadsec-public/releases/download/$RELEASE_TAG"
+          bash install.sh
+          uname -m
+          "$HOME/.local/bin/aadsec" --version
