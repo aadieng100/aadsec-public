@@ -128,8 +128,6 @@ jobs:
     if: ${{ inputs.run_aplus }}
     runs-on: ubuntu-24.04-arm
     continue-on-error: true
-    env:
-      DOCKER_DEFAULT_PLATFORM: linux/amd64
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.2.2
@@ -138,6 +136,10 @@ jobs:
         uses: docker/setup-qemu-action@99012661954931238ded8c8b007157a8430204e1 # v4.4.0
         with:
           platforms: amd64
+
+      - name: Verify amd64 emulation
+        run: |
+          docker run --rm --platform linux/amd64 alpine:3.24.2 uname -m
 
       - name: Download release assets
         env:
@@ -162,6 +164,8 @@ jobs:
           uname -m
 
       - name: Pull runner image (amd64 variant)
+        env:
+          DOCKER_DEFAULT_PLATFORM: linux/amd64
         run: |
           docker pull "$IMAGE_REF"
           docker image inspect "$IMAGE_REF" --format '{{.Os}}/{{.Architecture}}'
@@ -178,6 +182,7 @@ jobs:
       - name: Run AADSec scan under amd64 emulation
         env:
           AADSEC_RUNNER_IMAGE: ${{ inputs.image_ref }}
+          DOCKER_DEFAULT_PLATFORM: linux/amd64
         run: |
           export AADSEC_STATE_DIR="$(mktemp -d)"
           aadsec scan --offline --out security-output aadsec-demo-vulnerable
