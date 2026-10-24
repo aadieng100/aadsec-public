@@ -24,7 +24,7 @@
 set -eu
 
 # ── Pinned default version (bump per release) ────────────────────────────────
-DEFAULT_VERSION="0.1.0"
+DEFAULT_VERSION="0.1.1"
 
 VERSION="${AADSEC_VERSION:-${1:-$DEFAULT_VERSION}}"
 BASE_URL="${AADSEC_BASE_URL:-https://github.com/aadieng100/aadsec-public/releases/download/v${VERSION}}"

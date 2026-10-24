@@ -1,6 +1,6 @@
-> **Notice (FR) :** v0.1.0-alpha.1 est remplacée par v0.1.0. L'image alpha.1 peut terminer un scan sans erreur avec 0 constat Checkov (échec silencieux de Checkov, preuve F-05-first-report.log) : ne l'utilisez pas.
+> **Notice (FR) :** v0.1.0-alpha.1 est remplacée par v0.1.0. L'image alpha.1 peut terminer un scan sans erreur avec 0 constat Checkov (échec silencieux de Checkov lors des tests) : ne l'utilisez pas.
 >
-> **Notice (EN):** v0.1.0-alpha.1 is replaced by v0.1.0. The alpha.1 image can finish a scan without error with 0 Checkov findings (silent Checkov failure, evidence F-05-first-report.log): do not use it.
+> **Notice (EN):** v0.1.0-alpha.1 is replaced by v0.1.0. The alpha.1 image can finish a scan without error with 0 Checkov findings (silent Checkov failure observed during testing): do not use it.
 
 # AADSec — Actionable Audit for DevSecOps
 
@@ -67,18 +67,18 @@ The report has two views:
 ## Download & install
 
 AADSec is distributed as a **private beta** (V1 beta) from the
-[**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.0`). The
+[**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.1`). The
 installer downloads the matching binary and **verifies its SHA-256** before
-installing — nothing is installed if the checksum fails. Note: asset release URLs for v0.1.0 cannot be tested prior to publication (non prouvé).
+installing — nothing is installed if the checksum fails. Note: asset release URLs for v0.1.1 cannot be tested prior to publication (non prouvé).
 
 ### Platform support
 
-macOS (Intel, macOS 15): tested. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 and Apple Silicon (runner image): not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); aadsec --version run on a macOS arm64 runner (CI run 39942136836, version 0.1.0); scan not tested (no Docker on that runner).
+macOS (Intel, macOS 15): tested with 0.1.1. Apple Silicon (darwin_arm64): install and aadsec --version verified on a macOS arm64 runner (CI run 40054317431); scan not tested on Apple Silicon. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (CI runs 40054317431 and 40056271929). Linux arm64: CLI and runner image tested natively on GitHub Actions ubuntu-24.04-arm (CI runs 40054317431 and 40056271929). Windows 11: experimental; native folder scans passed in tests with 0.1.0 and were not repeated with 0.1.1; `--image` and output on /mnt/c under WSL are not supported.
 
 ### Prerequisites
 
 - **Docker**: running (the scanners run inside a container).
-  - **Linux prerequisite**: the user account must have permissions to communicate with the Docker daemon socket (membership in the `docker` group with a refreshed session), otherwise Docker commands fail with: `permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock` (evidence: `evidence/2026-10-21_windows-tests`, `win-verdict.md`, D-DOCKER-GROUP and W16).
+  - **Linux prerequisite**: the user account must have permissions to communicate with the Docker daemon socket (membership in the `docker` group with a refreshed session), otherwise Docker commands fail with: `permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock`.
   - **Windows**: Docker Desktop with the **WSL2 backend**.
 - **Git**: installed and on PATH.
 
@@ -88,7 +88,7 @@ macOS (Intel, macOS 15): tested. Linux x86_64: tested under WSL2 (Ubuntu 24.04) 
 
 ```bash
 # 1) Download the installer (reading it before running is recommended)
-curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0/install.sh
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/install.sh
 
 # 2) Run it — installs to ~/.local/bin (or $AADSEC_INSTALL_DIR), no sudo
 bash install.sh
@@ -107,7 +107,7 @@ Installation directory and PATH notice:
 
 ```powershell
 Invoke-WebRequest -UseBasicParsing `
-  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.1.0/install.ps1 `
+  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/install.ps1 `
   -OutFile install.ps1
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 aadsec --version
@@ -120,7 +120,7 @@ raw binaries, archives, `SHA256SUMS`, and a CycloneDX SBOM for manual installs. 
 fetch yourself — AADSec never pulls it for you:
 
 ```bash
-docker pull ghcr.io/aadieng100/aadsec-runner:0.1.0
+docker pull ghcr.io/aadieng100/aadsec-runner:0.1.1
 aadsec doctor      # verifies the CLI and runner image are aligned
 ```
 
