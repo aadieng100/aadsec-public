@@ -1,8 +1,8 @@
 # How sharing works
 
-AADSec's whole model is **local-first**: your source code stays in your
-environment. Sharing exists only so you can get **remediation help** — and it is
-built to never compromise that trust.
+AADSec is **local-first**: your source code stays in your environment. Sharing
+is optional and manual — you use it only if you want remediation help from
+AADSec.
 
 ---
 
