@@ -8,19 +8,9 @@ No right to use, copy, modify, distribute, sublicense, resell, or create
 derivative works from AADSec is granted except with prior written permission
 from the owner.
 
-Any beta build or evaluation access is provided on a limited, revocable, and
-non-transferable basis.
-
----
-
-## Summary
-
-- AADSec is **not** open source.
-- All rights are reserved by the owner, **Abdoul Aziz Dieng**.
-- You may **not** use, copy, modify, distribute, sublicense, resell, or create
-  derivative works from AADSec without prior written permission from the owner.
-- Beta and evaluation builds are provided **for evaluation only**, under terms
-  defined by the owner, and access may be **revoked at any time**.
+Any beta build or evaluation access is provided for evaluation only, on a
+limited, revocable, and non-transferable basis, under the evaluation terms
+published at https://aadsec.xyz/terms.
 
 ## Third-party components
 
