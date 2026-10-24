@@ -13,7 +13,7 @@ Keep the proprietary/beta notice at the top of every release.
 
 > **Pre-release · private beta.** Proprietary software — all rights reserved.
 > Provided for **evaluation only**, on a limited, revocable, and non-transferable
-> basis. See [PROPRIETARY.md](../PROPRIETARY.md). **AADSec is not open source.**
+> basis. See [PROPRIETARY.md](https://github.com/aadieng100/aadsec-public/blob/main/PROPRIETARY.md). **AADSec is not open source.**
 
 **Status:** private beta — not production ready. An automated audit + triage
 layer; it does **not** replace a penetration test and never claims your code is
@@ -27,7 +27,7 @@ macOS (Intel, macOS 15): tested with 0.1.1. Apple Silicon (darwin_arm64): instal
 
 - `install.sh` — macOS/Linux installer (verifies SHA-256 before installing)
 - `install.ps1` — Windows installer (verifies SHA-256 before installing)
-- `SHA256SUMS` — checksums for every asset
+- `SHA256SUMS` — SHA-256 checksums for the 12 binaries and archives (does not cover the SBOM or the installer scripts)
 - platform binaries: `aadsec_<version>_<os>_<arch>` (`.exe` on Windows)
 
 ### Install
@@ -65,12 +65,13 @@ Removes all local AADSec state (binary, config, beta counter, cache). Per-projec
 ### Known limitations
 
 - Beta cap: **3 successful scans per machine** (feedback gate; not a licence).
-- Not yet delivered: SARIF export, SBOM (CycloneDX), PDF export, DAST (OWASP ZAP),
+- Not yet delivered: SARIF export, SBOM export from a scan (a CycloneDX SBOM of
+  the runner image is provided in the release), PDF export, DAST (OWASP ZAP),
   the `deep` profile.
 - Windows support is experimental (see above).
-- Full list: [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md).
+- Full list: [KNOWN_LIMITATIONS.md](https://github.com/aadieng100/aadsec-public/blob/main/docs/KNOWN_LIMITATIONS.md).
 
-### Feedback wanted 🎯
+### Feedback wanted
 
 Email **contact@aadsec.xyz** or reach out on
 **[LinkedIn](https://www.linkedin.com/in/aadieng/)** with: OS + versions
