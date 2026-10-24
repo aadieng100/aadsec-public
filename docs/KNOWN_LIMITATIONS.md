@@ -1,8 +1,8 @@
 # Known Limitations / Limites Connues
 
-This document describes known technical limitations, platform support constraints, and evaluation boundaries for AADSec v0.1.0.
+This document describes known technical limitations, platform support constraints, and evaluation boundaries for AADSec v0.1.1.
 
-Ce document décrit les limites techniques connues, les contraintes de plateformes et le cadre de la version d'évaluation d'AADSec v0.1.0.
+Ce document décrit les limites techniques connues, les contraintes de plateformes et le cadre de la version d'évaluation d'AADSec v0.1.1.
 
 ---
 
@@ -10,14 +10,15 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 
 ### 1. Operating System & Platform Support
 
-- **macOS (Intel, macOS 15)**: tested.
-- **Linux x86_64**: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137).
-- **Linux arm64 and Apple Silicon (runner image)**: not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); aadsec --version run on a macOS arm64 runner (CI run 39942136836, version 0.1.0); scan not tested (no Docker on that runner).
-- **Windows 11**: experimental; native folder scans work under the tested conditions.
+- **macOS (Intel, macOS 15)**: tested with 0.1.1.
+- **Apple Silicon (darwin_arm64)**: install and aadsec --version verified on a macOS arm64 runner (CI run 40054317431); scan not tested on Apple Silicon.
+- **Linux x86_64**: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (CI runs 40054317431 and 40056271929).
+- **Linux arm64**: CLI and runner image tested natively on GitHub Actions ubuntu-24.04-arm (CI runs 40054317431 and 40056271929).
+- **Windows 11**: experimental; native folder scans passed in tests with 0.1.0 and were not repeated with 0.1.1; `--image` and output on /mnt/c under WSL are not supported.
   - `--image` scans on Windows are not supported (observed on Windows 11: exit code 3 "analysis incomplete", attempt 2 "scan interrupted").
-  - Output directory on `/mnt/c` under WSL is not supported due to filesystem translation semantics; use paths under `/home` (W14).
-  - When Docker is not installed or unreachable, the CLI message "Docker Desktop is not running" can be misleading (issue B-W05, scheduled for 0.1.1).
-  - Interrupting `docker.exe` during an ongoing scan can leave an active container running (W18: terminates on its own after ~110 seconds on amd64; on emulated arm64, it may remain stuck at high CPU until terminated with `docker rm -f`).
+  - Output directory on `/mnt/c` under WSL is not supported due to filesystem translation semantics; use paths under `/home`.
+  - When Docker is not installed or unreachable, the CLI message "Docker Desktop is not running" can be misleading.
+  - Interrupting `docker.exe` during an ongoing scan can leave an active container running (terminates on its own after ~110 seconds on amd64; on emulated arm64, it may remain stuck at high CPU until terminated with `docker rm -f`).
   - The Windows executable is distributed without digital signature; a SmartScreen warning was observed during testing of alpha.1.
 
 ### 2. Evaluation Scope & Limits
@@ -28,7 +29,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 3. Scanner Findings & Vulnerability Database
 
 - **Embedded Gitleaks binary findings**: 36 HIGH/CRITICAL findings (1 CRITICAL, 35 HIGH) detected during container runner audits stem from the upstream Gitleaks 8.30.1 binary itself (the latest upstream release available at build time). Upstream updates or remediation will follow in subsequent updates.
-- **Trivy vulnerability database**: the Trivy database used can differ from the one embedded in the image (host cache); its date appears in the report.
+- **Trivy vulnerability database**: the Trivy database embedded in the 0.1.1 image is dated 20 October 2026 (same snapshot as 0.1.0); the database used can differ (host cache), its date appears in the report.
 
 ### 4. Integrity Checksums
 
@@ -41,14 +42,15 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 
 ### 1. Systèmes d'exploitation et plateformes
 
-- **macOS (Intel, macOS 15)** : testé.
-- **Linux x86_64** : testé sous WSL2 (Ubuntu 24.04) avec Docker Desktop et en natif sur GitHub Actions ubuntu-24.04 (run 39916889137).
-- **Linux arm64 et Apple Silicon (image du runner)** : non pris en charge en 0.1.0. La variante linux/arm64 de l'image 0.1.0 contient des binaires x86-64 et un scan sur un runner arm64 natif a échoué (run CI 39916889137). Correction prévue en 0.1.1. Le CLI Linux arm64 s'exécute (aadsec --version) ; aadsec --version exécuté sur un runner macOS arm64 (run CI 39942136836, version 0.1.0) ; scan non testé (pas de Docker sur ce runner).
-- **Windows 11** : expérimental ; scans natifs de dossiers opérationnels dans les conditions testées.
+- **macOS (Intel, macOS 15)** : testé avec la 0.1.1.
+- **Apple Silicon (darwin_arm64)** : installation et aadsec --version vérifiés sur un runner macOS arm64 (run CI 40054317431) ; scan non testé sur Apple Silicon.
+- **Linux x86_64** : testé sous WSL2 (Ubuntu 24.04) avec Docker Desktop et en natif sur GitHub Actions ubuntu-24.04 (runs CI 40054317431 et 40056271929).
+- **Linux arm64** : CLI et image du runner testés en natif sur GitHub Actions ubuntu-24.04-arm (runs CI 40054317431 et 40056271929).
+- **Windows 11** : expérimental ; scans de dossiers réussis lors des tests avec la 0.1.0, non répétés avec la 0.1.1 ; `--image` et sortie sur /mnt/c sous WSL non pris en charge.
   - Les scans `--image` sous Windows ne sont pas pris en charge (constaté sous Windows 11 : code de sortie 3 « analysis incomplete », tentative 2 « scan interrupted »).
-  - La sortie sur `/mnt/c` sous WSL n'est pas prise en charge ; utiliser un répertoire sous `/home` (W14).
-  - Lorsque Docker est absent, le message « Docker Desktop is not running » est trompeur (anomalie B-W05, correction prévue en 0.1.1).
-  - Interrompre `docker.exe` pendant un scan peut laisser un conteneur actif (W18 : s'arrête seul après ~110 s en amd64 ; bloqué à charge processeur élevée en arm64 émulé, nécessitant `docker rm -f`).
+  - La sortie sur `/mnt/c` sous WSL n'est pas prise en charge ; utiliser un répertoire sous `/home`.
+  - Lorsque Docker est absent, le message « Docker Desktop is not running » est trompeur.
+  - Interrompre `docker.exe` pendant un scan peut laisser un conteneur actif (s'arrête seul après ~110 s en amd64 ; bloqué à charge processeur élevée en arm64 émulé, nécessitant `docker rm -f`).
   - Le binaire Windows est distribué sans signature numérique ; un avertissement SmartScreen a été observé lors des tests d'alpha.1.
 
 ### 2. Cadre et limites de l'évaluation
@@ -59,7 +61,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 3. Constats des scanners et base de vulnérabilités
 
 - **Constats liés au binaire amont Gitleaks** : 36 constats HIGH/CRITICAL (1 CRITICAL, 35 HIGH) identifiés dans le conteneur runner proviennent du binaire amont Gitleaks 8.30.1 embarqué (dernière version amont disponible à la compilation). Le traitement interviendra après le lancement.
-- **Base de vulnérabilités Trivy** : la base Trivy utilisée peut différer de celle de l'image (cache hôte) ; sa date figure dans le rapport.
+- **Base de vulnérabilités Trivy** : la base Trivy embarquée dans l'image 0.1.1 date du 20 octobre 2026 (même instantané que la 0.1.0) ; la base utilisée peut différer, sa date figure dans le rapport.
 
 ### 4. Empreintes cryptographiques
 

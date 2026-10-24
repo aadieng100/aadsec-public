@@ -53,7 +53,7 @@ Yes. You can **voluntarily** share the results (never your code) with AADSec for
 remediation help — see [How sharing works](SHARING.md).
 
 **Which platforms are supported?**
-macOS (Intel, macOS 15): tested. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 and Apple Silicon (runner image): not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); aadsec --version run on a macOS arm64 runner (CI run 39942136836, version 0.1.0); scan not tested (no Docker on that runner).
+macOS (Intel, macOS 15): tested with 0.1.1. Apple Silicon (darwin_arm64): install and aadsec --version verified on a macOS arm64 runner (CI run 40054317431); scan not tested on Apple Silicon. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (CI runs 40054317431 and 40056271929). Linux arm64: CLI and runner image tested natively on GitHub Actions ubuntu-24.04-arm (CI runs 40054317431 and 40056271929). Windows 11: experimental; native folder scans passed in tests with 0.1.0 and were not repeated with 0.1.1; `--image` and output on /mnt/c under WSL are not supported.
 
 **What does "AADSec" stand for?**
 Publicly: **Actionable Audit for DevSecOps**. The name also carries the initials

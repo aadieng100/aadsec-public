@@ -1,5 +1,5 @@
-# Security policy / Politique de sécurité (proposition pour aadsec-public/SECURITY.md)
-Version d'évaluation du 24/10/2026. Contact : contact@aadsec.xyz. Aucune adresse personnelle.
+# Security policy / Politique de sécurité
+Version d'évaluation du 24/10/2026. Contact : contact@aadsec.xyz.
 
 ## English
 
