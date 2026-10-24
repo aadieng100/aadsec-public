@@ -4,16 +4,13 @@
 
 # AADSec — Actionable Audit for DevSecOps
 
-> **AADSec** is a **local-first DevSecOps audit tool**. It orchestrates trusted
-> open-source scanners over your codebase, prioritizes the results, and produces
-> a report you can act on — **without uploading your source code**.
+> **AADSec** is a **local-first DevSecOps audit tool**. It runs Gitleaks, Trivy,
+> Semgrep, and Checkov on your codebase, deduplicates and prioritizes the
+> findings (P0–P3), and writes a self-contained report on your disk — **without
+> uploading your source code**.
 
 [![Status: Private beta](https://img.shields.io/badge/status-Private%20beta%20%E2%80%94%20not%20production%20ready-orange)]()
 [![License: Proprietary](https://img.shields.io/badge/license-Proprietary%20%E2%80%94%20all%20rights%20reserved-red)](PROPRIETARY.md)
-
-*AADSec is not a "magic scanner". It's an auditable orchestration and triage engine:
-it runs recognized tools (Gitleaks, Trivy, Semgrep, Checkov), filters the noise,
-prioritizes real risks, and hands you concrete fixes.*
 
 > **Proprietary software — all rights reserved.** AADSec is **not** open source.
 > See [Proprietary software](#proprietary-software) and [PROPRIETARY.md](PROPRIETARY.md).
@@ -69,7 +66,7 @@ The report has two views:
 AADSec is distributed as a **private beta** (V1 beta) from the
 [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.1`). The
 installer downloads the matching binary and **verifies its SHA-256** before
-installing — nothing is installed if the checksum fails. Note: asset release URLs for v0.1.1 cannot be tested prior to publication (non prouvé).
+installing — nothing is installed if the checksum fails.
 
 ### Platform support
 
@@ -195,8 +192,9 @@ left untouched — remove those yourself.
 
 **Profiles:** `quick` (fast feedback) and `standard` (recommended).
 
-**Roadmap — not yet delivered** (don't rely on these): SARIF export, SBOM
-(CycloneDX), automatic PDF export, DAST (OWASP ZAP), a `deep` profile.
+**Roadmap — not yet delivered** (do not rely on these): SARIF export, SBOM
+export from a scan (a CycloneDX SBOM of the runner image is provided in the
+release), automatic PDF export, DAST (OWASP ZAP), a `deep` profile.
 
 ---
 
@@ -242,7 +240,7 @@ No right to use, copy, modify, distribute, sublicense, resell, or create
 derivative works from AADSec is granted except with prior written permission
 from the owner.
 Any beta build or evaluation access is provided on a limited, revocable, and
-non-transferable basis under an evaluation license (licence d'évaluation). The accompanying legal files (LICENSE, SECURITY.md, THIRD_PARTY_NOTICES.md) are evaluation drafts, with finalized legal texts planned for version 0.1.1.
+non-transferable basis under an evaluation license (licence d'évaluation). The LICENSE, SECURITY.md, and THIRD_PARTY_NOTICES.md files bundled in 0.1.x archives accompany the evaluation version of the software; in case of discrepancy, the terms published on https://aadsec.xyz/terms prevail.
 
 AADSec orchestrates third-party open-source scanners (Gitleaks, Trivy, Semgrep,
 Checkov); those tools remain under their own respective licences — see
