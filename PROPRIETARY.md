@@ -2,7 +2,7 @@
 
 **Proprietary software — all rights reserved.**
 
-AADSec is proprietary software owned by Abdoul Aziz Dieng.
+AADSec is proprietary software: © 2026 Abdoul Aziz Dieng, exploitant l'entreprise individuelle DIENG TECH ET SERVICES.
 
 No right to use, copy, modify, distribute, sublicense, resell, or create
 derivative works from AADSec is granted except with prior written permission
@@ -39,4 +39,4 @@ Abdoul Aziz Dieng — contact@aadsec.xyz.
 
 ---
 
-© 2026 Abdoul Aziz Dieng. All rights reserved.
+© 2026 Abdoul Aziz Dieng, exploitant l'entreprise individuelle DIENG TECH ET SERVICES. All rights reserved.
