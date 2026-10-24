@@ -35,13 +35,14 @@ remediation follow-up.
 
 **What does it actually scan today?**
 Secrets (Gitleaks), dependencies/SCA (Trivy), SAST (Semgrep), IaC (Checkov), and
-container images (Trivy). DAST, SARIF, SBOM, and PDF export are on the roadmap,
-not delivered.
+container images (Trivy). DAST, SARIF export, SBOM export from a scan, and PDF
+export are on the roadmap, not delivered (a CycloneDX SBOM of the runner image
+is provided in the release).
 
 **Why is there a scan limit?**
-The alpha caps successful scans per machine so we can collect feedback before
-opening wider access. It's a local guardrail, not a license — see the
-[beta guide](BETA.md).
+The evaluation version caps successful scans per machine so we can collect
+feedback before opening wider access. It's a local guardrail, not a license — see
+the [beta guide](BETA.md).
 
 **Can I run scans in an air-gapped or offline environment?**
 Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.
