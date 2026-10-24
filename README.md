@@ -73,7 +73,7 @@ installing — nothing is installed if the checksum fails. Note: asset release U
 
 ### Platform support
 
-macOS (Intel, macOS 15): tested. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 and Apple Silicon (runner image): not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); the darwin_arm64 binary has not been run.
+macOS (Intel, macOS 15): tested. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137). Windows 11: experimental, native folder scans work in the tested conditions; `--image` and output on /mnt/c under WSL are not supported. Linux arm64 and Apple Silicon (runner image): not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); aadsec --version run on a macOS arm64 runner (CI run 39942136836, version 0.1.0); scan not tested (no Docker on that runner).
 
 ### Prerequisites
 
@@ -237,7 +237,7 @@ while also carrying the initials of its creator, **Abdoul Aziz Dieng**.
 ## Proprietary software
 
 **Proprietary software — all rights reserved.**
-AADSec is proprietary software owned by Abdoul Aziz Dieng.
+AADSec is proprietary software: © 2026 Abdoul Aziz Dieng, exploitant l'entreprise individuelle DIENG TECH ET SERVICES.
 No right to use, copy, modify, distribute, sublicense, resell, or create
 derivative works from AADSec is granted except with prior written permission
 from the owner.

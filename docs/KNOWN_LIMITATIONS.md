@@ -12,7 +12,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 
 - **macOS (Intel, macOS 15)**: tested.
 - **Linux x86_64**: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (run 39916889137).
-- **Linux arm64 and Apple Silicon (runner image)**: not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); the darwin_arm64 binary has not been run.
+- **Linux arm64 and Apple Silicon (runner image)**: not supported in 0.1.0. The linux/arm64 variant of the 0.1.0 image contains x86-64 binaries and a scan on a native arm64 runner failed (CI run 39916889137). A fix is planned in 0.1.1. The Linux arm64 CLI runs (aadsec --version); aadsec --version run on a macOS arm64 runner (CI run 39942136836, version 0.1.0); scan not tested (no Docker on that runner).
 - **Windows 11**: experimental; native folder scans work under the tested conditions.
   - `--image` scans on Windows are not supported (observed on Windows 11: exit code 3 "analysis incomplete", attempt 2 "scan interrupted").
   - Output directory on `/mnt/c` under WSL is not supported due to filesystem translation semantics; use paths under `/home` (W14).
@@ -43,7 +43,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 
 - **macOS (Intel, macOS 15)** : testé.
 - **Linux x86_64** : testé sous WSL2 (Ubuntu 24.04) avec Docker Desktop et en natif sur GitHub Actions ubuntu-24.04 (run 39916889137).
-- **Linux arm64 et Apple Silicon (image du runner)** : non pris en charge en 0.1.0. La variante linux/arm64 de l'image 0.1.0 contient des binaires x86-64 et un scan sur un runner arm64 natif a échoué (run CI 39916889137). Correction prévue en 0.1.1. Le CLI Linux arm64 s'exécute (aadsec --version) ; le binaire darwin_arm64 n'a pas été exécuté.
+- **Linux arm64 et Apple Silicon (image du runner)** : non pris en charge en 0.1.0. La variante linux/arm64 de l'image 0.1.0 contient des binaires x86-64 et un scan sur un runner arm64 natif a échoué (run CI 39916889137). Correction prévue en 0.1.1. Le CLI Linux arm64 s'exécute (aadsec --version) ; aadsec --version exécuté sur un runner macOS arm64 (run CI 39942136836, version 0.1.0) ; scan non testé (pas de Docker sur ce runner).
 - **Windows 11** : expérimental ; scans natifs de dossiers opérationnels dans les conditions testées.
   - Les scans `--image` sous Windows ne sont pas pris en charge (constaté sous Windows 11 : code de sortie 3 « analysis incomplete », tentative 2 « scan interrupted »).
   - La sortie sur `/mnt/c` sous WSL n'est pas prise en charge ; utiliser un répertoire sous `/home` (W14).
