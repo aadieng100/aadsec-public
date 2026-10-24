@@ -24,12 +24,12 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 2. Evaluation Scope & Limits
 
 - **Evaluation scan limit**: Usage is limited to 3 successful scans per machine via a local counter file (`beta-usage.json`). Dry runs and scans failing before execution do not decrement this quota.
-- **Legal documentation**: The accompanying legal files (`LICENSE`, `SECURITY.md`, `THIRD_PARTY_NOTICES.md`) represent evaluation drafts, with finalized legal texts scheduled for release 0.1.1.
+- **Legal documentation**: The `LICENSE`, `SECURITY.md`, and `THIRD_PARTY_NOTICES.md` files bundled in 0.1.x archives accompany the evaluation version; the terms published on https://aadsec.xyz/terms prevail.
 
 ### 3. Scanner Findings & Vulnerability Database
 
 - **Embedded Gitleaks binary findings**: 36 HIGH/CRITICAL findings (1 CRITICAL, 35 HIGH) detected during container runner audits stem from the upstream Gitleaks 8.30.1 binary itself (the latest upstream release available at build time). Upstream updates or remediation will follow in subsequent updates.
-- **Trivy vulnerability database**: the Trivy database embedded in the 0.1.1 image is dated 20 October 2026 (same snapshot as 0.1.0); the database used can differ (host cache), its date appears in the report.
+- **Trivy vulnerability database**: the Trivy database embedded in the 0.1.1 image is dated 20 October 2026 (same snapshot as 0.1.0); the database used can differ from the one in the image, and its date appears in the report.
 
 ### 4. Integrity Checksums
 
@@ -56,12 +56,12 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 2. Cadre et limites de l'évaluation
 
 - **Plafond d'évaluation** : L'usage est plafonné à 3 scans réussis par machine au moyen d'un compteur local (`beta-usage.json`). Les exécutions `--dry-run` et les échecs ne consomment pas ce quota.
-- **Documents juridiques** : Les fichiers `LICENSE`, `SECURITY.md` et `THIRD_PARTY_NOTICES.md` constituent des versions d'évaluation, avec version finale prévue en 0.1.1.
+- **Documents juridiques** : Les fichiers `LICENSE`, `SECURITY.md` et `THIRD_PARTY_NOTICES.md` embarqués dans les archives 0.1.x accompagnent la version d'évaluation ; les conditions publiées sur https://aadsec.xyz/terms prévalent.
 
 ### 3. Constats des scanners et base de vulnérabilités
 
-- **Constats liés au binaire amont Gitleaks** : 36 constats HIGH/CRITICAL (1 CRITICAL, 35 HIGH) identifiés dans le conteneur runner proviennent du binaire amont Gitleaks 8.30.1 embarqué (dernière version amont disponible à la compilation). Le traitement interviendra après le lancement.
-- **Base de vulnérabilités Trivy** : la base Trivy embarquée dans l'image 0.1.1 date du 20 octobre 2026 (même instantané que la 0.1.0) ; la base utilisée peut différer, sa date figure dans le rapport.
+- **Constats liés au binaire amont Gitleaks** : 36 constats HIGH/CRITICAL (1 CRITICAL, 35 HIGH) identifiés dans le conteneur runner proviennent du binaire amont Gitleaks 8.30.1 embarqué (dernière version amont disponible à la compilation) et seront traités lors d'une mise à jour ultérieure de l'image.
+- **Base de vulnérabilités Trivy** : la base Trivy embarquée dans l'image 0.1.1 date du 20 octobre 2026 (même instantané que la 0.1.0) ; la base utilisée peut différer de celle de l'image, et sa date figure dans le rapport.
 
 ### 4. Empreintes cryptographiques
 
