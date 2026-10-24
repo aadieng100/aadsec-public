@@ -1,6 +1,6 @@
 # Beta guide
 
-Thanks for trying AADSec in V1 (beta) 🙏. This guide gets you from install to your
+Thanks for trying AADSec in V1 (beta). This guide gets you from install to your
 first report in ~15 minutes, and shows how to send useful feedback.
 
 AADSec is a **local-first DevSecOps audit**: it orchestrates recognized
@@ -23,7 +23,8 @@ open-source scanners, prioritizes the results, and produces a readable report.
   (executive + developer views, self-contained).
 - **Profiles delivered:** `quick` (fast feedback) and `standard` (recommended).
   A `deep` profile is a **future idea**, not shipped.
-- **Roadmap (not yet delivered):** SARIF export, SBOM (CycloneDX), PDF export,
+- **Roadmap (not yet delivered):** SARIF export, SBOM export from a scan (a
+  CycloneDX SBOM of the runner image is provided in the release), PDF export,
   DAST/ZAP, the `deep` profile.
 
 > AADSec **never** promises "zero vulnerabilities" or "secure". It's an automated
@@ -58,8 +59,9 @@ The installer downloads the matching binary and **verifies its checksum** before
 installing — nothing is installed if the checksum fails.
 
 ```bash
-# macOS/Linux — download the installer (read it first is recommended), then run it:
+# macOS/Linux — download the installer and checksums, read install.sh, then run it:
 curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/install.sh
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/SHA256SUMS
 bash install.sh
 aadsec --version
 
@@ -134,7 +136,7 @@ untouched — remove those yourself (`docker rmi ghcr.io/aadieng100/aadsec-runne
 
 ---
 
-## Send feedback 🎯
+## Send feedback
 
 The most useful things to tell us:
 
@@ -146,5 +148,3 @@ The most useful things to tell us:
    most.
 5. Is the report clear for a CTO? for a developer?
 6. What you miss most (SARIF? SBOM? PDF? CI integration?).
-
-Your feedback directly shapes the roadmap. Thank you 🚀
