@@ -92,12 +92,33 @@ bash install.sh
 aadsec --version
 ```
 
+If the command is not found, add the install directory to your PATH:
+- For **zsh** (macOS default shell):
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+  ```
+- For **bash**:
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+  ```
+
+Si la commande est introuvable, ajoutez le dossier d'installation à votre PATH :
+- Pour **zsh** (shell par défaut de macOS) :
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+  ```
+- Pour **bash** :
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+  ```
+
 Installation directory and PATH notice:
 - The installer places the `aadsec` binary in `~/.local/bin` by default (configurable via `AADSEC_INSTALL_DIR`).
 - If `~/.local/bin` is not on your PATH, the installer prints the following notice:
   ```text
-  ~/.local/bin is not on your PATH.
-      echo 'export PATH="~/.local/bin:$PATH"' >> ~/.profile && . ~/.profile
+  WARNING: /Users/username/.local/bin is not on your PATH.
+    Add it to your shell profile, e.g.:
+      echo 'export PATH="/Users/username/.local/bin:$PATH"' >> ~/.profile && . ~/.profile
   ```
 
 **Windows** (experimental)
@@ -147,6 +168,10 @@ aadsec share                           # prepare an opt-in bundle to send to AAD
 
 Output is in **English by default**; add `--lang fr` for French. Full walkthrough:
 [beta guide](docs/BETA.md) · [usage guide](docs/USAGE.md).
+
+> During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated 20 October 2026 and may differ with a more recent database.
+>
+> Lors du premier scan en ligne, AADSec télécharge la base de vulnérabilités de Trivy dans son cache local (environ 1,6 Go mesurés sur macOS) ; `--offline` utilise celle de l'image ou celle du cache. Le nombre de constats Trivy dépend de la base utilisée : les totaux de l'exemple de rapport correspondent à la base du 20 octobre 2026 et peuvent différer avec une base plus récente.
 
 ---
 

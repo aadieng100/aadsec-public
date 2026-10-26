@@ -64,7 +64,29 @@ curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1
 curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/SHA256SUMS
 bash install.sh
 aadsec --version
+```
 
+If the command is not found, add the install directory to your PATH:
+- For **zsh** (macOS default shell):
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+  ```
+- For **bash**:
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+  ```
+
+Si la commande est introuvable, ajoutez le dossier d'installation à votre PATH :
+- Pour **zsh** (shell par défaut de macOS) :
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+  ```
+- Pour **bash** :
+  ```bash
+  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
+  ```
+
+```bash
 # Fetch the runner image once (AADSec never pulls it for you):
 docker pull ghcr.io/aadieng100/aadsec-runner:0.1.1
 

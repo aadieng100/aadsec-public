@@ -48,6 +48,7 @@ the [beta guide](BETA.md).
 Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.
 The runner container embeds a pre-packaged vulnerability database and local rulesets,
 so no external network requests or database downloads are required.
+During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated 20 October 2026 and may differ with a more recent database.
 
 **Can I get help fixing the findings?**
 Yes. You can **voluntarily** share the results (never your code) with AADSec for

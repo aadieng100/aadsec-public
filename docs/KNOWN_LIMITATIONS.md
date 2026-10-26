@@ -29,7 +29,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 3. Scanner Findings & Vulnerability Database
 
 - **Embedded Gitleaks binary findings**: 36 HIGH/CRITICAL findings (1 CRITICAL, 35 HIGH) detected during container runner audits stem from the upstream Gitleaks 8.30.1 binary itself (the latest upstream release available at build time). Upstream updates or remediation will follow in subsequent updates.
-- **Trivy vulnerability database**: the Trivy database embedded in the 0.1.1 image is dated 20 October 2026 (same snapshot as 0.1.0); the database used can differ from the one in the image, and its date appears in the report.
+- **Trivy vulnerability database**: the Trivy database embedded in the 0.1.1 image is dated 20 October 2026 (same snapshot as 0.1.0); the database used can differ from the one in the image, and its date appears in the report. During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated 20 October 2026 and may differ with a more recent database.
 
 ### 4. Integrity Checksums
 
@@ -61,7 +61,7 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 ### 3. Constats des scanners et base de vulnérabilités
 
 - **Constats liés au binaire amont Gitleaks** : 36 constats HIGH/CRITICAL (1 CRITICAL, 35 HIGH) identifiés dans le conteneur runner proviennent du binaire amont Gitleaks 8.30.1 embarqué (dernière version amont disponible à la compilation) et seront traités lors d'une mise à jour ultérieure de l'image.
-- **Base de vulnérabilités Trivy** : la base Trivy embarquée dans l'image 0.1.1 date du 20 octobre 2026 (même instantané que la 0.1.0) ; la base utilisée peut différer de celle de l'image, et sa date figure dans le rapport.
+- **Base de vulnérabilités Trivy** : la base Trivy embarquée dans l'image 0.1.1 date du 20 octobre 2026 (même instantané que la 0.1.0) ; la base utilisée peut différer de celle de l'image, et sa date figure dans le rapport. Lors du premier scan en ligne, AADSec télécharge la base de vulnérabilités de Trivy dans son cache local (environ 1,6 Go mesurés sur macOS) ; `--offline` utilise celle de l'image ou celle du cache. Le nombre de constats Trivy dépend de la base utilisée : les totaux de l'exemple de rapport correspondent à la base du 20 octobre 2026 et peuvent différer avec une base plus récente.
 
 ### 4. Empreintes cryptographiques
 
