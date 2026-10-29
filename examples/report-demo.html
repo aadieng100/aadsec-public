@@ -264,8 +264,8 @@ details summary:hover{background:#f8fafc}
   </div>
   <div class="header-meta">
     <span><b>Product:</b> AADSec</span>
-    <span><b>Generated:</b> 2026-10-18 19:39 UTC</span>
-    <span><b>Version:</b> 0.1.0</span>
+    <span><b>Generated:</b> 2026-10-29 10:39 UTC</span>
+    <span><b>Version:</b> 0.1.1</span>
     <span><b>Profile:</b> standard</span>
     <span><b>Mode:</b> docker-runner</span>
     <span><b>Project:</b> local project</span>
@@ -298,7 +298,7 @@ details summary:hover{background:#f8fafc}
 
   <div class="cards-grid">
     <div class="card card-total">
-      <div class="card-value">86</div>
+      <div class="card-value">87</div>
       <div class="card-label">Unique Findings</div>
     </div>
     <div class="card card-p0">
@@ -306,7 +306,7 @@ details summary:hover{background:#f8fafc}
       <div class="card-label">P0 — Critical</div>
     </div>
     <div class="card card-p1">
-      <div class="card-value">38</div>
+      <div class="card-value">39</div>
       <div class="card-label">P1 — High</div>
     </div>
     <div class="card card-p2">
@@ -327,7 +327,7 @@ details summary:hover{background:#f8fafc}
 
   
   
-  <p class="note-box">ℹ️ 15 finding(s) deduplicated — raw total: 101.</p>
+  <p class="note-box">ℹ️ 15 finding(s) deduplicated — raw total: 102.</p>
   
   
 </div>
@@ -370,7 +370,7 @@ details summary:hover{background:#f8fafc}
         <td>-</td>
         <td><code>0.74.0</code></td>
         <td>1 target</td>
-        <td>vulnerability DB updated: 2026-10-12</td>
+        <td>vulnerability DB updated: 2026-10-26</td>
       </tr>
     
       <tr>
@@ -415,7 +415,7 @@ details summary:hover{background:#f8fafc}
         <thead><tr><th scope="col">Priority</th><th scope="col">Findings</th></tr></thead>
         <tbody>
           <tr><td><span class="badge badge-p0">P0 — Critical</span></td><td>2</td></tr>
-          <tr><td><span class="badge badge-p1">P1 — High</span></td><td>38</td></tr>
+          <tr><td><span class="badge badge-p1">P1 — High</span></td><td>39</td></tr>
           <tr><td><span class="badge badge-p2">P2 — Medium</span></td><td>38</td></tr>
           <tr><td><span class="badge badge-p3">P3 — Low</span></td><td>8</td></tr>
         </tbody>
@@ -429,7 +429,7 @@ details summary:hover{background:#f8fafc}
         <thead><tr><th scope="col">Severity</th><th scope="col">Findings</th></tr></thead>
         <tbody>
           <tr><td><span class="sev-badge sev-critical">CRITICAL</span></td><td>4</td></tr>
-          <tr><td><span class="sev-badge sev-high">HIGH</span></td><td>36</td></tr>
+          <tr><td><span class="sev-badge sev-high">HIGH</span></td><td>37</td></tr>
           <tr><td><span class="sev-badge sev-medium">MEDIUM</span></td><td>38</td></tr>
           <tr><td><span class="sev-badge sev-low">LOW</span></td><td>8</td></tr>
           <tr><td><span class="sev-badge sev-info">INFO</span></td><td>0</td></tr>
@@ -444,7 +444,7 @@ details summary:hover{background:#f8fafc}
         <thead><tr><th scope="col">Category</th><th scope="col">Findings</th></tr></thead>
         <tbody>
           <tr><td>SECRET</td><td>2</td></tr>
-          <tr><td>SCA</td><td>52</td></tr>
+          <tr><td>SCA</td><td>53</td></tr>
           <tr><td>SAST</td><td>0</td></tr>
           <tr><td>IaC</td><td>32</td></tr>
           <tr><td>CONTAINER</td><td>0</td></tr>
@@ -459,7 +459,7 @@ details summary:hover{background:#f8fafc}
         <thead><tr><th scope="col">Tool</th><th scope="col">Findings</th></tr></thead>
         <tbody>
           <tr><td>Gitleaks</td><td class="">2</td></tr>
-          <tr><td>Trivy</td><td class="">52</td></tr>
+          <tr><td>Trivy</td><td class="">53</td></tr>
           <tr><td>Semgrep</td><td class="">0</td></tr>
           <tr><td>Checkov</td><td class="">32</td></tr>
         </tbody>
@@ -562,6 +562,8 @@ details summary:hover{background:#f8fafc}
       <li><strong>Vulnerable dependency detected: tar CVE-2026-59873</strong> — <code>app/package-lock.json</code> (tar)</li>
     
       <li><strong>Vulnerable dependency detected: body-parser CVE-2024-45590</strong> — <code>app/package-lock.json</code> (body-parser)</li>
+    
+      <li><strong>Vulnerable dependency detected: body-parser CVE-2026-111181</strong> — <code>app/package-lock.json</code> (body-parser)</li>
     
       <li><strong>Vulnerable dependency detected: dicer CVE-2022-24434</strong> — <code>app/package-lock.json</code> (dicer)</li>
     
@@ -917,7 +919,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</p></div
         <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
         <div class="ff full"><label>Recommended Fix</label><p>Upgrade tar to version 7.5.19 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-59873" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-59873</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:47058" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:47058</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:48034" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:48034</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-59873" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-59873</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2026-59873" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2026-59873</a></li><li><a href="https://bugzilla.redhat.com/2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2494813</a></li><li><a href="https://bugzilla.redhat.com/2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498116</a></li><li><a href="https://bugzilla.redhat.com/2498120" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498120</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2494813</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2498116</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-59873" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-59873</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:47058" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:47058</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-59873" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-59873</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2026-59873" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2026-59873</a></li><li><a href="https://bugzilla.redhat.com/2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2494813</a></li><li><a href="https://bugzilla.redhat.com/2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498116</a></li><li><a href="https://bugzilla.redhat.com/2498120" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498120</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2494813</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2498116</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2498120" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2498120</a></li></ul></div>
         <div class="ff full">
           <div class="assessment-card">
             <div class="assessment-header">
@@ -963,6 +965,51 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</p></div
         <div class="ff full"><label>Recommended Fix</label><p>Upgrade body-parser to version 1.20.3 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
         <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2024-45590" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2024-45590</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2024-45590" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2024-45590</a></li><li><a href="https://github.com/expressjs/body-parser" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser</a></li><li><a href="https://github.com/expressjs/body-parser/commit/b2695c4450f06ba3b0ccf48d872a229bb41c9bce" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/commit/b2695c4450f06ba3b0ccf48d872a229bb41c9bce</a></li><li><a href="https://github.com/expressjs/body-parser/security/advisories/GHSA-qwcr-r2fm-qrc7" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/security/advisories/GHSA-qwcr-r2fm-qrc7</a></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-45590" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2024-45590</a></li><li><a href="https://www.cve.org/CVERecord?id=CVE-2024-45590" rel="noopener noreferrer" target="_blank">https://www.cve.org/CVERecord?id=CVE-2024-45590</a></li></ul></div>
+        <div class="ff full">
+          <div class="assessment-card">
+            <div class="assessment-header">
+              <strong>What this means:</strong>
+              <span class="verification-badge">⚠️ Not verified by AADSec</span>
+            </div>
+            <p class="assessment-desc">Affected package version detected. Exploitability and reachability in the runtime environment have not been verified.</p>
+            
+            <p class="guidance-disclaimer">Automatic guidance only. Validate this change in your application and deployment context.</p>
+            
+            <details class="assessment-provenance-details">
+              <summary>Technical assessment provenance</summary>
+              <div class="assessment-meta">
+                <span>Severity source: Tool advisory</span>
+                <span>Priority source: AADSec priority policy</span>
+                <span>Confidence source: AADSec default policy</span>
+                <span>Guidance source: Automatic guidance only</span>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+  
+  <details>
+    <summary>
+      <span class="badge badge-p1">P1 High</span>
+      <span class="sev-badge sev-high">HIGH</span>
+      <span class="finding-title">Vulnerable dependency detected: body-parser CVE-2026-111181</span>
+      <span class="finding-tool">trivy</span>
+    </summary>
+    <div class="finding-body">
+      
+      <div class="finding-grid">
+        <div class="ff"><label>ID</label><p><code>trivy-873defc4c21a9f66</code></p></div>
+        <div class="ff"><label>Category</label><p>SCA</p></div>
+        <div class="ff"><label>File</label><p><code>app/package-lock.json</code></p></div>
+        <div class="ff"><label>Component</label><p>body-parser</p></div>
+        <div class="ff full"><label>Description</label><p>body-parser is body parsing middleware for Node.js and Express. In versions before 1.20.9 and in versions from 2.0.0 before 2.4.0, a single request can crash any application using body-parser with default options. When a request carries a Content-Encoding such as gzip, body-parser pipes it into a decompression stream and, after reading the body, leaves that stream with no error listener. A payload of one valid compressed frame followed by trailing bytes decodes and the application responds normally, but the…</p></div>
+        <div class="ff full"><label>Evidence (truncated to 200 chars)</label><div class="evidence-box">installed=1.19.0 fixed=2.4.0, 1.20.9 vulnerability=CVE-2026-111181</div></div>
+        <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
+        <div class="ff full"><label>Recommended Fix</label><p>Upgrade body-parser to version 2.4.0, 1.20.9 or later.</p></div>
+        <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-111181" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-111181</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-111181" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-111181</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2026-111181" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2026-111181</a></li><li><a href="https://cna.openjsf.org/security-advisories.html" rel="noopener noreferrer" target="_blank">https://cna.openjsf.org/security-advisories.html</a></li><li><a href="https://github.com/expressjs/body-parser" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser</a></li><li><a href="https://github.com/expressjs/body-parser/commit/1260c3845f54502a05a87594f09a334786bb34d7" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/commit/1260c3845f54502a05a87594f09a334786bb34d7</a></li><li><a href="https://github.com/expressjs/body-parser/commit/f7075eae3a84c3473ab4bf0a777da28db208e916" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/commit/f7075eae3a84c3473ab4bf0a777da28db208e916</a></li><li><a href="https://github.com/expressjs/body-parser/releases/tag/1.20.9" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/releases/tag/1.20.9</a></li><li><a href="https://github.com/expressjs/body-parser/releases/tag/v2.4.0" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/releases/tag/v2.4.0</a></li><li><a href="https://github.com/expressjs/body-parser/security/advisories/GHSA-27r3-jxmh-p828" rel="noopener noreferrer" target="_blank">https://github.com/expressjs/body-parser/security/advisories/GHSA-27r3-jxmh-p828</a></li></ul></div>
         <div class="ff full">
           <div class="assessment-card">
             <div class="assessment-header">
@@ -1639,7 +1686,7 @@ Patches: Users should upgrade to multer 2.2.0 (2.x line) or 3.0.0-alph…</p></d
         <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
         <div class="ff full"><label>Recommended Fix</label><p>Upgrade path-to-regexp to version 0.1.12 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2024-52798" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2024-52798</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2024-52798" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2024-52798</a></li><li><a href="https://blakeembrey.com/posts/2024-09-web-redos" rel="noopener noreferrer" target="_blank">https://blakeembrey.com/posts/2024-09-web-redos</a></li><li><a href="https://github.com/pillarjs/path-to-regexp" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/commit/f01c26a013b1889f0c217c643964513acf17f6a4" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/commit/f01c26a013b1889f0c217c643964513acf17f6a4</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-rhx6-c78j-4q9w" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-rhx6-c78j-4q9w</a></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-52798" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2024-52798</a></li><li><a href="https://security.netapp.com/advisory/ntap-20250124-0002" rel="noopener noreferrer" target="_blank">https://security.netapp.com/advisory/ntap-20250124-0002</a></li><li><a href="https://security.netapp.com/advisory/ntap-20250124-0002/" rel="noopener noreferrer" target="_blank">https://security.netapp.com/advisory/ntap-20250124-0002/</a></li><li><a href="https://www.cve.org/CVERecord?id=CVE-2024-52798" rel="noopener noreferrer" target="_blank">https://www.cve.org/CVERecord?id=CVE-2024-52798</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2024-52798" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2024-52798</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2024-52798" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2024-52798</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2024-52798" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2024-52798</a></li><li><a href="https://blakeembrey.com/posts/2024-09-web-redos" rel="noopener noreferrer" target="_blank">https://blakeembrey.com/posts/2024-09-web-redos</a></li><li><a href="https://github.com/advisories/GHSA-rhx6-c78j-4q9w" rel="noopener noreferrer" target="_blank">https://github.com/advisories/GHSA-rhx6-c78j-4q9w</a></li><li><a href="https://github.com/pillarjs/path-to-regexp" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/commit/f01c26a013b1889f0c217c643964513acf17f6a4" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/commit/f01c26a013b1889f0c217c643964513acf17f6a4</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-rhx6-c78j-4q9w" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-rhx6-c78j-4q9w</a></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-52798" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2024-52798</a></li><li><a href="https://security.netapp.com/advisory/ntap-20250124-0002" rel="noopener noreferrer" target="_blank">https://security.netapp.com/advisory/ntap-20250124-0002</a></li></ul></div>
         <div class="ff full">
           <div class="assessment-card">
             <div class="assessment-header">
@@ -1692,7 +1739,7 @@ Custom regex…</p></div>
         <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
         <div class="ff full"><label>Recommended Fix</label><p>Upgrade path-to-regexp to version 0.1.13 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-4867" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-4867</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-4867" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-4867</a></li><li><a href="https://blakeembrey.com/posts/2024-09-web-redos" rel="noopener noreferrer" target="_blank">https://blakeembrey.com/posts/2024-09-web-redos</a></li><li><a href="https://cna.openjsf.org/security-advisories.html" rel="noopener noreferrer" target="_blank">https://cna.openjsf.org/security-advisories.html</a></li><li><a href="https://github.com/advisories/GHSA-9wv6-86v2-598j" rel="noopener noreferrer" target="_blank">https://github.com/advisories/GHSA-9wv6-86v2-598j</a></li><li><a href="https://github.com/pillarjs/path-to-regexp" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/releases/tag/v.0.1.13" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/releases/tag/v.0.1.13</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-37ch-88jc-xwx2" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-37ch-88jc-xwx2</a></li><li><a href="https://nvd.nist.gov/vuln/detail/CVE-2026-4867" rel="noopener noreferrer" target="_blank">https://nvd.nist.gov/vuln/detail/CVE-2026-4867</a></li><li><a href="https://www.cve.org/CVERecord?id=CVE-2026-4867" rel="noopener noreferrer" target="_blank">https://www.cve.org/CVERecord?id=CVE-2026-4867</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-4867" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-4867</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-4867" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-4867</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2026-4867" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2026-4867</a></li><li><a href="https://blakeembrey.com/posts/2024-09-web-redos" rel="noopener noreferrer" target="_blank">https://blakeembrey.com/posts/2024-09-web-redos</a></li><li><a href="https://cna.openjsf.org/security-advisories.html" rel="noopener noreferrer" target="_blank">https://cna.openjsf.org/security-advisories.html</a></li><li><a href="https://github.com/advisories/GHSA-37ch-88jc-xwx2" rel="noopener noreferrer" target="_blank">https://github.com/advisories/GHSA-37ch-88jc-xwx2</a></li><li><a href="https://github.com/advisories/GHSA-9wv6-86v2-598j" rel="noopener noreferrer" target="_blank">https://github.com/advisories/GHSA-9wv6-86v2-598j</a></li><li><a href="https://github.com/pillarjs/path-to-regexp" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/releases/tag/v.0.1.13" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/releases/tag/v.0.1.13</a></li><li><a href="https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-37ch-88jc-xwx2" rel="noopener noreferrer" target="_blank">https://github.com/pillarjs/path-to-regexp/security/advisories/GHSA-37ch-88jc-xwx2</a></li></ul></div>
         <div class="ff full">
           <div class="assessment-card">
             <div class="assessment-header">
@@ -2277,7 +2324,7 @@ Custom regex…</p></div>
         <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
         <div class="ff full"><label>Recommended Fix</label><p>Upgrade tar to version 7.5.18 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-59874" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-59874</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:47058" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:47058</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:48034" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:48034</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-59874" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-59874</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2026-59874" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2026-59874</a></li><li><a href="https://bugzilla.redhat.com/2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2494813</a></li><li><a href="https://bugzilla.redhat.com/2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498116</a></li><li><a href="https://bugzilla.redhat.com/2498120" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498120</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2494813</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2498116</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2026-59874" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2026-59874</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:47058" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:47058</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2026-59874" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2026-59874</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2026-59874" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2026-59874</a></li><li><a href="https://bugzilla.redhat.com/2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2494813</a></li><li><a href="https://bugzilla.redhat.com/2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498116</a></li><li><a href="https://bugzilla.redhat.com/2498120" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2498120</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2494813" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2494813</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2498116" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2498116</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2498120" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2498120</a></li></ul></div>
         <div class="ff full">
           <div class="assessment-card">
             <div class="assessment-header">
@@ -2734,7 +2781,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
         <div class="ff full"><label>Business Impact</label><p>A vulnerable dependency can be exploited by an attacker to compromise application integrity, trigger denial-of-service, or gain unauthorised access, depending on the nature of the vulnerability.</p></div>
         <div class="ff full"><label>Recommended Fix</label><p>Upgrade qs to version 6.14.1 or later.</p></div>
         <div class="ff"><label>OWASP</label><p>A06:2021 - Vulnerable and Outdated Components</p></div>
-        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2025-15284" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2025-15284</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:18480" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:18480</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:18868" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:18868</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2025-15284" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2025-15284</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2025-15284" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2025-15284</a></li><li><a href="https://bugzilla.redhat.com/2425946" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2425946</a></li><li><a href="https://bugzilla.redhat.com/2430538" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2430538</a></li><li><a href="https://bugzilla.redhat.com/2431036" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2431036</a></li><li><a href="https://bugzilla.redhat.com/2431740" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2431740</a></li><li><a href="https://bugzilla.redhat.com/2433645" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2433645</a></li></ul></div>
+        <div class="ff full"><label>References</label><ul class="refs-list"><li><a href="https://avd.aquasec.com/nvd/cve-2025-15284" rel="noopener noreferrer" target="_blank">https://avd.aquasec.com/nvd/cve-2025-15284</a></li><li><a href="https://access.redhat.com/errata/RHSA-2026:18868" rel="noopener noreferrer" target="_blank">https://access.redhat.com/errata/RHSA-2026:18868</a></li><li><a href="https://access.redhat.com/security/cve/CVE-2025-15284" rel="noopener noreferrer" target="_blank">https://access.redhat.com/security/cve/CVE-2025-15284</a></li><li><a href="https://advisory.echohq.com/cve/CVE-2025-15284" rel="noopener noreferrer" target="_blank">https://advisory.echohq.com/cve/CVE-2025-15284</a></li><li><a href="https://bugzilla.redhat.com/2425946" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2425946</a></li><li><a href="https://bugzilla.redhat.com/2430538" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2430538</a></li><li><a href="https://bugzilla.redhat.com/2431036" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2431036</a></li><li><a href="https://bugzilla.redhat.com/2431740" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2431740</a></li><li><a href="https://bugzilla.redhat.com/2433645" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/2433645</a></li><li><a href="https://bugzilla.redhat.com/show_bug.cgi?id=2425946" rel="noopener noreferrer" target="_blank">https://bugzilla.redhat.com/show_bug.cgi?id=2425946</a></li></ul></div>
         <div class="ff full">
           <div class="assessment-card">
             <div class="assessment-header">
@@ -4684,7 +4731,7 @@ When the `comma` option is set to `true` (not the default, but configurable in a
     
       <tr><td><strong>Gitleaks</strong></td><td><code>8.30.1</code></td><td>Current files only (no Git history) (current files only, no Git history)</td><td>Secrets</td></tr>
     
-      <tr><td><strong>Trivy</strong></td><td><code>0.74.0</code></td><td>Dependencies — SCA filesystem (--scanners vuln) ; vulnerability DB updated: 2026-10-12</td><td>SCA</td></tr>
+      <tr><td><strong>Trivy</strong></td><td><code>0.74.0</code></td><td>Dependencies — SCA filesystem (--scanners vuln) ; vulnerability DB updated: 2026-10-26</td><td>SCA</td></tr>
     
       <tr><td><strong>Semgrep</strong></td><td><code>1.80.0</code></td><td>Source code — local AADSec ruleset only (no Semgrep Registry)</td><td>SAST</td></tr>
     
@@ -4716,12 +4763,12 @@ When the `comma` option is set to `true` (not the default, but configurable in a
       </tr>
       <tr>
         <th scope="row">Runner image reference</th>
-        <td><code>ghcr.io/aadieng100/aadsec-runner:0.1.0</code></td>
+        <td><code>ghcr.io/aadieng100/aadsec-runner:0.1.1</code></td>
       </tr>
       
       <tr>
         <th scope="row">Runner image ID</th>
-        <td><code>sha256:b9fd16ea1f2e361e432da1b22a1f0aed557eac83e585b494e35aaef8c8c4ce10</code></td>
+        <td><code>sha256:7307df473d4946a84c555d50a0da0aca0df5c8a02f9aa5f5d947484a40782102</code></td>
       </tr>
       
       
@@ -4755,7 +4802,7 @@ When the `comma` option is set to `true` (not the default, but configurable in a
 
 <footer class="site-footer">
   <div class="container">
-    Generated by AADSec 0.1.0 — local-first DevSecOps — 2026-10-18 19:39 UTC<br>
+    Generated by AADSec 0.1.1 — local-first DevSecOps — 2026-10-29 10:39 UTC<br>
     This report is confidential. Share only with authorised parties.
   </div>
 </footer>
