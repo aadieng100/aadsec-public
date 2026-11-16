@@ -1,23 +1,18 @@
-> **Notice (FR) :** v0.1.0-alpha.1 est remplacée par v0.1.0. L'image alpha.1 peut terminer un scan sans erreur avec 0 constat Checkov (échec silencieux de Checkov lors des tests) : ne l'utilisez pas.
->
-> **Notice (EN):** v0.1.0-alpha.1 is replaced by v0.1.0. The alpha.1 image can finish a scan without error with 0 Checkov findings (silent Checkov failure observed during testing): do not use it.
-
-# AADSec — beta release notes (template)
+# AADSec — release notes (template)
 
 Copy this into each GitHub Release description and replace the `<…>` placeholders.
-Keep the proprietary/beta notice at the top of every release.
+Keep the proprietary software notice at the top of every release.
 
 ---
 
-## AADSec `<version>` — private beta
+## AADSec `<version>`
 
-> **Pre-release · private beta.** Proprietary software — all rights reserved.
-> Provided for **evaluation only**, on a limited, revocable, and non-transferable
-> basis. See [PROPRIETARY.md](https://github.com/aadieng100/aadsec-public/blob/main/PROPRIETARY.md). **AADSec is not open source.**
+> **Proprietary software — all rights reserved.**
+> Provided under the terms published at https://aadsec.xyz/terms.
+> See [PROPRIETARY.md](https://github.com/aadieng100/aadsec-public/blob/main/PROPRIETARY.md). **AADSec is not open source.**
 
-**Status:** private beta — not production ready. An automated audit + triage
-layer; it does **not** replace a penetration test and never claims your code is
-"secure" or free of vulnerabilities.
+**Scope:** An automated audit + triage layer; it does **not** replace a
+penetration test and never claims your code is "secure" or free of vulnerabilities.
 
 ### Platforms
 
@@ -59,12 +54,12 @@ open security-output/report.html      # macOS — on Linux: xdg-open
 aadsec uninstall          # or: aadsec uninstall --yes
 ```
 
-Removes all local AADSec state (binary, config, beta counter, cache). Per-project
+Removes all local AADSec state (binary, config, cache). Per-project
 `security-output/` and the runner image are left untouched.
 
 ### Known limitations
 
-- Beta cap: **3 successful scans per machine** (feedback gate; not a licence).
+- Scanner CLI: free local scanner trial (no account or payment card required).
 - Not yet delivered: SARIF export, SBOM export from a scan (a CycloneDX SBOM of
   the runner image is provided in the release), PDF export, DAST (OWASP ZAP),
   the `deep` profile.
@@ -74,7 +69,7 @@ Removes all local AADSec state (binary, config, beta counter, cache). Per-projec
 ### Feedback wanted
 
 Email **contact@aadsec.xyz** or reach out on
-**[LinkedIn](https://www.linkedin.com/in/aadieng/)** with: OS + versions
+**[LinkedIn](https://www.linkedin.com/company/aadsec/)** with: OS + versions
 (`aadsec --version`, `aadsec doctor`), project type (no sensitive code), useful
 findings vs noise, report clarity (CTO vs developer), and what you miss most.
 

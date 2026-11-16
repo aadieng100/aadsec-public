@@ -8,14 +8,13 @@ No right to use, copy, modify, distribute, sublicense, resell, or create
 derivative works from AADSec is granted except with prior written permission
 from the owner.
 
-Any beta build or evaluation access is provided for evaluation only, on a
-limited, revocable, and non-transferable basis, under the evaluation terms
+Evaluation access is provided under the evaluation and commercial terms
 published at https://aadsec.xyz/terms.
 
 ## Third-party components
 
 AADSec orchestrates recognized third-party open-source scanners (Gitleaks,
-Trivy, Semgrep, Checkov). Each of those tools is distributed under its own
+Trivy, Opengrep, gosec, Bandit, Checkov). Each of those tools is distributed under its own
 licence and remains the property of its respective authors — see
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the tools, versions, and
 licences (also bundled inside the runner image at

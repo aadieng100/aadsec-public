@@ -1,7 +1,7 @@
 # Usage guide
 
-A short, practical guide to running AADSec. For install and the beta program,
-see the [beta guide](BETA.md).
+A short, practical guide to running AADSec. For installation and setup,
+see the [Quickstart guide](GUIDE.md).
 
 ---
 
@@ -111,7 +111,7 @@ Two paths:
 
 ## Uninstall
 
-To remove AADSec and all its local state (installed binary, config, beta counter, scanner cache):
+To remove AADSec and all its local state (installed binary, config, scanner cache):
 
 ```bash
 aadsec uninstall          # lists what will be deleted, then asks to confirm

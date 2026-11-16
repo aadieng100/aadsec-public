@@ -15,13 +15,13 @@ scanned project.
 
 **Is this a scanner you built?**
 No — AADSec is an **orchestrator**. It runs recognized open-source tools
-(Gitleaks, Trivy, Semgrep, Checkov), normalizes and deduplicates their output,
+(Gitleaks, Trivy, Opengrep, gosec, Bandit, Checkov), normalizes and deduplicates their output,
 prioritizes real risks (P0–P3), and produces one readable report with concrete
 fixes.
 
 **Does a clean report mean my app is secure?**
-No. A clean run means "nothing the configured scanners flagged" — it is **not** a
-guarantee. AADSec never claims "secure", "safe", or "zero vulnerabilities".
+No. A clean run means "nothing the configured scanners flagged" — it does **not**
+prove the absence of vulnerabilities. AADSec never claims "secure", "safe", or "zero vulnerabilities".
 
 **Does this replace a penetration test?**
 No. It's an automated detection + triage layer that **complements** a human
@@ -34,15 +34,16 @@ P0–P3 prioritization, business-impact framing, concrete fixes, and an optional
 remediation follow-up.
 
 **What does it actually scan today?**
-Secrets (Gitleaks), dependencies/SCA (Trivy), SAST (Semgrep), IaC (Checkov), and
+Secrets (Gitleaks), dependencies/SCA (Trivy), SAST (Opengrep, gosec, Bandit), IaC (Checkov), and
 container images (Trivy). DAST, SARIF export, SBOM export from a scan, and PDF
 export are on the roadmap, not delivered (a CycloneDX SBOM of the runner image
 is provided in the release).
 
-**Why is there a scan limit?**
-The evaluation version caps successful scans per machine so we can collect
-feedback before opening wider access. It's a local guardrail, not a license — see
-the [beta guide](BETA.md).
+**How do evaluation and licensing work?**
+The local scanner CLI is available as a free local scanner trial — no account
+or payment card required. For automated, container-verified remediation
+(`aadsec-agent`), Agent V1 keys are available at [https://aadsec.xyz](https://aadsec.xyz)
+— see the [Quickstart guide](GUIDE.md).
 
 **Can I run scans in an air-gapped or offline environment?**
 Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.

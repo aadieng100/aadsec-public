@@ -1,6 +1,6 @@
-# Beta guide
+# Quickstart guide
 
-Thanks for trying AADSec in V1 (beta). This guide gets you from install to your
+Welcome to AADSec. This guide gets you from install to your
 first report in ~15 minutes, and shows how to send useful feedback.
 
 AADSec is a **local-first DevSecOps audit**: it orchestrates recognized
@@ -9,13 +9,13 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 ---
 
-## What V1 (beta) does (and doesn't)
+## What AADSec scans (and doesn't)
 
-| Domain | Tool | In V1 (beta) |
+| Domain | Tool | Included |
 |---|---|---|
 | Secrets | Gitleaks | ✅ |
 | Dependencies (SCA) | Trivy (filesystem) | ✅ |
-| SAST | Semgrep (local ruleset) | ✅ |
+| SAST | Opengrep (local ruleset), gosec, Bandit | ✅ |
 | IaC (terraform, kubernetes, dockerfile, cloudformation) | Checkov | ✅ |
 | Container image | Trivy (`--image`) | ✅ |
 
@@ -107,23 +107,15 @@ open security-output/report.html      # macOS — on Linux: xdg-open
 
 Output is English by default; add `--lang fr` for French.
 
-> Beta access is provided on a **limited, revocable, and non-transferable** basis
-> — AADSec is proprietary software (see [PROPRIETARY.md](../PROPRIETARY.md)).
+> AADSec is proprietary software — all rights reserved (see [PROPRIETARY.md](../PROPRIETARY.md) and https://aadsec.xyz/terms).
 
 ---
 
-## Beta usage limit
+## Evaluation & licensing
 
-The beta is capped at **3 successful scans per machine** so we can gather
-feedback before opening wider access.
-
-- Only **successful** scans count. `--dry-run` never counts and is never blocked.
-- After each scan you'll see `🧪 Beta: N/3 successful scans used — M remaining.`
-- When the limit is reached, `aadsec scan` stops and points you to AADSec for
-  extended access — reach out with your feedback.
-
-This is an honest, **local** guardrail — not a tamper-proof license. It's a plain
-JSON file under your OS config directory, and it resets on ephemeral CI runners.
+- **Scanner CLI**: **free local scanner trial** — no account or payment card required.
+- **AADSec Verified Remediation Agent (`aadsec-agent`)**: Agent V1 keys are available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` or `$490/year`).
+- **Proprietary software**: all rights reserved — see [PROPRIETARY.md](../PROPRIETARY.md) and [https://aadsec.xyz/terms](https://aadsec.xyz/terms).
 
 ---
 
@@ -151,8 +143,8 @@ aadsec uninstall          # lists what will be deleted, then asks to confirm
 aadsec uninstall --yes    # skip the confirmation
 ```
 
-It deletes only AADSec-owned paths — the installed binary, the config directory
-(including the beta counter), the scanner cache, and the `~/.aadsec` fallback.
+It deletes only AADSec-owned paths — the installed binary, the config directory,
+the scanner cache, and the `~/.aadsec` fallback.
 Per-project `security-output/` folders and the Docker runner image are left
 untouched — remove those yourself (`docker rmi ghcr.io/aadieng100/aadsec-runner:<version>`).
 

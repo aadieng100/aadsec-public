@@ -19,8 +19,8 @@
 #   AADSEC_INSTALL_DIR   install directory              (default: ~/.local/bin)
 #
 # The AADSec CLI never uploads your code and never pulls Docker images by
-# itself. The container runner image is obtained separately (see the beta
-# guide): docker pull ghcr.io/aadieng100/aadsec-runner:<version>.
+# itself. The container runner image is obtained separately (see
+# docs/GUIDE.md): docker pull ghcr.io/aadieng100/aadsec-runner:<version>.
 set -eu
 
 # ── Pinned default version (bump per release) ────────────────────────────────
@@ -119,4 +119,4 @@ esac
 
 info ""
 info "Done. Verify with:  aadsec --version   (expected: ${VERSION})"
-info "Next: pull the runner image, then scan your repo — see docs/BETA.md."
+info "Next: pull the runner image, then scan your repo — see docs/GUIDE.md."

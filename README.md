@@ -67,7 +67,7 @@ While scanners only detect issues and generic AI assistants only *claim* a patch
 - **Anti-Goodhart enforcement**: automatically detects and rejects fake fixes such as `#checkov:skip`, `nosec`, exclusion files (`.trivyignore`, `.gitleaksignore`, `.checkov.yaml`), commenting out active lines, or destructive resource deletion/replacement.
 - **Atomic `apply` / `undo`**: source files stay untouched by default; when applied explicitly, out-of-tree backups and `undo` restore exact prior state and permissions.
 - **Secrets & dependencies verification**: offline `plan-rotation`, container-isolated `rotation-verify` (post-rotation Gitleaks double scan), and `dependency-verify` (post-upgrade Trivy double scan).
-- **Offline Ed25519 license lease**: verified locally (`license.sig`) for air-gapped environments.
+- **Offline license verification**: the CLI verifies the license locally for offline and closed environments.
 
 ### Plans & Availability
 
@@ -188,6 +188,7 @@ Per-project scan outputs (`security-output/`) and the Docker runner image (`dock
 
 ## Documentation
 
+- [Quickstart guide](docs/GUIDE.md) — installation, prerequisites, and first scan
 - [Usage guide](docs/USAGE.md) — commands, profiles, outputs
 - [How sharing works](docs/SHARING.md) — the opt-in, manual sharing model
 - [FAQ](docs/FAQ.md) — trust, privacy, scope
@@ -205,7 +206,7 @@ Per-project scan outputs (`security-output/`) and the Docker runner image (`dock
 
 - **Website:** [https://aadsec.xyz](https://aadsec.xyz)
 - **Email:** [contact@aadsec.xyz](mailto:contact@aadsec.xyz)
-- **LinkedIn:** [linkedin.com/in/aadieng](https://www.linkedin.com/in/aadieng/)
+- **LinkedIn:** [linkedin.com/company/aadsec](https://www.linkedin.com/company/aadsec/)
 
 ---
 

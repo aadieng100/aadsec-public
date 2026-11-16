@@ -15,7 +15,7 @@ If you find a security vulnerability in AADSec, please report it privately. Do n
 - The local-first isolation mechanisms (no accidental code leakage, no credential exfiltration, no container escape).
 
 ### Out of scope
-- Vulnerabilities inside Gitleaks, Trivy, Semgrep CE or Checkov: report them to their maintainers, unless AADSec's invocation parameters cause the issue.
+- Vulnerabilities inside Gitleaks, Trivy, Opengrep, gosec, Bandit, or Checkov: report them to their maintainers, unless AADSec's invocation parameters cause the issue.
 - Issues in underlying Linux or Python packages that do not affect AADSec's container isolation.
 - Attacks that require local root or a manipulated Docker daemon socket.
 
@@ -38,7 +38,7 @@ Si vous trouvez une vulnérabilité de sécurité dans AADSec, signalez-la en pr
 - Les mécanismes d'isolation local-first (pas de fuite accidentelle de code, pas d'exfiltration d'identifiants, pas d'évasion de conteneur).
 
 ### Hors périmètre
-- Les vulnérabilités de Gitleaks, Trivy, Semgrep CE ou Checkov : signalez-les à leurs mainteneurs, sauf si les paramètres d'appel d'AADSec en sont la cause.
+- Les vulnérabilités de Gitleaks, Trivy, Opengrep, gosec, Bandit ou Checkov : signalez-les à leurs mainteneurs, sauf si les paramètres d'appel d'AADSec en sont la cause.
 - Les problèmes de paquets Linux ou Python sous-jacents qui n'affectent pas l'isolation du conteneur d'AADSec.
 - Les attaques qui supposent un accès root local ou un socket Docker manipulé.
 

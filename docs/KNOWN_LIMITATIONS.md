@@ -19,11 +19,11 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
   - Output directory on `/mnt/c` under WSL is not supported due to filesystem translation semantics; use paths under `/home`.
   - When Docker is not installed or unreachable, the CLI message "Docker Desktop is not running" can be misleading.
   - Interrupting `docker.exe` during an ongoing scan can leave an active container running (terminates on its own after ~110 seconds on amd64; on emulated arm64, it may remain stuck at high CPU until terminated with `docker rm -f`).
-  - The Windows executable is distributed without digital signature; a SmartScreen warning was observed during testing of alpha.1.
+  - The Windows executable is distributed without digital signature; a SmartScreen warning was observed during testing of 0.1.0.
 
 ### 2. Evaluation Scope & Limits
 
-- **Evaluation scan limit**: Usage is limited to 3 successful scans per machine via a local counter file (`beta-usage.json`). Dry runs and scans failing before execution do not decrement this quota.
+- **Evaluation access**: The scanner runs locally for free — no account or payment card.
 - **Legal documentation**: The `LICENSE`, `SECURITY.md`, and `THIRD_PARTY_NOTICES.md` files bundled in 0.1.x archives accompany the evaluation version; the terms published on https://aadsec.xyz/terms prevail.
 
 ### 3. Scanner Findings & Vulnerability Database
@@ -51,11 +51,11 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
   - La sortie sur `/mnt/c` sous WSL n'est pas prise en charge ; utiliser un répertoire sous `/home`.
   - Lorsque Docker est absent, le message « Docker Desktop is not running » est trompeur.
   - Interrompre `docker.exe` pendant un scan peut laisser un conteneur actif (s'arrête seul après ~110 s en amd64 ; bloqué à charge processeur élevée en arm64 émulé, nécessitant `docker rm -f`).
-  - Le binaire Windows est distribué sans signature numérique ; un avertissement SmartScreen a été observé lors des tests d'alpha.1.
+  - Le binaire Windows est distribué sans signature numérique ; un avertissement SmartScreen a été observé lors des tests de 0.1.0.
 
 ### 2. Cadre et limites de l'évaluation
 
-- **Plafond d'évaluation** : L'usage est plafonné à 3 scans réussis par machine au moyen d'un compteur local (`beta-usage.json`). Les exécutions `--dry-run` et les échecs ne consomment pas ce quota.
+- **Accès d'évaluation** : Le scanner s'exécute localement gratuitement, sans compte ni carte bancaire.
 - **Documents juridiques** : Les fichiers `LICENSE`, `SECURITY.md` et `THIRD_PARTY_NOTICES.md` embarqués dans les archives 0.1.x accompagnent la version d'évaluation ; les conditions publiées sur https://aadsec.xyz/terms prévalent.
 
 ### 3. Constats des scanners et base de vulnérabilités

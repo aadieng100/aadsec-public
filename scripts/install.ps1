@@ -16,7 +16,7 @@
       powershell -ExecutionPolicy Bypass -File .\install.ps1
 
   The AADSec CLI never uploads your code and never pulls Docker images by
-  itself. Obtain the container runner image separately (see docs/BETA.md):
+  itself. Obtain the container runner image separately (see docs/GUIDE.md):
       docker pull ghcr.io/aadieng100/aadsec-runner:<version>
 
 .PARAMETER Version
@@ -118,7 +118,7 @@ try {
     Write-Host ""
     Write-Host "Done. Verify with:  aadsec --version   (expected: $Version)"
     Write-Host "Next: ensure Docker Desktop (WSL2 backend) is running, pull the runner"
-    Write-Host "image, then scan your repo - see docs/BETA.md."
+    Write-Host "image, then scan your repo - see docs/GUIDE.md."
 }
 finally {
     if (Test-Path -LiteralPath $tmp) { Remove-Item -Recurse -Force -LiteralPath $tmp }
