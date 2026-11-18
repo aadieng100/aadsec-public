@@ -87,17 +87,17 @@ Inspect a **public, anonymized** report generated on a deliberately vulnerable d
 
 Origin and anonymization details: [examples/README.md](examples/README.md).
 
-In the reference demo scan (Trivy vulnerability database dated **20 October 2026**), the report displays **86 deduplicated findings** (including **52 Trivy** and **32 Checkov** findings). Counts depend on the vulnerability database version in use:
+In the reference demo scan (Trivy vulnerability database dated **2026-11-07**), the report displays **90 deduplicated findings** (`105` before deduplication: **54 Trivy**, **32 Checkov**, **2 Gitleaks**, **2 Opengrep**; `gosec` and `Bandit` report `not_applicable` as the demo repository contains no `.go` or `.py` files). Counts depend on the vulnerability database version in use:
 
-> During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated 20 October 2026 and may differ with a more recent database.
+> During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated `2026-11-07` and may differ with a more recent database.
 >
-> Lors du premier scan en ligne, AADSec télécharge la base de vulnérabilités de Trivy dans son cache local (environ 1,6 Go mesurés sur macOS) ; `--offline` utilise celle de l'image ou celle du cache. Le nombre de constats Trivy dépend de la base utilisée : les totaux de l'exemple de rapport correspondent à la base du 20 octobre 2026 et peuvent différer avec une base plus récente.
+> Lors du premier scan en ligne, AADSec télécharge la base de vulnérabilités de Trivy dans son cache local (environ 1,6 Go mesurés sur macOS) ; `--offline` utilise celle de l'image ou celle du cache. Le nombre de constats Trivy dépend de la base utilisée : les totaux de l'exemple de rapport correspondent à la base du `2026-11-07` et peuvent différer avec une base plus récente.
 
 ---
 
 ## Download & Install
 
-Releases and checksums are published on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.1.1`). The installer downloads the matching binary and **verifies its SHA-256** before installing — nothing is installed if the checksum check fails.
+Releases and checksums are published on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.2.0`). The installer downloads the matching binary and **verifies its SHA-256** before installing — nothing is installed if the checksum check fails.
 
 ### Prerequisites
 
@@ -112,7 +112,7 @@ Releases and checksums are published on the [**Releases**](https://github.com/aa
 
 ```bash
 # 1) Download the installer (reading it before running is recommended)
-curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/install.sh
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.sh
 
 # 2) Run it — installs to ~/.local/bin (or $AADSEC_INSTALL_DIR), no sudo
 bash install.sh
@@ -133,7 +133,7 @@ If `~/.local/bin` is not in your `PATH`, add it to your shell profile:
 
 ```powershell
 Invoke-WebRequest -UseBasicParsing `
-  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.1.1/install.ps1 `
+  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.ps1 `
   -OutFile install.ps1
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 aadsec --version
@@ -144,7 +144,7 @@ For manual installation, the [Releases](https://github.com/aadieng100/aadsec-pub
 **Pull the scanner runner image (once):**
 
 ```bash
-docker pull ghcr.io/aadieng100/aadsec-runner:0.1.1
+docker pull ghcr.io/aadieng100/aadsec-runner:0.2.0
 aadsec doctor      # verifies the CLI and runner image are aligned
 ```
 
@@ -182,7 +182,7 @@ aadsec uninstall          # lists what will be deleted, then asks to confirm
 aadsec uninstall --yes    # skip confirmation
 ```
 
-Per-project scan outputs (`security-output/`) and the Docker runner image (`docker rmi ghcr.io/aadieng100/aadsec-runner:0.1.1`) are left untouched.
+Per-project scan outputs (`security-output/`) and the Docker runner image (`docker rmi ghcr.io/aadieng100/aadsec-runner:0.2.0`) are left untouched.
 
 ---
 

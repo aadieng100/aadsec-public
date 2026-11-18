@@ -49,14 +49,14 @@ or payment card required. For automated, container-verified remediation
 Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.
 The runner container embeds a pre-packaged vulnerability database and local rulesets,
 so no external network requests or database downloads are required.
-During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated 20 October 2026 and may differ with a more recent database.
+During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated `2026-11-07` and may differ with a more recent database.
 
 **Can I get help fixing the findings?**
 Yes. You can **voluntarily** share the results (never your code) with AADSec for
 remediation help — see [How sharing works](SHARING.md).
 
 **Which platforms are supported?**
-macOS (Intel, macOS 15): tested with 0.1.1. Apple Silicon (darwin_arm64): install and aadsec --version verified on a macOS arm64 runner (CI run 40054317431); scan not tested on Apple Silicon. Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (CI runs 40054317431 and 40056271929). Linux arm64: CLI and runner image tested natively on GitHub Actions ubuntu-24.04-arm (CI runs 40054317431 and 40056271929). Windows 11: experimental; native folder scans passed in tests with 0.1.0 and were not repeated with 0.1.1; `--image` and output on /mnt/c under WSL are not supported.
+macOS (Intel, macOS 15): CLI and tests verified in 0.2.0 (full scan tested with 0.1.1). Apple Silicon (darwin_arm64, M1): CLI, native `linux/arm64` runner image, and offline demo scans tested on macOS 15 (M1) in 0.2.0 (CI install and `aadsec --version` also verified on a macOS arm64 runner, CI run 40054317431). Linux x86_64: tested under WSL2 (Ubuntu 24.04) with Docker Desktop and natively on GitHub Actions ubuntu-24.04 (CI runs 40054317431 and 40056271929). Linux arm64: CLI and runner image tested natively on GitHub Actions ubuntu-24.04-arm (CI runs 40054317431 and 40056271929). Windows 11: experimental; native folder scans passed in tests with 0.1.0 and were not repeated with 0.1.1 or 0.2.0; `--image` and output on /mnt/c under WSL are not supported.
 
 **What does "AADSec" stand for?**
 Publicly: **Actionable Audit for DevSecOps**. The name also carries the initials

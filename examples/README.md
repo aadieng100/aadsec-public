@@ -8,7 +8,7 @@ Public, anonymized AADSec audit reports. Open them in any browser — self-conta
 ## What it is
 
 It was produced by scanning an **intentionally vulnerable** demo project with the
-four filesystem scanners AADSec orchestrates (Gitleaks, Trivy, Opengrep, Checkov).
+six filesystem scanners AADSec orchestrates (Gitleaks, Trivy, Opengrep, gosec, Bandit, Checkov).
 It illustrates the report format:
 
 - an **executive view** — risk decision, counts by priority (P0–P3), top risks;
