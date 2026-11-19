@@ -21,11 +21,9 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 - **Outputs:** `findings.json` (normalized, prioritized P0–P3) + `report.html`
   (executive + developer views, self-contained).
-- **Profiles delivered:** `quick` (fast feedback) and `standard` (recommended).
-  A `deep` profile is a **future idea**, not shipped.
 - **Roadmap (not yet delivered):** SARIF export, SBOM export from a scan (a
   CycloneDX SBOM of the runner image is provided in the release), PDF export,
-  DAST/ZAP, the `deep` profile.
+  DAST/ZAP.
 
 > AADSec **never** promises "zero vulnerabilities" or "secure". It's an automated
 > detection + triage layer, and it **does not replace** a manual penetration test.

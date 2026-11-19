@@ -47,13 +47,11 @@ Teams hesitate to hand a Git repository to an external SaaS tool. AADSec is buil
 | IaC | **Checkov** | Terraform, Kubernetes, Dockerfile, and CloudFormation |
 | Container Image | **Trivy** | Local Docker images (`--image`) or `docker save` archives (`--image-tar`) |
 
-**Profiles:** `quick` (fast feedback) and `standard` (recommended default).
-
 **Outputs (`findings.json` schema `0.4` & `report.html`):**
 - `findings.json` schema `0.4`: deduplicated across scanners, prioritized `P0`–`P3`, and enriched offline with dated **CISA KEV** and **FIRST EPSS** exploitability feeds (with `14`-day and `30`-day freshness alerts).
 - `report.html`: single self-contained file with zero external assets, Executive and Developer views, FR/EN parity (`--lang en|fr`), and browser print styling (`Cmd+P` / `Ctrl+P`).
 
-**Not currently included:** SARIF export, scan-level CycloneDX SBOM export (a CycloneDX SBOM of the runner image itself is provided in releases), automated PDF binary export, DAST, or a `deep` profile.
+**Not currently included:** SARIF export, scan-level CycloneDX SBOM export (a CycloneDX SBOM of the runner image itself is provided in releases), automated PDF binary export, or DAST.
 
 ---
 
@@ -161,8 +159,6 @@ open security-output/report.html       # macOS — on Linux: xdg-open
 Common options:
 
 ```bash
-aadsec scan --profile quick .          # fast feedback
-aadsec scan --profile standard .       # recommended (default)
 aadsec scan --offline .                # air-gapped / offline scan (--network none)
 aadsec scan --image myapp:audit        # scan a local Docker image you built
 aadsec scan --image-tar ./myapp.tar    # scan a "docker save" archive
@@ -189,7 +185,7 @@ Per-project scan outputs (`security-output/`) and the Docker runner image (`dock
 ## Documentation
 
 - [Quickstart guide](docs/GUIDE.md) — installation, prerequisites, and first scan
-- [Usage guide](docs/USAGE.md) — commands, profiles, outputs
+- [Usage guide](docs/USAGE.md) — commands, flags, outputs
 - [How sharing works](docs/SHARING.md) — the opt-in, manual sharing model
 - [FAQ](docs/FAQ.md) — trust, privacy, scope
 - [Known limitations](docs/KNOWN_LIMITATIONS.md) — technical constraints and platform scope

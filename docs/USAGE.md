@@ -26,8 +26,6 @@ open security-output/report.html      # macOS — on Linux: xdg-open
 ```bash
 aadsec scan .                     # current directory
 aadsec scan ./myrepo              # a specific directory
-aadsec scan --profile quick .     # fast, lighter pass
-aadsec scan --profile standard .  # recommended (default)
 aadsec scan . --lang fr           # French report and terminal output
 ```
 
@@ -46,17 +44,6 @@ Or scan a pre-exported archive (no running daemon needed at scan time):
 docker save myapp:audit -o myapp.tar
 aadsec scan --image-tar ./myapp.tar --out security-output-image
 ```
-
----
-
-## Profiles
-
-| Profile | When to use |
-|---|---|
-| `quick` | Fast feedback during development. |
-| `standard` | Recommended — the default before a release. |
-
-A `deep` profile is a **future idea**, not shipped yet. Don't rely on it.
 
 ---
 
@@ -89,7 +76,6 @@ Work findings top-down (P0 → P3), then re-scan to confirm your fixes.
 
 | Flag | Values (default) | Purpose |
 |---|---|---|
-| `--profile` | `quick` \| `standard` (`standard`) | Scan intensity. |
 | `--lang` | `en` \| `fr` (`en`) | Report and terminal language. |
 | `--out` | path (`security-output`) | Output directory. |
 | `--offline` | — | Air-gapped scan (no DB updates or network calls). |
