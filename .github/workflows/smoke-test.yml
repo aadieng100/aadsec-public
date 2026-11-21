@@ -69,6 +69,8 @@ jobs:
           cd assets
           export AADSEC_VERSION="$VERSION"
           export AADSEC_BASE_URL="$GITHUB_SERVER_URL/aadieng100/aadsec-public/releases/download/$RELEASE_TAG"
+          export AADSEC_SKIP_IMAGE_PULL=1
+          export AADSEC_NO_MODIFY_PATH=1
           bash install.sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/aadsec" --version
@@ -158,6 +160,8 @@ jobs:
           cd assets
           export AADSEC_VERSION="$VERSION"
           export AADSEC_BASE_URL="$GITHUB_SERVER_URL/aadieng100/aadsec-public/releases/download/$RELEASE_TAG"
+          export AADSEC_SKIP_IMAGE_PULL=1
+          export AADSEC_NO_MODIFY_PATH=1
           bash install.sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/aadsec" --version
@@ -224,6 +228,8 @@ jobs:
           cd assets
           export AADSEC_VERSION="$VERSION"
           export AADSEC_BASE_URL="$GITHUB_SERVER_URL/aadieng100/aadsec-public/releases/download/$RELEASE_TAG"
+          export AADSEC_SKIP_IMAGE_PULL=1
+          export AADSEC_NO_MODIFY_PATH=1
           bash install.sh
           uname -m
           "$HOME/.local/bin/aadsec" --version
