@@ -10,8 +10,7 @@ into an ephemeral container, and only the results are written to your disk.
 Nothing is uploaded.
 
 **Do you send my code to an AI / LLM?**
-Not without your explicit consent. AADSec does not call any AI/LLM API on your
-scanned project.
+Not without your explicit consent. The local scanner (`aadsec`) never calls any AI/LLM API. With the companion agent (`aadsec-agent`), secrets and dependency upgrades are handled locally without AI; for IaC remediation (Terraform, Dockerfile, Kubernetes, and CloudFormation), only a locally redacted `+/- 15`-line snippet is sent after your explicit consent, with strict non-retention on the gateway.
 
 **Is this a scanner you built?**
 No — AADSec is an **orchestrator**. It runs recognized open-source tools
@@ -36,14 +35,10 @@ remediation follow-up.
 **What does it actually scan today?**
 Secrets (Gitleaks), dependencies/SCA (Trivy), SAST (Opengrep, gosec, Bandit), IaC (Checkov), and
 container images (Trivy). DAST, SARIF export, SBOM export from a scan, and PDF
-export are on the roadmap, not delivered (a CycloneDX SBOM of the runner image
-is provided in the release).
+export are on the roadmap, not delivered.
 
 **How do evaluation and licensing work?**
-The local scanner CLI is available as a free local scanner trial — no account
-or payment card required. For automated, container-verified remediation
-(`aadsec-agent`), Agent V1 keys are available at [https://aadsec.xyz](https://aadsec.xyz)
-— see the [Quickstart guide](GUIDE.md).
+The local scanner CLI (`aadsec scan`) is free and unlimited — no account, no license key, and no payment card required. For automated, container-verified remediation (`aadsec-agent`), Standard subscriptions (`$49/month` or `$490/year`) are available at [https://aadsec.xyz](https://aadsec.xyz) and activated locally via `aadsec-agent activate` — see the [Quickstart guide](GUIDE.md).
 
 **Can I run scans in an air-gapped or offline environment?**
 Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.

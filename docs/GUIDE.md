@@ -21,9 +21,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 
 - **Outputs:** `findings.json` (normalized, prioritized P0–P3) + `report.html`
   (executive + developer views, self-contained).
-- **Roadmap (not yet delivered):** SARIF export, SBOM export from a scan (a
-  CycloneDX SBOM of the runner image is provided in the release), PDF export,
-  DAST/ZAP.
+- **Roadmap (not yet delivered):** SARIF export, SBOM export from a scan (planned for a future release), PDF export, DAST/ZAP.
 
 > AADSec **never** promises "zero vulnerabilities" or "secure". It's an automated
 > detection + triage layer, and it **does not replace** a manual penetration test.
@@ -37,8 +35,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 - **No LLM processing** of your code without your explicit consent.
 - The runner container is **ephemeral** (`--rm`), mounts your project
   **read-only**, and **never mounts `docker.sock`**.
-- AADSec never runs `docker pull` / `docker login` on its own — you fetch the
-  runner image yourself.
+- During scans, the `aadsec` CLI runs with `--pull=never` and never executes `docker pull` or `docker login` on its own (the installer `install.sh` / `install.ps1` can pull `ghcr.io/aadieng100/aadsec-runner:0.2.0` at install time unless `AADSEC_SKIP_IMAGE_PULL=1` is set).
 
 ---
 
@@ -53,47 +50,51 @@ open-source scanners, prioritizes the results, and produces a readable report.
 ## Download & install
 
 The current build is `v0.2.0` on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page.
-The installer downloads the matching binary and **verifies its checksum** before
-installing — nothing is installed if the checksum fails.
+The installer checks `SHA256SUMS` in fail-closed mode before writing anything to disk and installs both **`aadsec` and `aadsec-agent`** into `~/.local/bin` (or `%LOCALAPPDATA%\aadsec` on Windows):
+
+- **macOS / Linux (`install.sh`)**: automatically configures `PATH` and loads shell completions (`bash`, `zsh`, `fish`) via `~/.aadsec/completions/` (disable with `AADSEC_NO_MODIFY_PATH=1` / `AADSEC_NO_COMPLETION=1`).
+- **Windows (`install.ps1`, experimental)**: updates `User Path` and generates PowerShell completion scripts in `%LOCALAPPDATA%\aadsec\completions\` (`aadsec.ps1` and `aadsec-agent.ps1`).
+- **Runner image**: if Docker is running during installation, the installer verifies or pulls `ghcr.io/aadieng100/aadsec-runner:0.2.0` (disable with `AADSEC_SKIP_IMAGE_PULL=1` / `-SkipImagePull`).
+
+**macOS / Linux**
 
 ```bash
-# macOS/Linux — download the installer and checksums, read install.sh, then run it:
+# Option A — One-liner install (installs aadsec + aadsec-agent, configures PATH & completions)
+curl -fsSL https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.sh | sh
+
+# Option B — Download and inspect first
 curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.sh
-curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/SHA256SUMS
-bash install.sh
+sh install.sh
+
 aadsec --version
+aadsec-agent --version
 ```
 
-If the command is not found, add the install directory to your PATH:
-- For **zsh** (macOS default shell):
-  ```bash
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-  ```
-- For **bash**:
-  ```bash
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
-  ```
+**Windows (PowerShell — experimental)**
 
-Si la commande est introuvable, ajoutez le dossier d'installation à votre PATH :
-- Pour **zsh** (shell par défaut de macOS) :
-  ```bash
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-  ```
-- Pour **bash** :
-  ```bash
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
-  ```
+See [Known limitations](KNOWN_LIMITATIONS.md) for Windows platform constraints.
+
+```powershell
+# Option A — One-liner install
+irm https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.ps1 | iex
+
+# Option B — Download and inspect first
+Invoke-WebRequest -UseBasicParsing `
+  -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.ps1 `
+  -OutFile install.ps1
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+
+aadsec --version
+aadsec-agent --version
+```
 
 ```bash
-# Fetch the runner image once (AADSec never pulls it for you):
+# If Docker was not running during install (or AADSEC_SKIP_IMAGE_PULL=1 was set), pull the runner image:
 docker pull ghcr.io/aadieng100/aadsec-runner:0.2.0
 
 # Verify everything is aligned:
 aadsec doctor        # should show "Runner status: ✅ present … (matches CLI)"
 ```
-
-> On Windows, download `install.ps1` from the same Releases page instead
-> (experimental — see below).
 
 Then scan your repo and open the report:
 
@@ -111,8 +112,13 @@ Output is English by default; add `--lang fr` for French.
 
 ## Evaluation & licensing
 
-- **Scanner CLI**: **free local scanner trial** — no account or payment card required.
-- **AADSec Verified Remediation Agent (`aadsec-agent`)**: Agent V1 keys are available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` or `$490/year`).
+- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required.
+- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` — `30` verified fixes/month, `120` attempts/month — or `$490/year` — `360` verified fixes/year pool, `120` attempts/month, 2 months free). Activate and run verified remediation locally:
+  ```bash
+  aadsec-agent activate
+  aadsec-agent --findings security-output/findings.json --finding-rule <RULE_ID> --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
+  aadsec-agent apply --out ./aadsec-ai-output --source .
+  ```
 - **Proprietary software**: all rights reserved — see [PROPRIETARY.md](../PROPRIETARY.md) and [https://aadsec.xyz/terms](https://aadsec.xyz/terms).
 
 ---
@@ -127,7 +133,7 @@ the results — **never your source code**. `aadsec share` prepares a local bund
 aadsec share          # bundles ./security-output into ./aadsec-share
 ```
 
-The bundle contains only `findings.json`, `report.html`, and `audit-metadata.json`.
+The bundle contains only `findings.json`, `report.html`, `audit-metadata.json`, and `SHARE_README.txt`.
 Details: [How sharing works](SHARING.md).
 
 ---
@@ -141,10 +147,9 @@ aadsec uninstall          # lists what will be deleted, then asks to confirm
 aadsec uninstall --yes    # skip the confirmation
 ```
 
-It deletes only AADSec-owned paths — the installed binary, the config directory,
-the scanner cache, and the `~/.aadsec` fallback.
+It deletes only AADSec-owned paths — the installed `aadsec` binary, the companion `aadsec-agent` binary, the config directory, the `aadsec` and `aadsec-agent` caches, and `~/.aadsec` (including `~/.aadsec/completions/`). The `# >>> aadsec initialize >>>` block in shell configuration files remains harmless and can be removed manually if desired.
 Per-project `security-output/` folders and the Docker runner image are left
-untouched — remove those yourself (`docker rmi ghcr.io/aadieng100/aadsec-runner:<version>`).
+untouched — remove those yourself (`docker rmi ghcr.io/aadieng100/aadsec-runner:0.2.0`).
 
 ---
 

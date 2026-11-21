@@ -27,7 +27,7 @@ aadsec share          # bundles ./security-output into ./aadsec-share
 |---|---|
 | `findings.json` | Normalized, deduplicated, prioritized findings (P0–P3). |
 | `report.html` | The human-readable report. |
-| `audit-metadata.json` | Scan metadata (profile, tool versions, timestamps). |
+| `audit-metadata.json` | Scan metadata (runner version, scanner coverage, timestamps). |
 | `SHARE_README.txt` | A note describing exactly what's inside. |
 
 **Never included:**

@@ -20,21 +20,34 @@ macOS (Intel, macOS 15): CLI and tests verified in 0.2.0 (full scan tested with 
 
 ### Assets in this release
 
-- `install.sh` — macOS/Linux installer (verifies SHA-256 before installing)
-- `install.ps1` — Windows installer (verifies SHA-256 before installing)
-- `SHA256SUMS` — SHA-256 checksums for the 12 binaries and archives (does not cover the SBOM or the installer scripts)
-- platform binaries: `aadsec_<version>_<os>_<arch>` (`.exe` on Windows)
+- `install.sh` — macOS/Linux installer for `aadsec` and `aadsec-agent` (verifies SHA-256 checksums before installing, configures `PATH` and `bash`/`zsh`/`fish` completions)
+- `install.ps1` — Windows PowerShell installer for `aadsec` and `aadsec-agent` (verifies SHA-256 checksums before installing, updates User `Path` and generates PowerShell completion scripts)
+- `SHA256SUMS` — SHA-256 checksums for the 24 release binaries and archives (`6` raw binaries + `6` archives for `aadsec`, and `6` raw binaries + `6` archives for `aadsec-agent` across `darwin`/`linux`/`windows` × `amd64`/`arm64`; does not cover `install.sh` or `install.ps1`)
+- platform binaries & archives: `aadsec_<version>_<os>_<arch>` and `aadsec-agent_<version>_<os>_<arch>` (`.exe` and `.zip` on Windows, raw binary and `.tar.gz` on macOS/Linux)
 
 ### Install
 
-macOS / Linux — download `install.sh` + `SHA256SUMS`, read the script, then:
+macOS / Linux — run the one-liner or download and inspect `install.sh` first:
 
 ```bash
-bash install.sh
+# One-liner
+curl -fsSL https://github.com/aadieng100/aadsec-public/releases/download/v<version>/install.sh | sh
+
+# Or download and inspect first
+curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v<version>/install.sh
+sh install.sh
+
 aadsec --version
+aadsec-agent --version
 ```
 
-Fetch the scanner runner image once (AADSec never pulls it for you):
+Windows (PowerShell — experimental):
+
+```powershell
+irm https://github.com/aadieng100/aadsec-public/releases/download/v<version>/install.ps1 | iex
+```
+
+If Docker was not running during install (or `AADSEC_SKIP_IMAGE_PULL=1` was set), pull the scanner runner image once (during scans, `aadsec` runs with `--pull=never`):
 
 ```bash
 docker pull ghcr.io/aadieng100/aadsec-runner:<version>
@@ -54,15 +67,13 @@ open security-output/report.html      # macOS — on Linux: xdg-open
 aadsec uninstall          # or: aadsec uninstall --yes
 ```
 
-Removes all local AADSec state (binary, config, cache). Per-project
+Removes all local AADSec state (`aadsec`, `aadsec-agent`, local config, caches for `aadsec` and `aadsec-agent`, and `~/.aadsec`). Per-project
 `security-output/` and the runner image are left untouched.
 
 ### Known limitations
 
-- Scanner CLI: free local scanner trial (no account or payment card required).
-- Not yet delivered: SARIF export, SBOM export from a scan (a CycloneDX SBOM of
-  the runner image is provided in the release), PDF export, DAST (OWASP ZAP),
-  the `deep` profile.
+- Scanner CLI (`aadsec scan`): free and unlimited local scanner (no account, no license key, and no payment card required).
+- Not yet delivered: SARIF export, SBOM export, PDF export, DAST (OWASP ZAP).
 - Windows support is experimental (see above).
 - Full list: [KNOWN_LIMITATIONS.md](https://github.com/aadieng100/aadsec-public/blob/main/docs/KNOWN_LIMITATIONS.md).
 

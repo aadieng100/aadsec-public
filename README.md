@@ -29,9 +29,15 @@ Teams hesitate to hand a Git repository to an external SaaS tool. AADSec is buil
 
 - The scan runs **on your machine or in your CI**.
 - Your source is mounted **read-only** (`:ro`) into an ephemeral, hardened container (`--cap-drop=ALL`, `--security-opt no-new-privileges`, `--pull=never`, non-root UID `10001`).
-- `docker.sock` is **never** mounted; nothing is pulled or uploaded implicitly.
+- `docker.sock` is **never** mounted; during scans, the CLI runs with `--pull=never` so nothing is pulled or uploaded implicitly.
 - Only the **results** (`findings.json` schema `0.4`, `report.html`, `audit-metadata.json`) are written to your disk.
 - If you later want human assistance, you can **voluntarily** share the results — never your source code. See [How sharing works](docs/SHARING.md).
+
+### Why AADSec Exists
+
+Built by a DevSecOps engineer tired of exposing proprietary repositories to third-party clouds and triaging hundreds of duplicate alerts across six separate tools.
+
+**One command (`aadsec scan`). Local offline container execution (`--network none`). Deduplicated findings and AI patches proven by real re-scan (`aadsec-agent`).**
 
 ---
 
@@ -51,7 +57,7 @@ Teams hesitate to hand a Git repository to an external SaaS tool. AADSec is buil
 - `findings.json` schema `0.4`: deduplicated across scanners, prioritized `P0`–`P3`, and enriched offline with dated **CISA KEV** and **FIRST EPSS** exploitability feeds (with `14`-day and `30`-day freshness alerts).
 - `report.html`: single self-contained file with zero external assets, Executive and Developer views, FR/EN parity (`--lang en|fr`), and browser print styling (`Cmd+P` / `Ctrl+P`).
 
-**Not currently included:** SARIF export, scan-level CycloneDX SBOM export (a CycloneDX SBOM of the runner image itself is provided in releases), automated PDF binary export, or DAST.
+**Not currently included:** SARIF export, scan-level CycloneDX SBOM export (planned for a future release), automated PDF binary export, or DAST.
 
 ---
 
@@ -59,18 +65,19 @@ Teams hesitate to hand a Git repository to an external SaaS tool. AADSec is buil
 
 While scanners only detect issues and generic AI assistants only *claim* a patch works, **AADSec Verified Remediation Agent** proves remediation by execution:
 
-- **Explicit human consent & local redaction**: three consent modes (`step`, `scoped`, `metadata`); secrets are redacted locally and only a bounded `+/- 15`-line context window is transmitted upon approval, with SHA-256 audit logging (`ai-consent-log.json`).
+- **Explicit human consent & local redaction**: `step` and `scoped` are the consent modes on the default gateway (`metadata` is reserved for `--provider custom`); secrets are redacted locally and only a bounded `+/- 15`-line context window is transmitted upon approval, with SHA-256 audit logging (`ai-consent-log.json`).
 - **Double scan in `--network none` isolation**: every proposed patch is applied in an isolated workspace and re-scanned inside the `--network none` runner container against the baseline.
 - **7 honest statuses**: `NOT_DETECTED_AFTER_PATCH`, `STILL_DETECTED`, `NEW_FINDING_INTRODUCED`, `SUPPRESSED_NOT_FIXED`, `DESTRUCTIVE_CHANGE`, `PATCH_APPLY_ERROR`, and `SCAN_NON_COMPARABLE` — failures and regressions are surfaced explicitly.
 - **Anti-Goodhart enforcement**: automatically detects and rejects fake fixes such as `#checkov:skip`, `nosec`, exclusion files (`.trivyignore`, `.gitleaksignore`, `.checkov.yaml`), commenting out active lines, or destructive resource deletion/replacement.
 - **Atomic `apply` / `undo`**: source files stay untouched by default; when applied explicitly, out-of-tree backups and `undo` restore exact prior state and permissions.
 - **Secrets & dependencies verification**: offline `plan-rotation`, container-isolated `rotation-verify` (post-rotation Gitleaks double scan), and `dependency-verify` (post-upgrade Trivy double scan).
+- **One-time activation & shell autocompletion**: activate your key interactively without terminal echo (`aadsec-agent activate`), pipe it via `printf '%s\n' "$KEY" | aadsec-agent activate --stdin`, or pass `AADSEC_LICENSE_KEY` directly in CI/CD environments; built-in `completion <bash|zsh|fish|powershell>` support.
 - **Offline license verification**: the CLI verifies the license locally for offline and closed environments.
 
 ### Plans & Availability
 
-- **Scanner CLI**: **free local scanner trial** — no account or payment card required.
-- **Agent V1 Key**: **`$49/month`** or **`$490/year`** (2 months free), including **30 verified fixes/month** (**360/year pool**).
+- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required.
+- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: **`$49/month`** (`30` verified fixes/month, `120` attempts/month) or **`$490/year`** (`360` verified fixes/year pool, `120` attempts/month, 2 months free) — only fixes that achieve `NOT_DETECTED_AFTER_PATCH` without regression are counted against your verified-fix pool.
 - **Human Triage & Audit**: **on quote** (voluntary sharing of `findings.json` / `report.html`, never source code).
 
 Learn more and obtain a key at **[https://aadsec.xyz](https://aadsec.xyz)**.
@@ -95,7 +102,11 @@ In the reference demo scan (Trivy vulnerability database dated **2026-11-07**), 
 
 ## Download & Install
 
-Releases and checksums are published on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.2.0`). The installer downloads the matching binary and **verifies its SHA-256** before installing — nothing is installed if the checksum check fails.
+Releases and checksums are published on the [**Releases**](https://github.com/aadieng100/aadsec-public/releases) page (current build: `v0.2.0`). The installer checks `SHA256SUMS` in fail-closed mode before writing anything to disk and installs both **`aadsec` and `aadsec-agent`** into `~/.local/bin` (or `%LOCALAPPDATA%\aadsec` on Windows):
+
+- **macOS / Linux (`install.sh`)**: automatically updates `PATH` and loads shell autocompletion (`bash`, `zsh`, `fish`) via `~/.aadsec/completions/` (can be disabled via `AADSEC_NO_MODIFY_PATH=1` / `AADSEC_NO_COMPLETION=1`).
+- **Windows (`install.ps1`, experimental)**: automatically updates `User Path` and generates PowerShell completion scripts in `%LOCALAPPDATA%\aadsec\completions\` (`aadsec.ps1` and `aadsec-agent.ps1`).
+- **Runner image**: if Docker is running during installation, the installer verifies or pulls `ghcr.io/aadieng100/aadsec-runner:0.2.0` (can be disabled via `AADSEC_SKIP_IMAGE_PULL=1` / `-SkipImagePull`).
 
 ### Prerequisites
 
@@ -109,37 +120,36 @@ Releases and checksums are published on the [**Releases**](https://github.com/aa
 **macOS / Linux**
 
 ```bash
-# 1) Download the installer (reading it before running is recommended)
+# Option A — One-liner install (installs aadsec + aadsec-agent, configures PATH & completions)
+curl -fsSL https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.sh | sh
+
+# Option B — Download and inspect first
 curl -fsSLO https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.sh
+sh install.sh
 
-# 2) Run it — installs to ~/.local/bin (or $AADSEC_INSTALL_DIR), no sudo
-bash install.sh
 aadsec --version
+aadsec-agent --version
 ```
-
-If `~/.local/bin` is not in your `PATH`, add it to your shell profile:
-- For **zsh** (macOS default):
-  ```bash
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
-  ```
-- For **bash**:
-  ```bash
-  echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
-  ```
 
 **Windows** (experimental)
 
 ```powershell
+# Option A — One-liner install
+irm https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.ps1 | iex
+
+# Option B — Download and inspect first
 Invoke-WebRequest -UseBasicParsing `
   -Uri https://github.com/aadieng100/aadsec-public/releases/download/v0.2.0/install.ps1 `
   -OutFile install.ps1
 powershell -ExecutionPolicy Bypass -File .\install.ps1
+
 aadsec --version
+aadsec-agent --version
 ```
 
-For manual installation, the [Releases](https://github.com/aadieng100/aadsec-public/releases) page provides the raw binaries, archives, `SHA256SUMS` (covering the 12 distribution binaries and archives), and a CycloneDX SBOM of the runner image.
+For manual installation, the [Releases](https://github.com/aadieng100/aadsec-public/releases) page provides the raw binaries, archives, and `SHA256SUMS` (covering the 24 distribution binaries and archives: 12 for `aadsec` and 12 for `aadsec-agent`; it does not cover `install.sh` or `install.ps1`).
 
-**Pull the scanner runner image (once):**
+**Pull the scanner runner image (if Docker was not running during install or `AADSEC_SKIP_IMAGE_PULL=1` was set):**
 
 ```bash
 docker pull ghcr.io/aadieng100/aadsec-runner:0.2.0
@@ -163,6 +173,25 @@ aadsec scan --offline .                # air-gapped / offline scan (--network no
 aadsec scan --image myapp:audit        # scan a local Docker image you built
 aadsec scan --image-tar ./myapp.tar    # scan a "docker save" archive
 aadsec share                           # prepare an opt-in bundle of results
+aadsec completion <bash|zsh|fish|powershell>  # generate shell completion script
+```
+
+Verified remediation (`aadsec-agent`):
+
+```bash
+aadsec-agent activate                                        # interactive license key activation (no echo)
+aadsec-agent doctor --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
+aadsec-agent --findings security-output/findings.json \
+  --finding-rule CKV_AWS_20 \
+  --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0      # verified IaC remediation loop
+aadsec-agent apply --out ./aadsec-ai-output --source .       # atomically apply a verified patch
+aadsec-agent undo --out ./aadsec-ai-output --source .        # revert an applied patch from backup
+aadsec-agent plan-rotation --findings security-output/findings.json --all-secrets
+aadsec-agent rotation-verify --findings security-output/findings.json --source . --all-secrets \
+  --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
+aadsec-agent dependency-verify --findings security-output/findings.json --source . --all-vulns \
+  --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
+aadsec-agent completion <bash|zsh|fish|powershell>           # generate shell completion script
 ```
 
 Output is in **English by default**; add `--lang fr` for French. See the [Usage guide](docs/USAGE.md).
@@ -171,14 +200,14 @@ Output is in **English by default**; add `--lang fr` for French. See the [Usage 
 
 ## Uninstall
 
-Remove AADSec and its local state (binary, config directory, scanner cache, and `~/.aadsec` fallback):
+Remove AADSec and its local state (`aadsec`, the companion `aadsec-agent` binary in the same directory, the config directory, the `aadsec` and `aadsec-agent` caches, and `~/.aadsec` including `~/.aadsec/completions/`):
 
 ```bash
 aadsec uninstall          # lists what will be deleted, then asks to confirm
 aadsec uninstall --yes    # skip confirmation
 ```
 
-Per-project scan outputs (`security-output/`) and the Docker runner image (`docker rmi ghcr.io/aadieng100/aadsec-runner:0.2.0`) are left untouched.
+The `# >>> aadsec initialize >>>` block in shell configuration files remains harmless and can be removed manually if desired. Per-project scan outputs (`security-output/`) and the Docker runner image (`docker rmi ghcr.io/aadieng100/aadsec-runner:0.2.0`) are left untouched.
 
 ---
 

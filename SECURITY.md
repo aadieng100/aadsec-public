@@ -9,7 +9,7 @@ If you find a security vulnerability in AADSec, please report it privately. Do n
 - We aim to acknowledge a report within 5 business days and to give an initial status after triage.
 
 ### In scope
-- The AADSec CLI (aadsec) and its commands.
+- The AADSec CLI (aadsec), the companion remediation agent (aadsec-agent), and their commands.
 - The official runner image (ghcr.io/aadieng100/aadsec-runner) and the aadsec-runner program.
 - The official website (aadsec.xyz).
 - The local-first isolation mechanisms (no accidental code leakage, no credential exfiltration, no container escape).
@@ -32,7 +32,7 @@ Si vous trouvez une vulnérabilité de sécurité dans AADSec, signalez-la en pr
 - Nous visons un accusé de réception sous 5 jours ouvrés et un premier état après tri.
 
 ### Périmètre
-- Le CLI AADSec (aadsec) et ses commandes.
+- Le CLI AADSec (aadsec), l'agent compagnon de remédiation (aadsec-agent) et leurs commandes.
 - L'image officielle du runner (ghcr.io/aadieng100/aadsec-runner) et le programme aadsec-runner.
 - Le site officiel (aadsec.xyz).
 - Les mécanismes d'isolation local-first (pas de fuite accidentelle de code, pas d'exfiltration d'identifiants, pas d'évasion de conteneur).
