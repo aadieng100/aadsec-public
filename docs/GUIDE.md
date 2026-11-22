@@ -113,7 +113,7 @@ Output is English by default; add `--lang fr` for French.
 ## Evaluation & licensing
 
 - **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` first to inspect actual detection on your codebase before purchasing; if a technology is not yet covered, write to `contact@aadsec.xyz`.
-- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` — `30` verified fixes/month, `120` attempts/month — or `$490/year` — `360` verified fixes/year pool, `120` attempts/month, 2 months free), supporting all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`) with `ghcr.io/aadieng100/aadsec-runner:0.2.0` as the default runner image. Activate and run verified remediation locally:
+- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` — `30` verified fixes/month, `120` attempts/month — or `$490/year` — `360` verified fixes/year pool, `120` attempts/month, 2 months free), supporting all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`) with `ghcr.io/aadieng100/aadsec-runner:0.2.0` as the default runner image (see [Known limitations](KNOWN_LIMITATIONS.md) for Trivy `DoubleScan` manifest scope vs. lockfile `dependency-verify` and the 26-rule published `0.2.0` image vs. `B-07`/`github_actions` runner rebuild note). Activate and run verified remediation locally:
   ```bash
   aadsec-agent activate
   aadsec-agent --findings security-output/findings.json --finding-rule <RULE_ID> --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
