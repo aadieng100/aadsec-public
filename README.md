@@ -50,7 +50,7 @@ Built by a DevSecOps engineer tired of exposing proprietary repositories to thir
 | SAST (Multi-language) | **Opengrep** | Clean-room local SAST ruleset (LGPL-2.1) — no external rule registry |
 | SAST (Go) | **gosec** | Offline Go SAST adapter with strict redaction and canonical CWE deduplication |
 | SAST (Python) | **Bandit** | Offline Python SAST adapter with strict redaction and canonical CWE deduplication |
-| IaC | **Checkov** | Terraform, Kubernetes, Dockerfile, and CloudFormation |
+| IaC | **Checkov** | Terraform, Kubernetes, Dockerfile, CloudFormation, and GitHub Actions (`github_actions`) |
 | Container Image | **Trivy** | Local Docker images (`--image`) or `docker save` archives (`--image-tar`) |
 
 **Outputs (`findings.json` schema `0.4` & `report.html`):**
@@ -76,8 +76,8 @@ While scanners only detect issues and generic AI assistants only *claim* a patch
 
 ### Plans & Availability
 
-- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required.
-- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: **`$49/month`** (`30` verified fixes/month, `120` attempts/month) or **`$490/year`** (`360` verified fixes/year pool, `120` attempts/month, 2 months free) — only fixes that achieve `NOT_DETECTED_AFTER_PATCH` without regression are counted against your verified-fix pool.
+- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` before purchasing an agent license to inspect coverage on your stack; missing a language or framework? Write to [contact@aadsec.xyz](mailto:contact@aadsec.xyz).
+- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: **`$49/month`** (`30` verified fixes/month, `120` attempts/month) or **`$490/year`** (`360` verified fixes/year pool, `120` attempts/month, 2 months free) — covers all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`, with secrets & SCA handled locally without external AI), and only fixes that achieve `NOT_DETECTED_AFTER_PATCH` without regression are counted against your verified-fix pool. (`--runner-image` defaults to `ghcr.io/aadieng100/aadsec-runner:0.2.0`.)
 - **Human Triage & Audit**: **on quote** (voluntary sharing of `findings.json` / `report.html`, never source code).
 
 Learn more and obtain a key at **[https://aadsec.xyz](https://aadsec.xyz)**.

@@ -23,8 +23,9 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 
 ### 2. Evaluation Scope & Limits
 
-- **Evaluation access**: The local scanner (`aadsec scan`) runs locally for free and without scan limits — no account, no license key, and no payment card required. Paid subscriptions apply only to the companion remediation agent (`aadsec-agent`).
-- **Companion agent default runner image**: In the current `0.2.0` build, the `--runner-image` flag of `aadsec-agent` still defaults to the historical `ghcr.io/aadieng100/aadsec-runner:0.1.1` reference; when only `ghcr.io/aadieng100/aadsec-runner:0.2.0` is present locally, pass `--runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0` to `aadsec-agent` re-scan commands.
+- **Evaluation access & pre-purchase transparency**: The local scanner (`aadsec scan .`) runs locally for free and without scan limits — no account, no license key, and no payment card required. Run `aadsec scan .` on your repository before purchasing an `aadsec-agent` license to check engine and language coverage; if a stack or rule is missing, write to `contact@aadsec.xyz`. Paid subscriptions apply only to the companion remediation agent (`aadsec-agent`).
+- **Companion agent default runner image & 6-engine scope**: `aadsec-agent` defaults `--runner-image` to `ghcr.io/aadieng100/aadsec-runner:0.2.0` (supporting all 6 engines: `checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`, `trivy`, and `gitleaks`).
+- **Trivy lockfiles**: While Trivy findings in manifests (`go.mod`, `requirements.txt`, `package.json`, `Cargo.toml`, `pom.xml`, `Gemfile`, `composer.json`) can be updated locally, frozen lockfiles (`package-lock.json`, `poetry.lock`, `go.sum`, `Cargo.lock`, `composer.lock`, `Gemfile.lock`) require local regeneration with the native package manager followed by `aadsec-agent dependency-verify`.
 - **Legal documentation**: The `PROPRIETARY.md`, `SECURITY.md`, and `THIRD_PARTY_NOTICES.md` files bundled in 0.2.0 archives accompany the evaluation version; the terms published on https://aadsec.xyz/terms prevail.
 
 ### 3. Scanner Findings & Vulnerability Database
@@ -56,8 +57,9 @@ Ce document décrit les limites techniques connues, les contraintes de plateform
 
 ### 2. Cadre et limites de l'évaluation
 
-- **Accès d'évaluation** : Le scanner local (`aadsec scan`) s'exécute localement gratuitement et sans limite de scans, sans compte, sans clé de licence ni carte bancaire. L'abonnement payant concerne uniquement l'agent compagnon de remédiation (`aadsec-agent`).
-- **Image par défaut de l'agent compagnon** : Dans la build `0.2.0` actuelle, le drapeau `--runner-image` d'`aadsec-agent` conserve par défaut la référence historique `ghcr.io/aadieng100/aadsec-runner:0.1.1` ; lorsque seule l'image `ghcr.io/aadieng100/aadsec-runner:0.2.0` est présente localement, passez `--runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0` aux commandes de re-scan d'`aadsec-agent`.
+- **Accès d'évaluation et transparence pré-achat** : Le scanner local (`aadsec scan .`) s'exécute localement gratuitement et sans limite de scans, sans compte, sans clé de licence ni carte bancaire. Lancez `aadsec scan .` sur votre dépôt avant tout achat d'une licence `aadsec-agent` pour vérifier la couverture des moteurs et langages ; si une technologie manque, écrivez à `contact@aadsec.xyz`. L'abonnement payant concerne uniquement l'agent compagnon de remédiation (`aadsec-agent`).
+- **Image par défaut et périmètre 6 moteurs de l'agent compagnon** : `aadsec-agent` pointe désormais par défaut `--runner-image` sur `ghcr.io/aadieng100/aadsec-runner:0.2.0` et couvre les 6 moteurs (`checkov` incluant `github_actions`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`).
+- **Fichiers de verrouillage (lockfiles) Trivy** : Si les manifestes (`go.mod`, `requirements.txt`, `package.json`, `Cargo.toml`, `pom.xml`, `Gemfile`, `composer.json`) peuvent être mis à jour localement, les lockfiles figés (`package-lock.json`, `poetry.lock`, `go.sum`, `Cargo.lock`, `composer.lock`, `Gemfile.lock`) nécessitent une régénération locale via le gestionnaire de paquets natif puis une vérification via `aadsec-agent dependency-verify`.
 - **Documents juridiques** : Les fichiers `PROPRIETARY.md`, `SECURITY.md` et `THIRD_PARTY_NOTICES.md` embarqués dans les archives 0.2.0 accompagnent la version d'évaluation ; les conditions publiées sur https://aadsec.xyz/terms prévalent.
 
 ### 3. Constats des scanners et base de vulnérabilités

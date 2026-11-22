@@ -16,7 +16,7 @@ open-source scanners, prioritizes the results, and produces a readable report.
 | Secrets | Gitleaks | ✅ |
 | Dependencies (SCA) | Trivy (filesystem) | ✅ |
 | SAST | Opengrep (local ruleset), gosec, Bandit | ✅ |
-| IaC (terraform, kubernetes, dockerfile, cloudformation) | Checkov | ✅ |
+| IaC (terraform, kubernetes, dockerfile, cloudformation, github_actions) | Checkov | ✅ |
 | Container image | Trivy (`--image`) | ✅ |
 
 - **Outputs:** `findings.json` (normalized, prioritized P0–P3) + `report.html`
@@ -112,8 +112,8 @@ Output is English by default; add `--lang fr` for French.
 
 ## Evaluation & licensing
 
-- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required.
-- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` — `30` verified fixes/month, `120` attempts/month — or `$490/year` — `360` verified fixes/year pool, `120` attempts/month, 2 months free). Activate and run verified remediation locally:
+- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` first to inspect actual detection on your codebase before purchasing; if a technology is not yet covered, write to `contact@aadsec.xyz`.
+- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` — `30` verified fixes/month, `120` attempts/month — or `$490/year` — `360` verified fixes/year pool, `120` attempts/month, 2 months free), supporting all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`) with `ghcr.io/aadieng100/aadsec-runner:0.2.0` as the default runner image. Activate and run verified remediation locally:
   ```bash
   aadsec-agent activate
   aadsec-agent --findings security-output/findings.json --finding-rule <RULE_ID> --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0

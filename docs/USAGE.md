@@ -109,7 +109,9 @@ export AADSEC_LICENSE_KEY="aadsec_live_..."
 aadsec-agent doctor --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
 ```
 
-### Verified IaC remediation loop & atomic apply / undo
+### Verified remediation loop & atomic apply / undo
+
+`aadsec-agent` supports all 6 scanner engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`, `trivy`, and `gitleaks`, with `--runner-image` defaulting to `ghcr.io/aadieng100/aadsec-runner:0.2.0`). Secrets and SCA dependency upgrades run locally without LLM calls. Run `aadsec scan .` for free beforehand to inspect coverage on your stack; if a technology is missing, write to `contact@aadsec.xyz`.
 
 Specify `--finding-rule <RULE_ID>` or `--finding-id <ID>` (required). On the default gateway, `--consent` supports `step` (default) or `scoped` (`metadata` is reserved for `--provider custom`):
 
