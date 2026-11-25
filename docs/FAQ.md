@@ -10,7 +10,7 @@ into an ephemeral container, and only the results are written to your disk.
 Nothing is uploaded.
 
 **Do you send my code to an AI / LLM?**
-Not without your explicit consent. The local scanner (`aadsec`) never calls any AI/LLM API. With the companion agent (`aadsec-agent`), deterministic local recipes run first, secrets (`gitleaks`) and dependency upgrades (`trivy`) are always handled locally without AI, and across code/IaC engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`) only a locally redacted `+/- 15`-line snippet is sent after your explicit consent, with strict non-retention on the gateway.
+Not without your explicit consent. The local scanner (`aadsec`) never calls any AI/LLM API. With the companion agent (`aadsec-agent`, in CLI or `AADSec Local` via `aadsec-agent app`), deterministic local recipes run first, secrets (`gitleaks`) and dependency upgrades (`trivy`) are always handled locally without AI, and across code/IaC engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`) only a locally redacted `+/- 120`-line window plus import header (`lines 1..60`, `<= 20 KiB` under the `32 KiB` gateway bound) is sent after your explicit consent, with strict non-retention on the gateway.
 
 **Is this a scanner you built?**
 No — AADSec is an **orchestrator**. It runs recognized open-source tools
@@ -38,7 +38,7 @@ container images (Trivy). DAST, SARIF export, SBOM export from a scan, and PDF
 export are on the roadmap, not delivered.
 
 **How do evaluation and licensing work?**
-The local scanner CLI (`aadsec scan .`) is free and unlimited — no account, no license key, and no payment card required. Run it on your repository before purchasing to check engine and stack coverage; if a language or framework is missing, email `contact@aadsec.xyz`. For automated, container-verified remediation (`aadsec-agent`), Standard subscriptions (`$49/month` or `$490/year`) are available at [https://aadsec.xyz](https://aadsec.xyz) and activated locally via `aadsec-agent activate` — see the [Quickstart guide](GUIDE.md).
+The local scanner CLI (`aadsec scan .`) and `AADSec Local` (`aadsec-agent app`) scan/export features are free and unlimited — no account, no license key, and no payment card required. Run a scan on your repository before purchasing to check engine and stack coverage; if a language or framework is missing, email `contact@aadsec.xyz`. For automated, container-verified remediation (`aadsec-agent`), non-expiring prepaid credit packs — **Starter (`$15`, `5` credits)**, **Developer (`$29`, `12` credits)**, and **Agency (`$49`, `30` credits on one shareable team key across multiple workstations)** — plus key-preserving top-ups (`+5` for `$9`, `+10` for `$16`, `+25` for `$35`) are available at [https://aadsec.xyz](https://aadsec.xyz) and activated locally via `aadsec-agent activate` or inside `aadsec-agent app` — see the [Quickstart guide](GUIDE.md). Only a verified fix accepted and applied deducts `1` credit (`0` credit on scan, export, failure, or `discard`).
 
 **Can I run scans in an air-gapped or offline environment?**
 Yes. You can scan projects with zero Internet connection using `aadsec scan --offline .`.

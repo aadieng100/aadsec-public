@@ -186,7 +186,14 @@
   .status-neutral { background: var(--cs-surface-muted); color: var(--cs-text-secondary); }
 
   /* Tables */
-  .table-wrap { overflow-x: auto; }
+  .table-wrap {
+    max-height: 440px; overflow-y: auto; overflow-x: auto;
+    border: 1px solid var(--cs-border-subtle); border-radius: 8px; scroll-behavior: smooth;
+  }
+  #findings-table thead th {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--cs-surface-muted); box-shadow: 0 1px 0 var(--cs-border);
+  }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--cs-border-subtle); vertical-align: top; }
   th { font-size: 12px; font-weight: 700; color: var(--cs-text-secondary); background: var(--cs-surface-muted); border-bottom: 1px solid var(--cs-border); white-space: nowrap; }
@@ -249,6 +256,7 @@
     .tablist, .filter-bar, .export-actions, .no-print { display: none !important; }
     .cs-card, tr { page-break-inside:avoid; break-inside: avoid; box-shadow: none; }
     details[open] { break-inside: avoid; }
+    .table-wrap { max-height: none; overflow: visible; border: none; }
   }
 </style>
 </head>
@@ -1155,7 +1163,7 @@
                       <dd>1. Revoke and rotate the exposed credential immediately.
 2. Remove the secret from the source code and replace with a secrets manager reference.
 3. Search CI/CD logs and build artefacts for the exposed value.
-4. If the secret was committed to Git history, consider a history purge (git-filter-repo).<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+4. If the secret was committed to Git history, consider a history purge (git-filter-repo).<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1225,7 +1233,7 @@
                       <dt>Recommandation</dt>
                       <dd>1. Revoke and rotate the GitHub Personal Access Token immediately via GitHub Settings.
 2. Audit access logs for unauthorized actions.
-3. Store credentials in environment variables or a secrets manager instead of source code.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+3. Store credentials in environment variables or a secrets manager instead of source code.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1300,7 +1308,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade form-data to version 2.5.4, 3.0.4, 4.0.4 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade form-data to version 2.5.4, 3.0.4, 4.0.4 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1383,7 +1391,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.19 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.19 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1466,7 +1474,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade body-parser to version 1.20.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade body-parser to version 1.20.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1549,7 +1557,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade body-parser to version 2.4.0, 1.20.9 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade body-parser to version 2.4.0, 1.20.9 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1632,7 +1640,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>No fixed version is currently available for dicer. Review the vendor advisory, apply compensating controls, or consider replacing this dependency.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>No fixed version is currently available for dicer. Review the vendor advisory, apply compensating controls, or consider replacing this dependency.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1715,7 +1723,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade form-data to version 2.5.6, 3.0.5, 4.0.6 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade form-data to version 2.5.6, 3.0.5, 4.0.6 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1798,7 +1806,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade jsonwebtoken to version 9.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade jsonwebtoken to version 9.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1881,7 +1889,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -1964,7 +1972,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2047,7 +2055,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.0.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.0.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2130,7 +2138,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.0.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.0.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2213,7 +2221,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.1.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.1.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2296,7 +2304,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.1.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.1.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2379,7 +2387,7 @@ This issue affects form-data: &lt; 2.5.4, 3.0.0 - 3.0.3, 4.0.0 - 4.0.3.</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.1.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.1.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2464,7 +2472,7 @@ Patches: Users should upgrade to multer 2.2.0 (2.x line) or 3.0.0-alph…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.2.0, 3.0.0-alpha.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.2.0, 3.0.0-alpha.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2547,7 +2555,7 @@ Patches: Users should upgrade to multer 2.2.0 (2.x line) or 3.0.0-alph…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2630,7 +2638,7 @@ Patches: Users should upgrade to multer 2.2.0 (2.x line) or 3.0.0-alph…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2713,7 +2721,7 @@ Patches: Users should upgrade to multer 2.2.0 (2.x line) or 3.0.0-alph…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade path-to-regexp to version 1.9.0, 0.1.10, 8.0.0, 3.3.0, 6.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade path-to-regexp to version 1.9.0, 0.1.10, 8.0.0, 3.3.0, 6.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2796,7 +2804,7 @@ Patches: Users should upgrade to multer 2.2.0 (2.x line) or 3.0.0-alph…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade path-to-regexp to version 0.1.12 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade path-to-regexp to version 0.1.12 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2887,7 +2895,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade path-to-regexp to version 0.1.13 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade path-to-regexp to version 0.1.13 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -2970,7 +2978,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade qs to version 6.10.3, 6.9.7, 6.8.3, 6.7.3, 6.6.1, 6.5.3, 6.4.1, 6.3.3, 6.2.4 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade qs to version 6.10.3, 6.9.7, 6.8.3, 6.7.3, 6.6.1, 6.5.3, 6.4.1, 6.3.3, 6.2.4 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3053,7 +3061,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade semver to version 7.5.2, 6.3.1, 5.7.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade semver to version 7.5.2, 6.3.1, 5.7.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3136,7 +3144,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade sqlite3 to version 5.0.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade sqlite3 to version 5.0.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3219,7 +3227,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade sqlite3 to version 5.1.5 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade sqlite3 to version 5.1.5 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3302,7 +3310,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 3.2.2, 4.4.14, 5.0.6, 6.1.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 3.2.2, 4.4.14, 5.0.6, 6.1.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3385,7 +3393,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 4.4.18, 5.0.10, 6.1.9 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 4.4.18, 5.0.10, 6.1.9 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3468,7 +3476,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3551,7 +3559,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.4 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.4 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3634,7 +3642,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.7 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.7 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3717,7 +3725,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.8 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.8 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3800,7 +3808,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.10 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.10 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3883,7 +3891,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.11 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.11 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -3966,7 +3974,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.18 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.18 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4049,7 +4057,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.21 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.21 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4127,7 +4135,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Use parameterized placeholders (for example, db.query(&#34;SELECT ... WHERE id = ?&#34;, [id])).<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Use parameterized placeholders (for example, db.query(&#34;SELECT ... WHERE id = ?&#34;, [id])).<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4195,7 +4203,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Restrict ingress SSH port 22 CIDR blocks to authorized management subnets rather than 0.0.0.0/0.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Restrict ingress SSH port 22 CIDR blocks to authorized management subnets rather than 0.0.0.0/0.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4268,7 +4276,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Configure aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets set to true.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Configure aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets set to true.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4341,7 +4349,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Configure aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets set to true.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Configure aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets set to true.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4414,7 +4422,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Configure aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets set to true.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Configure aws_s3_bucket_public_access_block with block_public_acls, block_public_policy, ignore_public_acls, and restrict_public_buckets set to true.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4487,7 +4495,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Supprimez les configurations d&#39;ACL public-read ou public-read-write de la ressource de bucket S3. Utilisez des politiques de bucket privées et des contrôles d&#39;accès IAM.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Supprimez les configurations d&#39;ACL public-read ou public-read-write de la ressource de bucket S3. Utilisez des politiques de bucket privées et des contrôles d&#39;accès IAM.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4565,7 +4573,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade express to version 4.19.2, 5.0.0-beta.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade express to version 4.19.2, 5.0.0-beta.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4648,7 +4656,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade jsonwebtoken to version 9.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade jsonwebtoken to version 9.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4731,7 +4739,7 @@ Custom regex…</dd>
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade jsonwebtoken to version 9.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade jsonwebtoken to version 9.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4821,7 +4829,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade qs to version 6.14.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade qs to version 6.14.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -4912,7 +4920,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade qs to version 6.16.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade qs to version 6.16.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5007,7 +5015,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade qs to version 6.16.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade qs to version 6.16.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5090,7 +5098,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>No fixed version is currently available for request. Review the vendor advisory, apply compensating controls, or consider replacing this dependency.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>No fixed version is currently available for request. Review the vendor advisory, apply compensating controls, or consider replacing this dependency.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5173,7 +5181,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 6.2.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 6.2.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5256,7 +5264,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.16 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.16 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5339,7 +5347,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.18 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.18 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5422,7 +5430,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tar to version 7.5.17 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tar to version 7.5.17 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5505,7 +5513,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade tough-cookie to version 4.1.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade tough-cookie to version 4.1.3 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5588,7 +5596,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade uuid to version 11.1.1, 12.0.1, 13.0.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade uuid to version 11.1.1, 12.0.1, 13.0.1 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5666,7 +5674,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Use sha256 or sha512 via crypto.createHash, or crypto.scrypt / argon2 for passwords.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Use sha256 or sha512 via crypto.createHash, or crypto.scrypt / argon2 for passwords.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5734,7 +5742,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5807,7 +5815,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5880,7 +5888,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -5953,7 +5961,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6026,7 +6034,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6099,7 +6107,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6172,7 +6180,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6245,7 +6253,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6318,7 +6326,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6391,7 +6399,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6464,7 +6472,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6537,7 +6545,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6610,7 +6618,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6683,7 +6691,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6756,7 +6764,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6829,7 +6837,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6902,7 +6910,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -6975,7 +6983,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7048,7 +7056,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7121,7 +7129,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7194,7 +7202,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7267,7 +7275,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7340,7 +7348,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7413,7 +7421,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7486,7 +7494,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7559,7 +7567,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Review the IaC resource and update the configuration according to the check recommendation. Refer to the check guideline for specific remediation steps.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7637,7 +7645,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade body-parser to version 1.20.6, 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade body-parser to version 1.20.6, 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7720,7 +7728,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade cookie to version 0.7.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade cookie to version 0.7.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7803,7 +7811,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade express to version 4.20.0, 5.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade express to version 4.20.0, 5.0.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7886,7 +7894,7 @@ Note: The default parameterLimit of 1000 effectively mitigates the DoS scenari
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade multer to version 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade multer to version 2.3.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -7973,7 +7981,7 @@ When the `comma` option is set to `true` (not the default, but configurable in a
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade qs to version 6.14.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade qs to version 6.14.2 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -8056,7 +8064,7 @@ When the `comma` option is set to `true` (not the default, but configurable in a
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade send to version 0.19.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade send to version 0.19.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -8139,7 +8147,7 @@ When the `comma` option is set to `true` (not the default, but configurable in a
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Upgrade serve-static to version 1.16.0, 2.1.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Upgrade serve-static to version 1.16.0, 2.1.0 or later.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -8217,7 +8225,7 @@ When the `comma` option is set to `true` (not the default, but configurable in a
                     </div>
                     <div>
                       <dt>Recommandation</dt>
-                      <dd>Add a HEALTHCHECK instruction in the Dockerfile to enable daemon monitoring of container status.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Validez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
+                      <dd>Add a HEALTHCHECK instruction in the Dockerfile to enable daemon monitoring of container status.<div class="muted" style="margin-top:4px;">Recommandation automatique uniquement. Vérifiez ce changement dans le contexte de votre application et de votre déploiement.</div></dd>
                     </div>
                     <div>
                       <dt>Ce que ce constat signifie :</dt>
@@ -8414,6 +8422,8 @@ When the `comma` option is set to `true` (not the default, but configurable in a
     });
   }
 
+  const findingsTable = document.getElementById('findings-table');
+  const tableWrap = findingsTable ? findingsTable.closest('.table-wrap') : null;
   Array.prototype.slice.call(document.querySelectorAll('.btn-jump-finding')).forEach(function (btn) {
     btn.addEventListener('click', function () {
       const id = btn.getAttribute('data-jump-id');
@@ -8424,7 +8434,20 @@ When the `comma` option is set to `true` (not the default, but configurable in a
         if (tb.getAttribute('data-finding-id') === id) {
           const det = tb.querySelector('details.finding-details');
           if (det) det.open = true;
-          tb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const targetRow = tb.querySelector('tr') || tb;
+          if (tableWrap) {
+            tableWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const wrapRect = tableWrap.getBoundingClientRect();
+            const rowRect = targetRow.getBoundingClientRect();
+            const targetTop = tableWrap.scrollTop + (rowRect.top - wrapRect.top) - Math.max(0, (tableWrap.clientHeight - rowRect.height) / 2);
+            if (typeof tableWrap.scrollTo === 'function') {
+              tableWrap.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+            } else {
+              tableWrap.scrollTop = Math.max(0, targetTop);
+            }
+          } else {
+            targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
           return true;
         }
         return false;

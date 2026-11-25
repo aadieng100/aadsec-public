@@ -96,15 +96,19 @@ docker pull ghcr.io/aadieng100/aadsec-runner:0.2.0
 aadsec doctor        # should show "Runner status: ✅ present … (matches CLI)"
 ```
 
-Then scan your repo and open the report:
+Then launch **AADSec Local** (the local Desktop UI) or scan your repo directly in the terminal:
 
 ```bash
+# Option 1 — Launch AADSec Local (graphical desktop app on 127.0.0.1; OS launcher installed by install.sh, or run: aadsec-agent app --install-desktop)
+aadsec-agent app
+
+# Option 2 — Terminal CLI scan
 cd /path/to/your/repo
 aadsec scan .
 open security-output/report.html      # macOS — on Linux: xdg-open
 ```
 
-Output is English by default; add `--lang fr` for French.
+Output is English by default; add `--lang fr` for French (or toggle `EN | FR` in the AADSec Local topbar).
 
 > AADSec is proprietary software — all rights reserved (see [PROPRIETARY.md](../PROPRIETARY.md) and https://aadsec.xyz/terms).
 
@@ -112,12 +116,19 @@ Output is English by default; add `--lang fr` for French.
 
 ## Evaluation & licensing
 
-- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` first to inspect actual detection on your codebase before purchasing; if a technology is not yet covered, write to `contact@aadsec.xyz`.
-- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: available at **[https://aadsec.xyz](https://aadsec.xyz)** (`$49/month` — `30` verified fixes/month, `120` attempts/month — or `$490/year` — `360` verified fixes/year pool, `120` attempts/month, 2 months free), supporting all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`) with `ghcr.io/aadieng100/aadsec-runner:0.2.0` as the default runner image (see [Known limitations](KNOWN_LIMITATIONS.md) for Trivy `DoubleScan` manifest scope vs. lockfile `dependency-verify` and the 26-rule published `0.2.0` image vs. `B-07`/`github_actions` runner rebuild note). Activate and run verified remediation locally:
+- **Scanner CLI (`aadsec`) & `AADSec Local` scan/export**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` (or scan and export JSON/CSV/Markdown/HTML inside `aadsec-agent app`) first to inspect actual detection on your codebase before purchasing credits; if a technology is not yet covered, write to `contact@aadsec.xyz`.
+- **AADSec Remediation Agent (`aadsec-agent`) — Prepaid Non-Expiring Credit Packs**: available at **[https://aadsec.xyz](https://aadsec.xyz)** with **no expiration**:
+  - **Starter (`$15`)**: `5` credits (`30` attempts/month, individual key)
+  - **Developer (`$29`)**: `12` credits (`60` attempts/month, individual key)
+  - **Agency (`$49`)**: `30` credits (`120` attempts/month, **one shareable key** across multiple team workstations on a shared wallet)
+  - **Key-preserving top-ups**: `+5` credits (`$9`), `+10` credits (`$16`), `+25` credits (`$35`) without changing your key.
+  - **Accounting rule**: `1 credit = 1 verified, accepted, and applied fix` (`0 credit` on scan, export, failure, or `discard`). Supports all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`) with `ghcr.io/aadieng100/aadsec-runner:0.2.0` as the default runner image (see [Known limitations](KNOWN_LIMITATIONS.md) for Trivy `DoubleScan` manifest scope vs. lockfile `dependency-verify` and the 26-rule published `0.2.0` image vs. `B-07`/`github_actions` runner rebuild note). Activate and run verified remediation locally:
   ```bash
-  aadsec-agent activate
-  aadsec-agent --findings security-output/findings.json --finding-rule <RULE_ID> --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
-  aadsec-agent apply --out ./aadsec-ai-output --source .
+  aadsec-agent app                    # graphical Desktop UI (uses deferred credit accounting)
+  aadsec-agent activate               # or activate via CLI
+  aadsec-agent --findings security-output/findings.json --finding-rule <RULE_ID> --defer-result-report --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
+  aadsec-agent apply --out ./aadsec-ai-output --source .     # 1 credit
+  aadsec-agent discard --out ./aadsec-ai-output              # 0 credit
   ```
 - **Proprietary software**: all rights reserved — see [PROPRIETARY.md](../PROPRIETARY.md) and [https://aadsec.xyz/terms](https://aadsec.xyz/terms).
 

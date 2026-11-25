@@ -186,7 +186,14 @@
   .status-neutral { background: var(--cs-surface-muted); color: var(--cs-text-secondary); }
 
   /* Tables */
-  .table-wrap { overflow-x: auto; }
+  .table-wrap {
+    max-height: 440px; overflow-y: auto; overflow-x: auto;
+    border: 1px solid var(--cs-border-subtle); border-radius: 8px; scroll-behavior: smooth;
+  }
+  #findings-table thead th {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--cs-surface-muted); box-shadow: 0 1px 0 var(--cs-border);
+  }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
   th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--cs-border-subtle); vertical-align: top; }
   th { font-size: 12px; font-weight: 700; color: var(--cs-text-secondary); background: var(--cs-surface-muted); border-bottom: 1px solid var(--cs-border); white-space: nowrap; }
@@ -249,6 +256,7 @@
     .tablist, .filter-bar, .export-actions, .no-print { display: none !important; }
     .cs-card, tr { page-break-inside:avoid; break-inside: avoid; box-shadow: none; }
     details[open] { break-inside: avoid; }
+    .table-wrap { max-height: none; overflow: visible; border: none; }
   }
 </style>
 </head>
@@ -8414,6 +8422,8 @@ When the `comma` option is set to `true` (not the default, but configurable in a
     });
   }
 
+  const findingsTable = document.getElementById('findings-table');
+  const tableWrap = findingsTable ? findingsTable.closest('.table-wrap') : null;
   Array.prototype.slice.call(document.querySelectorAll('.btn-jump-finding')).forEach(function (btn) {
     btn.addEventListener('click', function () {
       const id = btn.getAttribute('data-jump-id');
@@ -8424,7 +8434,20 @@ When the `comma` option is set to `true` (not the default, but configurable in a
         if (tb.getAttribute('data-finding-id') === id) {
           const det = tb.querySelector('details.finding-details');
           if (det) det.open = true;
-          tb.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const targetRow = tb.querySelector('tr') || tb;
+          if (tableWrap) {
+            tableWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            const wrapRect = tableWrap.getBoundingClientRect();
+            const rowRect = targetRow.getBoundingClientRect();
+            const targetTop = tableWrap.scrollTop + (rowRect.top - wrapRect.top) - Math.max(0, (tableWrap.clientHeight - rowRect.height) / 2);
+            if (typeof tableWrap.scrollTo === 'function') {
+              tableWrap.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+            } else {
+              tableWrap.scrollTop = Math.max(0, targetTop);
+            }
+          } else {
+            targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
           return true;
         }
         return false;

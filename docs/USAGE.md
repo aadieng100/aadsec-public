@@ -5,7 +5,14 @@ see the [Quickstart guide](GUIDE.md).
 
 ---
 
-## The three commands you need
+## Desktop App (`AADSec Local`) & CLI Quickstart
+
+Launch the local graphical interface (`AADSec Local` on `127.0.0.1`) or run the three core CLI commands:
+
+```bash
+aadsec-agent app                       # open AADSec Local (scan, export, inspect diffs, apply/discard)
+aadsec-agent app --install-desktop     # install/refresh OS Desktop icon & launcher (done automatically by install.sh)
+```
 
 ```bash
 aadsec doctor        # check Docker, Git, and the scanner runner image
@@ -109,23 +116,25 @@ export AADSEC_LICENSE_KEY="aadsec_live_..."
 aadsec-agent doctor --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
 ```
 
-### Verified remediation loop & atomic apply / undo
+### Verified remediation loop & atomic apply / discard / undo
 
-`aadsec-agent` supports all 6 scanner engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`, `trivy`, and `gitleaks`, with `--runner-image` defaulting to `ghcr.io/aadieng100/aadsec-runner:0.2.0`). Secrets and SCA dependency upgrades run locally without LLM calls. Run `aadsec scan .` for free beforehand to inspect coverage on your stack; if a technology is missing, write to `contact@aadsec.xyz`.
+`aadsec-agent` supports all 6 scanner engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`, `trivy`, and `gitleaks`, with `--runner-image` defaulting to `ghcr.io/aadieng100/aadsec-runner:0.2.0`). Secrets and SCA dependency upgrades run locally without LLM calls. Run `aadsec scan .` (or use `aadsec-agent app`) for free beforehand to inspect coverage on your stack; if a technology is missing, write to `contact@aadsec.xyz`.
 
-Specify `--finding-rule <RULE_ID>` or `--finding-id <ID>` (required). On the default gateway, `--consent` supports `step` (default) or `scoped` (`metadata` is reserved for `--provider custom`):
+Specify `--finding-rule <RULE_ID>` or `--finding-id <ID>` (required). On the default gateway, `--consent` supports `step` (default) or `scoped` (`metadata` is reserved for `--provider custom`). Pass `--defer-result-report` to defer credit reporting until you explicitly run `apply` (`1 credit`) or `discard` (`0 credit`):
 
 ```bash
 aadsec-agent --findings security-output/findings.json \
   --finding-rule CKV_AWS_20 \
   --consent step \
+  --defer-result-report \
   --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
 ```
 
-Apply a verified patch atomically to your workspace (with an out-of-tree backup) or revert it with `undo`:
+Apply a verified patch atomically to your workspace (`1 credit`, with an out-of-tree backup), discard a proposed patch (`0 credit`), or revert an applied patch with `undo`:
 
 ```bash
 aadsec-agent apply --out ./aadsec-ai-output --source .
+aadsec-agent discard --out ./aadsec-ai-output
 aadsec-agent undo --out ./aadsec-ai-output --source .
 ```
 

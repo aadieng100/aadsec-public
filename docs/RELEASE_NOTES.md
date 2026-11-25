@@ -57,9 +57,12 @@ aadsec doctor
 ### Use
 
 ```bash
-aadsec scan .
-open security-output/report.html      # macOS — on Linux: xdg-open
+aadsec-agent app                     # launch AADSec Local (Desktop UI; OS launcher installed by install.sh or --install-desktop)
+aadsec scan .                        # or run the standalone CLI scanner
+open security-output/report.html     # macOS — on Linux: xdg-open
 ```
+
+Verified remediation uses prepaid non-expiring credit packs (`Starter $15` / `5` credits, `Developer $29` / `12` credits, `Agency $49` / `30` credits with one shareable key, plus key-preserving top-ups `+5/$9`, `+10/$16`, `+25/$35`) with `1 credit = 1 verified, accepted, and applied fix` (`0 credit` on scan, export, failure, or `aadsec-agent discard` / `--defer-result-report`).
 
 ### Uninstall
 

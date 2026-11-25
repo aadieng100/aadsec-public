@@ -65,19 +65,26 @@ Built by a DevSecOps engineer tired of exposing proprietary repositories to thir
 
 While scanners only detect issues and generic AI assistants only *claim* a patch works, **AADSec Verified Remediation Agent** proves remediation by execution:
 
-- **Explicit human consent & local redaction**: `step` and `scoped` are the consent modes on the default gateway (`metadata` is reserved for `--provider custom`); secrets are redacted locally and only a bounded `+/- 15`-line context window is transmitted upon approval, with SHA-256 audit logging (`ai-consent-log.json`).
+- **Local Desktop UI (`AADSec Local` via `aadsec-agent app`)**: launch `aadsec-agent app` (or the OS desktop icon installed automatically by `install.sh` via `aadsec-agent app --install-desktop`) to open a folder, run unlimited free local scans, export JSON/CSV/Markdown/HTML reports, review verified diffs, and apply or discard patches (`aadsec-agent discard`).
+- **Explicit human consent & local redaction**: `step` and `scoped` are the consent modes on the default gateway (`metadata` is reserved for `--provider custom`); secrets are redacted locally and only a bounded `+/- 120`-line window plus import header (`lines 1..60`, `<= 20 KiB` under the `32 KiB` gateway bound) is transmitted upon approval, with SHA-256 audit logging (`ai-consent-log.json`).
 - **Double scan in `--network none` isolation**: every proposed patch is applied in an isolated workspace and re-scanned inside the `--network none` runner container against the baseline.
 - **7 honest statuses**: `NOT_DETECTED_AFTER_PATCH`, `STILL_DETECTED`, `NEW_FINDING_INTRODUCED`, `SUPPRESSED_NOT_FIXED`, `DESTRUCTIVE_CHANGE`, `PATCH_APPLY_ERROR`, and `SCAN_NON_COMPARABLE` — failures and regressions are surfaced explicitly.
 - **Anti-Goodhart enforcement**: automatically detects and rejects fake fixes such as `#checkov:skip`, `nosec`, exclusion files (`.trivyignore`, `.gitleaksignore`, `.checkov.yaml`), commenting out active lines, or destructive resource deletion/replacement.
-- **Atomic `apply` / `undo`**: source files stay untouched by default; when applied explicitly, out-of-tree backups and `undo` restore exact prior state and permissions.
+- **Atomic `apply` / `discard` / `undo` & `--defer-result-report`**: source files stay untouched by default; when using `--defer-result-report` (default in `aadsec-agent app`), billable credit reporting waits until you explicitly `apply` (`1 credit`) or `discard` (`aadsec-agent discard`, `0 credit`), and out-of-tree backups with `undo` restore exact prior state and permissions.
 - **Secrets & dependencies verification**: offline `plan-rotation`, container-isolated `rotation-verify` (post-rotation Gitleaks double scan), and `dependency-verify` (post-upgrade Trivy double scan).
-- **One-time activation & shell autocompletion**: activate your key interactively without terminal echo (`aadsec-agent activate`), pipe it via `printf '%s\n' "$KEY" | aadsec-agent activate --stdin`, or pass `AADSEC_LICENSE_KEY` directly in CI/CD environments; built-in `completion <bash|zsh|fish|powershell>` support.
-- **Offline license verification**: the CLI verifies the license locally for offline and closed environments.
+- **One-time activation & shell autocompletion**: activate your key interactively without terminal echo (`aadsec-agent activate`), via `AADSec Local` (`aadsec-agent app`), via `printf '%s\n' "$KEY" | aadsec-agent activate --stdin`, or pass `AADSEC_LICENSE_KEY` directly in CI/CD environments; built-in `completion <bash|zsh|fish|powershell>` support.
+- **Offline license verification**: the CLI verifies the `aadsec-agent` Ed25519 license lease locally for offline and closed environments.
 
 ### Plans & Availability
 
-- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` before purchasing an agent license to inspect coverage on your stack; missing a language or framework? Write to [contact@aadsec.xyz](mailto:contact@aadsec.xyz).
-- **AADSec Remediation Agent (`aadsec-agent` — Standard)**: **`$49/month`** (`30` verified fixes/month, `120` attempts/month) or **`$490/year`** (`360` verified fixes/year pool, `120` attempts/month, 2 months free) — covers all 6 engines (`checkov`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`, with secrets & SCA handled locally without external AI; automatic Trivy `DoubleScan` applies directly to `go.mod`, `requirements*.txt`, and `pom.xml`, while lockfile-backed ecosystems use local upgrade + `aadsec-agent dependency-verify`), and only fixes that achieve `NOT_DETECTED_AFTER_PATCH` without regression are counted against your verified-fix pool. (`--runner-image` defaults to `ghcr.io/aadieng100/aadsec-runner:0.2.0`, whose published image embeds the initial 26 Opengrep rules pending the next runner rebuild for the 20 new `B-07` rules and `github_actions` runner extension.)
+- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` (or use `aadsec-agent app`) before purchasing an agent credit pack to inspect coverage on your stack; missing a language or framework? Write to [contact@aadsec.xyz](mailto:contact@aadsec.xyz).
+- **AADSec Remediation Agent (`aadsec-agent`) — Prepaid Non-Expiring Credit Packs**: exclusively prepaid packs with **no expiration** (no recurring subscription required):
+  - **Starter (`$15`)**: `5` non-expiring credits (`30` attempts/month, individual key)
+  - **Developer (`$29`)**: `12` non-expiring credits (`60` attempts/month, individual key)
+  - **Agency (`$49`)**: `30` non-expiring credits (`120` attempts/month, **one shareable key** across multiple team workstations on a shared wallet)
+  - **Key-preserving top-ups**: `+5` credits (`$9`), `+10` credits (`$16`), `+25` credits (`$35`) — credit your active wallet directly without changing your key.
+  - **Accounting rule**: **`1 credit = 1 verified, accepted, and applied fix`** (`NOT_DETECTED_AFTER_PATCH` without regression, accepted and applied via `aadsec-agent apply` or `AADSec Local`). Scans, exports (JSON/CSV/Markdown/HTML), failed attempts, and `discard` (`aadsec-agent discard`) consume **`0 credit`**.
+  - Covers all 6 engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`, `trivy`, `gitleaks`, with secrets & SCA handled locally without external AI; automatic Trivy `DoubleScan` applies directly to `go.mod`, `requirements*.txt`, and `pom.xml`, while lockfile-backed ecosystems use local upgrade + `aadsec-agent dependency-verify`). (`--runner-image` defaults to `ghcr.io/aadieng100/aadsec-runner:0.2.0`, whose published image embeds the initial 26 Opengrep rules pending the next runner rebuild for the 20 new `B-07` rules and `github_actions` runner extension.)
 - **Human Triage & Audit**: **on quote** (voluntary sharing of `findings.json` / `report.html`, never source code).
 
 Learn more and obtain a key at **[https://aadsec.xyz](https://aadsec.xyz)**.
@@ -160,7 +167,11 @@ aadsec doctor      # verifies the CLI and runner image are aligned
 
 ## Usage
 
+**Graphical interface (`AADSec Local`) & CLI quickstart:**
+
 ```bash
+aadsec-agent app                       # launch AADSec Local (runs locally on 127.0.0.1)
+aadsec-agent app --install-desktop     # install/refresh OS Desktop icon & launcher
 aadsec doctor                          # check Docker, Git, and the runner image
 aadsec scan .                          # scan the current directory
 open security-output/report.html       # macOS — on Linux: xdg-open
@@ -183,8 +194,10 @@ aadsec-agent activate                                        # interactive licen
 aadsec-agent doctor --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0
 aadsec-agent --findings security-output/findings.json \
   --finding-rule CKV_AWS_20 \
-  --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0      # verified IaC remediation loop
-aadsec-agent apply --out ./aadsec-ai-output --source .       # atomically apply a verified patch
+  --defer-result-report \
+  --runner-image ghcr.io/aadieng100/aadsec-runner:0.2.0      # verified IaC remediation loop (deferred credit deduction)
+aadsec-agent apply --out ./aadsec-ai-output --source .       # atomically apply a verified patch (1 credit)
+aadsec-agent discard --out ./aadsec-ai-output                # discard a proposed patch (0 credit)
 aadsec-agent undo --out ./aadsec-ai-output --source .        # revert an applied patch from backup
 aadsec-agent plan-rotation --findings security-output/findings.json --all-secrets
 aadsec-agent rotation-verify --findings security-output/findings.json --source . --all-secrets \
