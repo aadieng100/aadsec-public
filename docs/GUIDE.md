@@ -116,7 +116,7 @@ Output is English by default; add `--lang fr` for French (or toggle `EN | FR` in
 
 ## Evaluation & licensing
 
-- **Scanner CLI (`aadsec`) & `AADSec Local` scan/export**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` (or scan and export JSON/CSV/Markdown/HTML inside `aadsec-agent app`) first to inspect actual detection on your codebase before purchasing credits; if a technology is not yet covered, write to `contact@aadsec.xyz`.
+- **Scanner CLI (`aadsec`) & `AADSec Local` scan/export**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` (or scan and export JSON/CSV/Markdown/HTML inside `aadsec-agent app`) first to inspect actual detection on your codebase before purchasing credits; if a technology is not yet covered or you need license support, write to `support@aadsec.xyz` (general inquiries: `contact@aadsec.xyz`).
 - **AADSec Remediation Agent (`aadsec-agent`) — Prepaid Non-Expiring Credit Packs**: available at **[https://aadsec.xyz](https://aadsec.xyz)** with **no expiration**:
   - **Starter (`$15`)**: `5` credits (`30` attempts/month, individual key)
   - **Developer (`$29`)**: `12` credits (`60` attempts/month, individual key)

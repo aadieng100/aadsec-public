@@ -1,11 +1,11 @@
 # Security policy / Politique de sécurité
-Version du 24/10/2026. Contact : contact@aadsec.xyz.
+Version du 24/10/2026. Contact sécurité : contact@aadsec.xyz · Support client & licences : support@aadsec.xyz.
 
 ## English
 
 ### Reporting a vulnerability
 If you find a security vulnerability in AADSec, please report it privately. Do not open public issues or discussions for sensitive findings.
-- Email: contact@aadsec.xyz
+- Security email: contact@aadsec.xyz (for license or technical support, write to support@aadsec.xyz)
 - We aim to acknowledge a report within 5 business days and to give an initial status after triage.
 
 ### In scope
@@ -28,7 +28,7 @@ If you find a security vulnerability in AADSec, please report it privately. Do n
 
 ### Signaler une vulnérabilité
 Si vous trouvez une vulnérabilité de sécurité dans AADSec, signalez-la en privé. N'ouvrez pas de ticket ni de discussion publique pour un constat sensible.
-- E-mail : contact@aadsec.xyz
+- E-mail sécurité : contact@aadsec.xyz (pour le support technique ou les licences : support@aadsec.xyz)
 - Nous visons un accusé de réception sous 5 jours ouvrés et un premier état après tri.
 
 ### Périmètre

@@ -77,7 +77,7 @@ While scanners only detect issues and generic AI assistants only *claim* a patch
 
 ### Plans & Availability
 
-- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` (or use `aadsec-agent app`) before purchasing an agent credit pack to inspect coverage on your stack; missing a language or framework? Write to [contact@aadsec.xyz](mailto:contact@aadsec.xyz).
+- **Scanner CLI (`aadsec`)**: **free and unlimited local scanner** — no account, no license key, and no payment card required. Run `aadsec scan .` (or use `aadsec-agent app`) before purchasing an agent credit pack to inspect coverage on your stack; missing a language or framework, or need license support? Write to [support@aadsec.xyz](mailto:support@aadsec.xyz) (general inquiries: [contact@aadsec.xyz](mailto:contact@aadsec.xyz)).
 - **AADSec Remediation Agent (`aadsec-agent`) — Prepaid Non-Expiring Credit Packs**: exclusively prepaid packs with **no expiration** (no recurring subscription required):
   - **Starter (`$15`)**: `5` non-expiring credits (`30` attempts/month, individual key)
   - **Developer (`$29`)**: `12` non-expiring credits (`60` attempts/month, individual key)
@@ -99,11 +99,11 @@ Inspect a **public, anonymized** report generated on a deliberately vulnerable d
 
 Origin and anonymization details: [examples/README.md](examples/README.md).
 
-In the reference demo scan (Trivy vulnerability database dated **2026-11-07**), the report displays **90 deduplicated findings** (`105` before deduplication: **54 Trivy**, **32 Checkov**, **2 Gitleaks**, **2 Opengrep**; `gosec` and `Bandit` report `not_applicable` as the demo repository contains no `.go` or `.py` files). Counts depend on the vulnerability database version in use:
+In the reference demo scan (Trivy / KEV / EPSS databases dated **2026-11-25**), the report displays **90 deduplicated findings** (`105` before deduplication: **54 Trivy**, **32 Checkov**, **2 Gitleaks**, **2 Opengrep**; `gosec` and `Bandit` report `not_applicable` as the demo repository contains no `.go` or `.py` files). Counts depend on the vulnerability database version in use:
 
-> During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated `2026-11-07` and may differ with a more recent database.
+> During the first online scan, AADSec downloads Trivy's vulnerability database into its local cache (about 1.6 GB measured on macOS); `--offline` uses the database from the image or the cache. The number of Trivy findings depends on the database in use: the totals in the sample report correspond to the database dated `2026-11-25` and may differ with a more recent database.
 >
-> Lors du premier scan en ligne, AADSec télécharge la base de vulnérabilités de Trivy dans son cache local (environ 1,6 Go mesurés sur macOS) ; `--offline` utilise celle de l'image ou celle du cache. Le nombre de constats Trivy dépend de la base utilisée : les totaux de l'exemple de rapport correspondent à la base du `2026-11-07` et peuvent différer avec une base plus récente.
+> Lors du premier scan en ligne, AADSec télécharge la base de vulnérabilités de Trivy dans son cache local (environ 1,6 Go mesurés sur macOS) ; `--offline` utilise celle de l'image ou celle du cache. Le nombre de constats Trivy dépend de la base utilisée : les totaux de l'exemple de rapport correspondent à la base du `2026-11-25` et peuvent différer avec une base plus récente.
 
 ---
 
@@ -243,7 +243,8 @@ The `# >>> aadsec initialize >>>` block in shell configuration files remains har
 ## Contact
 
 - **Website:** [https://aadsec.xyz](https://aadsec.xyz)
-- **Email:** [contact@aadsec.xyz](mailto:contact@aadsec.xyz)
+- **Support, licenses & stack requests:** [support@aadsec.xyz](mailto:support@aadsec.xyz)
+- **General contact & security reports:** [contact@aadsec.xyz](mailto:contact@aadsec.xyz)
 - **LinkedIn:** [linkedin.com/company/aadsec](https://www.linkedin.com/company/aadsec/)
 
 ---

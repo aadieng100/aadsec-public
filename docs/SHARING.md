@@ -41,7 +41,7 @@ aadsec share          # bundles ./security-output into ./aadsec-share
 ## What happens next
 
 1. You review the bundle folder yourself.
-2. You send it to your AADSec contact through a channel you trust
+2. You send it to your AADSec contact (`support@aadsec.xyz` or `contact@aadsec.xyz`) through a channel you trust
    (email, a shared drive, etc.).
 3. AADSec helps you **prioritize and fix** — and, if useful, retests the
    critical/high findings after your changes.

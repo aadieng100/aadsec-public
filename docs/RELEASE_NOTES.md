@@ -82,7 +82,7 @@ Removes all local AADSec state (`aadsec`, `aadsec-agent`, local config, caches f
 
 ### Feedback wanted
 
-Email **contact@aadsec.xyz** or reach out on
+Email **support@aadsec.xyz** (technical/license support & stack requests) or **contact@aadsec.xyz** (general inquiries), or reach out on
 **[LinkedIn](https://www.linkedin.com/company/aadsec/)** with: OS + versions
 (`aadsec --version`, `aadsec doctor`), project type (no sensitive code), useful
 findings vs noise, report clarity (CTO vs developer), and what you miss most.
