@@ -378,6 +378,9 @@ main() {
 		mv -f "${STAGE_AGENT}" "${INSTALL_DIR}/aadsec-agent"
 		STAGE_AGENT=""
 		info "OK Installed aadsec-agent to ${INSTALL_DIR}/aadsec-agent"
+		if "${INSTALL_DIR}/aadsec-agent" app --install-desktop >/dev/null 2>&1; then
+			info "OK Installed AADSec desktop launcher"
+		fi
 	fi
 
 	if [ "${NO_COMPLETION}" != "1" ]; then
