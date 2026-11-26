@@ -73,7 +73,7 @@ While scanners only detect issues and generic AI assistants only *claim* a patch
 - **Atomic `apply` / `discard` / `undo` & `--defer-result-report`**: source files stay untouched by default; when using `--defer-result-report` (default in `aadsec-agent app`), billable credit reporting waits until you explicitly `apply` (`1 credit`) or `discard` (`aadsec-agent discard`, `0 credit`), and out-of-tree backups with `undo` restore exact prior state and permissions.
 - **Secrets & dependencies verification**: offline `plan-rotation`, container-isolated `rotation-verify` (post-rotation Gitleaks double scan), and `dependency-verify` (post-upgrade Trivy double scan).
 - **One-time activation & shell autocompletion**: activate your key interactively without terminal echo (`aadsec-agent activate`), via `AADSec Local` (`aadsec-agent app`), via `printf '%s\n' "$KEY" | aadsec-agent activate --stdin`, or pass `AADSEC_LICENSE_KEY` directly in CI/CD environments; built-in `completion <bash|zsh|fish|powershell>` support.
-- **Offline license verification**: the CLI verifies the `aadsec-agent` Ed25519 license lease locally for offline and closed environments.
+- **Offline (`0 credit`) vs. Online (`1 credit` on verified `Apply`)**: Scanning (`aadsec scan` / `AADSec Local` scan), exports, and Gitleaks secret fixes (`0 credit — local`) run **100% offline** with zero network transfers. `Fix with AADSec` (`1 credit`) queries AADSec's online verified recipes on `api.aadsec.xyz` first and falls back transparently to AI models when needed (Internet connection required, `<= 20 KiB` redacted excerpt under the `32 KiB` bound, zero code retention), then verifies every patch locally inside offline Docker (`--network none`).
 
 ### Plans & Availability
 

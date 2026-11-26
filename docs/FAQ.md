@@ -10,7 +10,7 @@ into an ephemeral container, and only the results are written to your disk.
 Nothing is uploaded.
 
 **Do you send my code to an AI / LLM?**
-Not without your explicit consent. The local scanner (`aadsec`) never calls any AI/LLM API. With the companion agent (`aadsec-agent`, in CLI or `AADSec Local` via `aadsec-agent app`), deterministic local recipes run first, secrets (`gitleaks`) and dependency upgrades (`trivy`) are always handled locally without AI, and across code/IaC engines (`checkov` including `github_actions`, `opengrep`, `gosec`, `bandit`) only a locally redacted `+/- 120`-line window plus import header (`lines 1..60`, `<= 20 KiB` under the `32 KiB` gateway bound) is sent after your explicit consent, with strict non-retention on the gateway.
+Not without your explicit consent. The local scanner (`aadsec`) never calls any AI/LLM API and has zero network imports. In `aadsec-agent` (CLI or `AADSec Local`), **Gitleaks secrets (`0 credit — local`) stay 100% offline** with zero network calls. For `Fix with AADSec` (`1 credit`), only a locally redacted `+/- 120`-line window plus import header (`lines 1..60`, `<= 20 KiB` under the `32 KiB` gateway bound) is sent after your explicit consent to `api.aadsec.xyz` (Internet connection required): AADSec evaluates its **online verified recipes first** and falls back transparently to AI models when needed (zero code retention on the gateway), before verifying the resulting patch locally inside offline Docker (`--network none`).
 
 **Is this a scanner you built?**
 No — AADSec is an **orchestrator**. It runs recognized open-source tools
